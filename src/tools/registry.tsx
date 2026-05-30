@@ -31,6 +31,7 @@ const Placeholder = lazy(() => import('./_placeholder/Placeholder'));
 const JsonTool = lazy(() => import('./json'));
 const JwtTool = lazy(() => import('./jwt'));
 const EncodersTool = lazy(() => import('./encoders'));
+const TimestampTool = lazy(() => import('./timestamp'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -71,7 +72,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: Clock,
     category: 'encoders',
     isPro: false,
-    component: Placeholder,
+    component: TimestampTool,
   },
   {
     id: 'uuid',
