@@ -30,6 +30,7 @@ export interface ToolDefinition {
 const Placeholder = lazy(() => import('./_placeholder/Placeholder'));
 const JsonTool = lazy(() => import('./json'));
 const JwtTool = lazy(() => import('./jwt'));
+const EncodersTool = lazy(() => import('./encoders'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -60,7 +61,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: Binary,
     category: 'encoders',
     isPro: false,
-    component: Placeholder,
+    component: EncodersTool,
   },
   {
     id: 'timestamp',
