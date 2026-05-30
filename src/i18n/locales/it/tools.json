@@ -1,0 +1,53 @@
+{
+  "categories": {
+    "encoders": "Encoders & Decoders",
+    "generators": "Generators",
+    "testers": "Testers",
+    "qa": "QA Tools",
+    "design": "Design"
+  },
+  "json": {
+    "name": "JSON Formatter",
+    "description": "Format, validate and query JSON with JSONPath"
+  },
+  "jwt": {
+    "name": "JWT Decoder",
+    "description": "Decode and inspect JSON Web Tokens"
+  },
+  "encoders": {
+    "name": "Base64 / URL Encode",
+    "description": "Encode and decode Base64 and URL strings"
+  },
+  "timestamp": {
+    "name": "Unix Timestamp",
+    "description": "Convert between Unix timestamps and human-readable dates"
+  },
+  "uuid": {
+    "name": "UUID Generator",
+    "description": "Generate UUID v4, v7, and NIL identifiers"
+  },
+  "regex": {
+    "name": "Regex Tester",
+    "description": "Test regular expressions with live highlighting"
+  },
+  "hash": {
+    "name": "Hash Calculator",
+    "description": "Compute MD5, SHA-1, SHA-256 and SHA-512 hashes"
+  },
+  "diff": {
+    "name": "Text Diff",
+    "description": "Compare two pieces of text side by side"
+  },
+  "clipboard": {
+    "name": "Clipboard History",
+    "description": "View and reuse your clipboard history"
+  },
+  "colorpicker": {
+    "name": "Color Picker",
+    "description": "Pick any color on screen and copy its code"
+  },
+  "screenshot": {
+    "name": "Screenshot",
+    "description": "Capture and annotate screenshots of the current tab"
+  }
+}

@@ -1,10 +1,22 @@
+import { HashRouter, Route, Routes } from 'react-router-dom';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import { Layout } from '@/components/Layout';
+import { HomeScreen } from './HomeScreen';
+import { SettingsScreen } from './SettingsScreen';
+import { ToolScreen } from './ToolScreen';
+
 export function App() {
   return (
-    <main className="flex h-full flex-col items-center justify-center gap-3 p-6">
-      <h1 className="text-2xl font-bold">DevKit Toolbox</h1>
-      <p className="text-sm text-muted-foreground">
-        Phase 0 bootstrap complete. Tools will appear here.
-      </p>
-    </main>
+    <ThemeProvider>
+      <HashRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<HomeScreen />} />
+            <Route path="settings" element={<SettingsScreen />} />
+            <Route path="tools/:toolId" element={<ToolScreen />} />
+          </Route>
+        </Routes>
+      </HashRouter>
+    </ThemeProvider>
   );
 }

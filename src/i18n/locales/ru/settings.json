@@ -1,0 +1,21 @@
+{
+  "title": "Settings",
+  "theme": "Theme",
+  "themes": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": "Language",
+  "languages": {
+    "system": "System default",
+    "en": "English",
+    "de": "Deutsch",
+    "fr": "Français",
+    "es": "Español",
+    "ru": "Русский",
+    "it": "Italiano"
+  },
+  "clearHistory": "Clear all history",
+  "about": "About"
+}
