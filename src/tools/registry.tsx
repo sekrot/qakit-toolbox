@@ -28,6 +28,7 @@ export interface ToolDefinition {
 }
 
 const Placeholder = lazy(() => import('./_placeholder/Placeholder'));
+const JsonTool = lazy(() => import('./json'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -38,7 +39,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: Braces,
     category: 'encoders',
     isPro: false,
-    component: Placeholder,
+    component: JsonTool,
   },
   {
     id: 'jwt',
