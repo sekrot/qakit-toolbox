@@ -32,6 +32,7 @@ const JsonTool = lazy(() => import('./json'));
 const JwtTool = lazy(() => import('./jwt'));
 const EncodersTool = lazy(() => import('./encoders'));
 const TimestampTool = lazy(() => import('./timestamp'));
+const UuidTool = lazy(() => import('./uuid'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -82,7 +83,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: Fingerprint,
     category: 'generators',
     isPro: false,
-    component: Placeholder,
+    component: UuidTool,
   },
   {
     id: 'regex',
