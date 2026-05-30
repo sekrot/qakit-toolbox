@@ -29,6 +29,7 @@ export interface ToolDefinition {
 
 const Placeholder = lazy(() => import('./_placeholder/Placeholder'));
 const JsonTool = lazy(() => import('./json'));
+const JwtTool = lazy(() => import('./jwt'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -49,7 +50,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: KeyRound,
     category: 'encoders',
     isPro: false,
-    component: Placeholder,
+    component: JwtTool,
   },
   {
     id: 'encoders',
