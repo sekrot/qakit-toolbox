@@ -9,6 +9,8 @@ dist-zip/
 .env.*.local
 coverage/
 *.tsbuildinfo
+.serena/
+.claude/
 .idea/
 .vscode/*
 !.vscode/settings.json
