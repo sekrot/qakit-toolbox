@@ -35,6 +35,7 @@ const TimestampTool = lazy(() => import('./timestamp'));
 const UuidTool = lazy(() => import('./uuid'));
 const RegexTool = lazy(() => import('./regex'));
 const HashTool = lazy(() => import('./hash'));
+const DiffTool = lazy(() => import('./diff'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -115,7 +116,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: GitCompare,
     category: 'testers',
     isPro: false,
-    component: Placeholder,
+    component: DiffTool,
   },
   {
     id: 'clipboard',
