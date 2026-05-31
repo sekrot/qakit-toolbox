@@ -34,6 +34,7 @@ const EncodersTool = lazy(() => import('./encoders'));
 const TimestampTool = lazy(() => import('./timestamp'));
 const UuidTool = lazy(() => import('./uuid'));
 const RegexTool = lazy(() => import('./regex'));
+const HashTool = lazy(() => import('./hash'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -104,7 +105,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: Hash,
     category: 'encoders',
     isPro: false,
-    component: Placeholder,
+    component: HashTool,
   },
   {
     id: 'diff',
