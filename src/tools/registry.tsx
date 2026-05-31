@@ -33,6 +33,7 @@ const JwtTool = lazy(() => import('./jwt'));
 const EncodersTool = lazy(() => import('./encoders'));
 const TimestampTool = lazy(() => import('./timestamp'));
 const UuidTool = lazy(() => import('./uuid'));
+const RegexTool = lazy(() => import('./regex'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -93,7 +94,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: Regex,
     category: 'testers',
     isPro: false,
-    component: Placeholder,
+    component: RegexTool,
   },
   {
     id: 'hash',
