@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="128" height="128" rx="28" ry="28" fill="url(#bg)"/>
+  <!-- Glyph: D for DevKit, geometric / Inter-bold-ish -->
+  <path
+    fill="#FFFFFF"
+    d="M38 28h32c19.882 0 36 16.118 36 36s-16.118 36-36 36H38V28zm16 16v40h16c11.046 0 20-8.954 20-20s-8.954-20-20-20H54z"
+  />
+  <!-- Small wrench accent in bottom-right corner -->
+  <circle cx="100" cy="100" r="14" fill="#FBBF24"/>
+  <path fill="#1D4ED8" d="M93 100l4-4h6l4 4-4 4h-6z"/>
+</svg>
