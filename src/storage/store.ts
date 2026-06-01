@@ -8,9 +8,11 @@ interface SettingsState {
   theme: Theme;
   language: Language | 'system';
   recentTools: string[];
+  onboarded: boolean;
   setTheme: (theme: Theme) => void;
   setLanguage: (language: Language | 'system') => void;
   pushRecentTool: (toolId: string) => void;
+  setOnboarded: (value: boolean) => void;
 }
 
 const chromeStorage: StateStorage = {
@@ -32,12 +34,14 @@ export const useSettings = create<SettingsState>()(
       theme: 'system',
       language: 'system',
       recentTools: [],
+      onboarded: false,
       setTheme: (theme) => set({ theme }),
       setLanguage: (language) => set({ language }),
       pushRecentTool: (toolId) =>
         set((state) => ({
           recentTools: [toolId, ...state.recentTools.filter((id) => id !== toolId)].slice(0, 10),
         })),
+      setOnboarded: (value) => set({ onboarded: value }),
     }),
     {
       name: 'devkit-settings',

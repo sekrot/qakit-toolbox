@@ -1,9 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { Button } from '@/components/ui/Button';
+import { useSettings } from '@/storage/store';
 
 export function SettingsScreen() {
   const { t } = useTranslation('settings');
+  const setOnboarded = useSettings((s) => s.setOnboarded);
   return (
     <div className="flex flex-col gap-6 p-4">
       <h1 className="text-lg font-semibold">{t('title')}</h1>
@@ -14,6 +17,12 @@ export function SettingsScreen() {
       <section className="flex items-center justify-between">
         <span className="text-sm">{t('language')}</span>
         <LanguageSelector />
+      </section>
+      <section className="flex items-center justify-between">
+        <span className="text-sm">Onboarding</span>
+        <Button variant="secondary" size="sm" onClick={() => setOnboarded(false)}>
+          Replay
+        </Button>
       </section>
     </div>
   );

@@ -8,5 +8,26 @@
   "copy": "Copy",
   "copied": "Copied to clipboard",
   "clear": "Clear",
-  "noResults": "No tools match your search"
+  "noResults": "No tools match your search",
+  "skip": "Skip",
+  "next": "Next",
+  "getStarted": "Get started",
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to DevKit Toolbox",
+      "body": "11 offline utilities for developers and QA — JSON, JWT, hashes, regex, color picker, screenshots and more. All in the side panel, one click away."
+    },
+    "tools": {
+      "title": "Pick a tool, get to work",
+      "body": "Tools are grouped by category and searchable. Switch between encoders, generators, testers, QA tools and design helpers from the home screen."
+    },
+    "privacy": {
+      "title": "Your data stays on your device",
+      "body": "DevKit Toolbox is fully offline. No telemetry, no uploads. Everything is processed locally and stored only in your browser."
+    },
+    "ready": {
+      "title": "You're all set",
+      "body": "Tweak theme and language anytime in Settings. Have fun, and happy debugging."
+    }
+  }
 }
