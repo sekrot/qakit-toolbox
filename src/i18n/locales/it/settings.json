@@ -16,6 +16,12 @@
     "ru": "Русский",
     "it": "Italiano"
   },
+  "data": "Data",
   "clearHistory": "Clear all history",
+  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
+  "exportSettings": "Export settings",
+  "importSettings": "Import settings",
+  "imported": "Imported {{count}} keys",
+  "importFailed": "Import failed: {{error}}",
   "about": "About"
 }
