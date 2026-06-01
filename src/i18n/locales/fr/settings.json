@@ -1,14 +1,14 @@
 {
-  "title": "Settings",
-  "theme": "Theme",
+  "title": "Paramètres",
+  "theme": "Thème",
   "themes": {
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
   },
-  "language": "Language",
+  "language": "Langue",
   "languages": {
-    "system": "System default",
+    "system": "Langue du système",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,12 +16,12 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "data": "Data",
-  "clearHistory": "Clear all history",
-  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
-  "exportSettings": "Export settings",
-  "importSettings": "Import settings",
-  "imported": "Imported {{count}} keys",
-  "importFailed": "Import failed: {{error}}",
-  "about": "About"
+  "data": "Données",
+  "clearHistory": "Effacer l'historique",
+  "clearHistoryConfirm": "Supprimer l'historique du presse-papiers et de la pipette à couleur ? Les éléments épinglés seront également supprimés.",
+  "exportSettings": "Exporter les paramètres",
+  "importSettings": "Importer les paramètres",
+  "imported": "{{count}} entrées importées",
+  "importFailed": "Échec de l'import : {{error}}",
+  "about": "À propos"
 }

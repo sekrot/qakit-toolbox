@@ -1,53 +1,53 @@
 {
   "categories": {
-    "encoders": "Encoders & Decoders",
-    "generators": "Generators",
-    "testers": "Testers",
-    "qa": "QA Tools",
-    "design": "Design"
+    "encoders": "Кодировщики",
+    "generators": "Генераторы",
+    "testers": "Тестеры",
+    "qa": "QA-инструменты",
+    "design": "Дизайн"
   },
   "json": {
     "name": "JSON Formatter",
-    "description": "Format, validate and query JSON with JSONPath"
+    "description": "Форматирование, валидация и запросы JSONPath"
   },
   "jwt": {
     "name": "JWT Decoder",
-    "description": "Decode and inspect JSON Web Tokens"
+    "description": "Декодирование и проверка JSON Web Tokens"
   },
   "encoders": {
-    "name": "Base64 / URL Encode",
-    "description": "Encode and decode Base64 and URL strings"
+    "name": "Base64 / URL",
+    "description": "Кодирование и декодирование Base64 и URL"
   },
   "timestamp": {
     "name": "Unix Timestamp",
-    "description": "Convert between Unix timestamps and human-readable dates"
+    "description": "Конвертация между Unix timestamp и датой"
   },
   "uuid": {
-    "name": "UUID Generator",
-    "description": "Generate UUID v4, v7, and NIL identifiers"
+    "name": "Генератор UUID",
+    "description": "Генерация UUID v4, v7 и NIL"
   },
   "regex": {
     "name": "Regex Tester",
-    "description": "Test regular expressions with live highlighting"
+    "description": "Тестирование регулярных выражений с подсветкой"
   },
   "hash": {
-    "name": "Hash Calculator",
-    "description": "Compute MD5, SHA-1, SHA-256 and SHA-512 hashes"
+    "name": "Калькулятор хэшей",
+    "description": "Расчёт MD5, SHA-1, SHA-256 и SHA-512"
   },
   "diff": {
     "name": "Text Diff",
-    "description": "Compare two pieces of text side by side"
+    "description": "Сравнение двух фрагментов текста"
   },
   "clipboard": {
-    "name": "Clipboard History",
-    "description": "View and reuse your clipboard history"
+    "name": "История буфера",
+    "description": "Просмотр и повторное использование скопированного"
   },
   "colorpicker": {
-    "name": "Color Picker",
-    "description": "Pick any color on screen and copy its code"
+    "name": "Пипетка цвета",
+    "description": "Выбор любого цвета на экране и копирование кода"
   },
   "screenshot": {
-    "name": "Screenshot",
-    "description": "Capture and annotate screenshots of the current tab"
+    "name": "Скриншот",
+    "description": "Снимок активной вкладки с возможностью аннотаций"
   }
 }

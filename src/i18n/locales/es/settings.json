@@ -1,14 +1,14 @@
 {
-  "title": "Settings",
-  "theme": "Theme",
+  "title": "Ajustes",
+  "theme": "Tema",
   "themes": {
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
   },
-  "language": "Language",
+  "language": "Idioma",
   "languages": {
-    "system": "System default",
+    "system": "Idioma del sistema",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,12 +16,12 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "data": "Data",
-  "clearHistory": "Clear all history",
-  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
-  "exportSettings": "Export settings",
-  "importSettings": "Import settings",
-  "imported": "Imported {{count}} keys",
-  "importFailed": "Import failed: {{error}}",
-  "about": "About"
+  "data": "Datos",
+  "clearHistory": "Borrar historial",
+  "clearHistoryConfirm": "¿Eliminar el historial del portapapeles y del cuentagotas? Los elementos fijados también se eliminarán.",
+  "exportSettings": "Exportar ajustes",
+  "importSettings": "Importar ajustes",
+  "imported": "Se importaron {{count}} entradas",
+  "importFailed": "Error al importar: {{error}}",
+  "about": "Acerca de"
 }

@@ -1,35 +1,35 @@
 {
   "appName": "DevKit Toolbox",
-  "tagline": "Offline utilities for developers and QA engineers",
-  "search": "Search tools…",
-  "back": "Back",
-  "settings": "Settings",
-  "home": "Home",
-  "copy": "Copy",
-  "copied": "Copied to clipboard",
-  "clear": "Clear",
-  "noResults": "No tools match your search",
-  "recent": "Recent",
-  "mostUsed": "Most used",
-  "skip": "Skip",
-  "next": "Next",
-  "getStarted": "Get started",
+  "tagline": "Utilidades sin conexión para desarrolladores y QA",
+  "search": "Buscar herramientas…",
+  "back": "Atrás",
+  "settings": "Ajustes",
+  "home": "Inicio",
+  "copy": "Copiar",
+  "copied": "Copiado",
+  "clear": "Borrar",
+  "noResults": "Sin resultados",
+  "recent": "Recientes",
+  "mostUsed": "Más usadas",
+  "skip": "Omitir",
+  "next": "Siguiente",
+  "getStarted": "Empezar",
   "onboarding": {
     "welcome": {
-      "title": "Welcome to DevKit Toolbox",
-      "body": "11 offline utilities for developers and QA — JSON, JWT, hashes, regex, color picker, screenshots and more. All in the side panel, one click away."
+      "title": "Bienvenido a DevKit Toolbox",
+      "body": "11 utilidades sin conexión para desarrolladores y QA: JSON, JWT, hashes, regex, cuentagotas de color, capturas de pantalla y más. Todo en el panel lateral, a un clic."
     },
     "tools": {
-      "title": "Pick a tool, get to work",
-      "body": "Tools are grouped by category and searchable. Switch between encoders, generators, testers, QA tools and design helpers from the home screen."
+      "title": "Elige una herramienta y empieza",
+      "body": "Las herramientas están agrupadas por categoría y se pueden buscar. Desde la pantalla de inicio cambia fácilmente entre codificadores, generadores, testers, herramientas QA y ayudantes de diseño."
     },
     "privacy": {
-      "title": "Your data stays on your device",
-      "body": "DevKit Toolbox is fully offline. No telemetry, no uploads. Everything is processed locally and stored only in your browser."
+      "title": "Tus datos no salen de tu dispositivo",
+      "body": "DevKit Toolbox funciona totalmente sin conexión. Sin telemetría, sin envíos. Todo se procesa localmente y se guarda solo en tu navegador."
     },
     "ready": {
-      "title": "You're all set",
-      "body": "Tweak theme and language anytime in Settings. Have fun, and happy debugging."
+      "title": "Todo listo",
+      "body": "Puedes cambiar el tema y el idioma cuando quieras en Ajustes. ¡Feliz depuración!"
     }
   }
 }

@@ -8,7 +8,14 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['dist/**', 'dist-zip/**', 'node_modules/**', 'coverage/**', '*.config.js'],
+    ignores: [
+      'dist/**',
+      'dist-zip/**',
+      'node_modules/**',
+      'coverage/**',
+      'scripts/**',
+      '*.config.js',
+    ],
   },
   js.configs.recommended,
   {

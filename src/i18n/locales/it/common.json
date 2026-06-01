@@ -1,35 +1,35 @@
 {
   "appName": "DevKit Toolbox",
-  "tagline": "Offline utilities for developers and QA engineers",
-  "search": "Search tools…",
-  "back": "Back",
-  "settings": "Settings",
+  "tagline": "Utility offline per sviluppatori e QA",
+  "search": "Cerca strumenti…",
+  "back": "Indietro",
+  "settings": "Impostazioni",
   "home": "Home",
-  "copy": "Copy",
-  "copied": "Copied to clipboard",
-  "clear": "Clear",
-  "noResults": "No tools match your search",
-  "recent": "Recent",
-  "mostUsed": "Most used",
-  "skip": "Skip",
-  "next": "Next",
-  "getStarted": "Get started",
+  "copy": "Copia",
+  "copied": "Copiato",
+  "clear": "Pulisci",
+  "noResults": "Nessun risultato",
+  "recent": "Recenti",
+  "mostUsed": "Più usati",
+  "skip": "Salta",
+  "next": "Avanti",
+  "getStarted": "Inizia",
   "onboarding": {
     "welcome": {
-      "title": "Welcome to DevKit Toolbox",
-      "body": "11 offline utilities for developers and QA — JSON, JWT, hashes, regex, color picker, screenshots and more. All in the side panel, one click away."
+      "title": "Benvenuto in DevKit Toolbox",
+      "body": "11 utility offline per sviluppatori e QA: JSON, JWT, hash, regex, contagocce colore, screenshot e altro. Tutto nel pannello laterale, a un clic di distanza."
     },
     "tools": {
-      "title": "Pick a tool, get to work",
-      "body": "Tools are grouped by category and searchable. Switch between encoders, generators, testers, QA tools and design helpers from the home screen."
+      "title": "Scegli uno strumento e parti",
+      "body": "Gli strumenti sono raggruppati per categoria e ricercabili. Dalla schermata iniziale passi facilmente tra encoder, generatori, tester, strumenti QA e helper di design."
     },
     "privacy": {
-      "title": "Your data stays on your device",
-      "body": "DevKit Toolbox is fully offline. No telemetry, no uploads. Everything is processed locally and stored only in your browser."
+      "title": "I tuoi dati restano sul dispositivo",
+      "body": "DevKit Toolbox è completamente offline. Nessuna telemetria, nessun upload. Tutto viene elaborato in locale e salvato solo nel tuo browser."
     },
     "ready": {
-      "title": "You're all set",
-      "body": "Tweak theme and language anytime in Settings. Have fun, and happy debugging."
+      "title": "Tutto pronto",
+      "body": "Puoi cambiare tema e lingua in qualsiasi momento dalle Impostazioni. Buon debug!"
     }
   }
 }

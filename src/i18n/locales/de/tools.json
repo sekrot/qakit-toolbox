@@ -1,53 +1,53 @@
 {
   "categories": {
-    "encoders": "Encoders & Decoders",
-    "generators": "Generators",
-    "testers": "Testers",
-    "qa": "QA Tools",
+    "encoders": "Encoder & Decoder",
+    "generators": "Generatoren",
+    "testers": "Tester",
+    "qa": "QA-Werkzeuge",
     "design": "Design"
   },
   "json": {
     "name": "JSON Formatter",
-    "description": "Format, validate and query JSON with JSONPath"
+    "description": "JSON formatieren, validieren und mit JSONPath abfragen"
   },
   "jwt": {
     "name": "JWT Decoder",
-    "description": "Decode and inspect JSON Web Tokens"
+    "description": "JSON Web Tokens dekodieren und prüfen"
   },
   "encoders": {
-    "name": "Base64 / URL Encode",
-    "description": "Encode and decode Base64 and URL strings"
+    "name": "Base64 / URL",
+    "description": "Base64 und URL kodieren und dekodieren"
   },
   "timestamp": {
-    "name": "Unix Timestamp",
-    "description": "Convert between Unix timestamps and human-readable dates"
+    "name": "Unix-Timestamp",
+    "description": "Zwischen Unix-Timestamps und Datum umrechnen"
   },
   "uuid": {
-    "name": "UUID Generator",
-    "description": "Generate UUID v4, v7, and NIL identifiers"
+    "name": "UUID-Generator",
+    "description": "UUIDs v4, v7 und NIL erzeugen"
   },
   "regex": {
-    "name": "Regex Tester",
-    "description": "Test regular expressions with live highlighting"
+    "name": "Regex-Tester",
+    "description": "Reguläre Ausdrücke mit Live-Hervorhebung testen"
   },
   "hash": {
-    "name": "Hash Calculator",
-    "description": "Compute MD5, SHA-1, SHA-256 and SHA-512 hashes"
+    "name": "Hash-Rechner",
+    "description": "MD5, SHA-1, SHA-256 und SHA-512 berechnen"
   },
   "diff": {
-    "name": "Text Diff",
-    "description": "Compare two pieces of text side by side"
+    "name": "Text-Diff",
+    "description": "Zwei Textstücke nebeneinander vergleichen"
   },
   "clipboard": {
-    "name": "Clipboard History",
-    "description": "View and reuse your clipboard history"
+    "name": "Zwischenablage-Verlauf",
+    "description": "Zwischenablage-Verlauf ansehen und wiederverwenden"
   },
   "colorpicker": {
-    "name": "Color Picker",
-    "description": "Pick any color on screen and copy its code"
+    "name": "Farbpipette",
+    "description": "Beliebige Farbe vom Bildschirm aufnehmen und kopieren"
   },
   "screenshot": {
     "name": "Screenshot",
-    "description": "Capture and annotate screenshots of the current tab"
+    "description": "Screenshots des aktiven Tabs aufnehmen und annotieren"
   }
 }

@@ -1,53 +1,53 @@
 {
   "categories": {
-    "encoders": "Encoders & Decoders",
-    "generators": "Generators",
-    "testers": "Testers",
-    "qa": "QA Tools",
+    "encoders": "Encodeurs",
+    "generators": "Générateurs",
+    "testers": "Testeurs",
+    "qa": "Outils QA",
     "design": "Design"
   },
   "json": {
-    "name": "JSON Formatter",
-    "description": "Format, validate and query JSON with JSONPath"
+    "name": "Formateur JSON",
+    "description": "Formater, valider et interroger du JSON avec JSONPath"
   },
   "jwt": {
-    "name": "JWT Decoder",
-    "description": "Decode and inspect JSON Web Tokens"
+    "name": "Décodeur JWT",
+    "description": "Décoder et inspecter les JSON Web Tokens"
   },
   "encoders": {
-    "name": "Base64 / URL Encode",
-    "description": "Encode and decode Base64 and URL strings"
+    "name": "Base64 / URL",
+    "description": "Encoder et décoder du Base64 et des URL"
   },
   "timestamp": {
-    "name": "Unix Timestamp",
-    "description": "Convert between Unix timestamps and human-readable dates"
+    "name": "Horodatage Unix",
+    "description": "Convertir entre horodatages Unix et dates lisibles"
   },
   "uuid": {
-    "name": "UUID Generator",
-    "description": "Generate UUID v4, v7, and NIL identifiers"
+    "name": "Générateur d'UUID",
+    "description": "Générer des UUID v4, v7 et NIL"
   },
   "regex": {
-    "name": "Regex Tester",
-    "description": "Test regular expressions with live highlighting"
+    "name": "Testeur de regex",
+    "description": "Tester les expressions régulières avec surlignage en direct"
   },
   "hash": {
-    "name": "Hash Calculator",
-    "description": "Compute MD5, SHA-1, SHA-256 and SHA-512 hashes"
+    "name": "Calculateur de hachage",
+    "description": "Calculer MD5, SHA-1, SHA-256 et SHA-512"
   },
   "diff": {
-    "name": "Text Diff",
-    "description": "Compare two pieces of text side by side"
+    "name": "Comparaison de texte",
+    "description": "Comparer deux textes côte à côte"
   },
   "clipboard": {
-    "name": "Clipboard History",
-    "description": "View and reuse your clipboard history"
+    "name": "Historique du presse-papiers",
+    "description": "Consulter et réutiliser l'historique du presse-papiers"
   },
   "colorpicker": {
-    "name": "Color Picker",
-    "description": "Pick any color on screen and copy its code"
+    "name": "Pipette à couleur",
+    "description": "Capturer n'importe quelle couleur à l'écran et copier son code"
   },
   "screenshot": {
-    "name": "Screenshot",
-    "description": "Capture and annotate screenshots of the current tab"
+    "name": "Capture d'écran",
+    "description": "Capturer et annoter l'onglet actif"
   }
 }

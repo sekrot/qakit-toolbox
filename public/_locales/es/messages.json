@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "DevKit Toolbox",
+    "description": "Extension name shown in Chrome Web Store and browser UI"
+  },
+  "extDescription": {
+    "message": "Caja de herramientas sin conexión para desarrolladores y QA: JSON, JWT, regex, hashes, cuentagotas de color, capturas de pantalla y más.",
+    "description": "Short description for Chrome Web Store"
+  }
+}

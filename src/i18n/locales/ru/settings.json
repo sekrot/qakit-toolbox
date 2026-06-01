@@ -1,14 +1,14 @@
 {
-  "title": "Settings",
-  "theme": "Theme",
+  "title": "Настройки",
+  "theme": "Тема",
   "themes": {
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
+    "light": "Светлая",
+    "dark": "Тёмная",
+    "system": "Системная"
   },
-  "language": "Language",
+  "language": "Язык",
   "languages": {
-    "system": "System default",
+    "system": "Как в системе",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,12 +16,12 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "data": "Data",
-  "clearHistory": "Clear all history",
-  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
-  "exportSettings": "Export settings",
-  "importSettings": "Import settings",
-  "imported": "Imported {{count}} keys",
-  "importFailed": "Import failed: {{error}}",
-  "about": "About"
+  "data": "Данные",
+  "clearHistory": "Очистить историю",
+  "clearHistoryConfirm": "Удалить историю буфера обмена и пипетки цвета? Закреплённые записи также будут удалены.",
+  "exportSettings": "Экспорт настроек",
+  "importSettings": "Импорт настроек",
+  "imported": "Импортировано {{count}} ключей",
+  "importFailed": "Импорт не удался: {{error}}",
+  "about": "О приложении"
 }

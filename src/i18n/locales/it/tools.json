@@ -1,53 +1,53 @@
 {
   "categories": {
-    "encoders": "Encoders & Decoders",
-    "generators": "Generators",
-    "testers": "Testers",
-    "qa": "QA Tools",
+    "encoders": "Encoder",
+    "generators": "Generatori",
+    "testers": "Tester",
+    "qa": "Strumenti QA",
     "design": "Design"
   },
   "json": {
-    "name": "JSON Formatter",
-    "description": "Format, validate and query JSON with JSONPath"
+    "name": "Formattatore JSON",
+    "description": "Formatta, valida e interroga il JSON con JSONPath"
   },
   "jwt": {
-    "name": "JWT Decoder",
-    "description": "Decode and inspect JSON Web Tokens"
+    "name": "Decoder JWT",
+    "description": "Decodifica e analizza i JSON Web Token"
   },
   "encoders": {
-    "name": "Base64 / URL Encode",
-    "description": "Encode and decode Base64 and URL strings"
+    "name": "Base64 / URL",
+    "description": "Codifica e decodifica Base64 e URL"
   },
   "timestamp": {
-    "name": "Unix Timestamp",
-    "description": "Convert between Unix timestamps and human-readable dates"
+    "name": "Timestamp Unix",
+    "description": "Converti tra timestamp Unix e date leggibili"
   },
   "uuid": {
-    "name": "UUID Generator",
-    "description": "Generate UUID v4, v7, and NIL identifiers"
+    "name": "Generatore UUID",
+    "description": "Genera UUID v4, v7 e NIL"
   },
   "regex": {
-    "name": "Regex Tester",
-    "description": "Test regular expressions with live highlighting"
+    "name": "Tester regex",
+    "description": "Prova le espressioni regolari con evidenziazione in tempo reale"
   },
   "hash": {
-    "name": "Hash Calculator",
-    "description": "Compute MD5, SHA-1, SHA-256 and SHA-512 hashes"
+    "name": "Calcolatore di hash",
+    "description": "Calcola MD5, SHA-1, SHA-256 e SHA-512"
   },
   "diff": {
-    "name": "Text Diff",
-    "description": "Compare two pieces of text side by side"
+    "name": "Diff testo",
+    "description": "Confronta due porzioni di testo affiancate"
   },
   "clipboard": {
-    "name": "Clipboard History",
-    "description": "View and reuse your clipboard history"
+    "name": "Cronologia appunti",
+    "description": "Visualizza e riusa la cronologia degli appunti"
   },
   "colorpicker": {
-    "name": "Color Picker",
-    "description": "Pick any color on screen and copy its code"
+    "name": "Contagocce colore",
+    "description": "Preleva un colore dallo schermo e copialo"
   },
   "screenshot": {
     "name": "Screenshot",
-    "description": "Capture and annotate screenshots of the current tab"
+    "description": "Cattura e annota la scheda attiva"
   }
 }

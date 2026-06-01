@@ -1,35 +1,35 @@
 {
   "appName": "DevKit Toolbox",
-  "tagline": "Offline utilities for developers and QA engineers",
-  "search": "Search tools…",
-  "back": "Back",
-  "settings": "Settings",
-  "home": "Home",
-  "copy": "Copy",
-  "copied": "Copied to clipboard",
-  "clear": "Clear",
-  "noResults": "No tools match your search",
-  "recent": "Recent",
-  "mostUsed": "Most used",
-  "skip": "Skip",
-  "next": "Next",
-  "getStarted": "Get started",
+  "tagline": "Офлайн-утилиты для разработчиков и QA",
+  "search": "Поиск инструментов…",
+  "back": "Назад",
+  "settings": "Настройки",
+  "home": "Главная",
+  "copy": "Копировать",
+  "copied": "Скопировано",
+  "clear": "Очистить",
+  "noResults": "Ничего не найдено",
+  "recent": "Недавние",
+  "mostUsed": "Часто используемые",
+  "skip": "Пропустить",
+  "next": "Далее",
+  "getStarted": "Начать",
   "onboarding": {
     "welcome": {
-      "title": "Welcome to DevKit Toolbox",
-      "body": "11 offline utilities for developers and QA — JSON, JWT, hashes, regex, color picker, screenshots and more. All in the side panel, one click away."
+      "title": "Добро пожаловать в DevKit Toolbox",
+      "body": "11 офлайн-утилит для разработчиков и QA: JSON, JWT, хэши, регулярки, пипетка цвета, скриншоты и не только. Всё в боковой панели, в одном клике."
     },
     "tools": {
-      "title": "Pick a tool, get to work",
-      "body": "Tools are grouped by category and searchable. Switch between encoders, generators, testers, QA tools and design helpers from the home screen."
+      "title": "Выберите утилиту и приступайте",
+      "body": "Инструменты сгруппированы по категориям, доступен поиск. С главного экрана легко переключаться между кодировщиками, генераторами, тестерами, QA-инструментами и помощниками дизайнера."
     },
     "privacy": {
-      "title": "Your data stays on your device",
-      "body": "DevKit Toolbox is fully offline. No telemetry, no uploads. Everything is processed locally and stored only in your browser."
+      "title": "Ваши данные остаются на устройстве",
+      "body": "DevKit Toolbox полностью офлайн. Никакой телеметрии, никаких загрузок. Всё обрабатывается локально и хранится только в вашем браузере."
     },
     "ready": {
-      "title": "You're all set",
-      "body": "Tweak theme and language anytime in Settings. Have fun, and happy debugging."
+      "title": "Готово",
+      "body": "Тему и язык можно поменять в Настройках в любой момент. Приятной работы и удачной отладки."
     }
   }
 }
