@@ -1,5 +1,13 @@
-chrome.runtime.onInstalled.addListener(() => {
-  console.info('[DevKit Toolbox] installed');
+import { bumpSession, ensureInstallMeta } from '@/storage/telemetry';
+
+chrome.runtime.onInstalled.addListener(async (details) => {
+  console.info('[DevKit Toolbox] installed', details.reason);
+  const manifest = chrome.runtime.getManifest();
+  await ensureInstallMeta(manifest.version);
+});
+
+chrome.runtime.onStartup.addListener(() => {
+  void bumpSession();
 });
 
 chrome.action.onClicked.addListener(async (tab) => {

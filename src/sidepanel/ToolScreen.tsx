@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TOOLS } from '@/tools/registry';
 import { useSettings } from '@/storage/store';
+import { recordToolOpen } from '@/storage/telemetry';
 
 export function ToolScreen() {
   const { toolId } = useParams<{ toolId: string }>();
@@ -11,7 +12,10 @@ export function ToolScreen() {
   const tool = TOOLS.find((t) => t.id === toolId);
 
   useEffect(() => {
-    if (tool) pushRecentTool(tool.id);
+    if (tool) {
+      pushRecentTool(tool.id);
+      void recordToolOpen(tool.id);
+    }
   }, [tool, pushRecentTool]);
 
   if (!tool) {
