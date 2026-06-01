@@ -37,6 +37,7 @@ const RegexTool = lazy(() => import('./regex'));
 const HashTool = lazy(() => import('./hash'));
 const DiffTool = lazy(() => import('./diff'));
 const ColorPickerTool = lazy(() => import('./colorpicker'));
+const ClipboardTool = lazy(() => import('./clipboard'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -127,7 +128,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: Clipboard,
     category: 'qa',
     isPro: false,
-    component: Placeholder,
+    component: ClipboardTool,
   },
   {
     id: 'colorpicker',
