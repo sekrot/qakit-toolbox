@@ -27,7 +27,6 @@ export interface ToolDefinition {
   component: LazyExoticComponent<ComponentType>;
 }
 
-const Placeholder = lazy(() => import('./_placeholder/Placeholder'));
 const JsonTool = lazy(() => import('./json'));
 const JwtTool = lazy(() => import('./jwt'));
 const EncodersTool = lazy(() => import('./encoders'));
@@ -38,6 +37,7 @@ const HashTool = lazy(() => import('./hash'));
 const DiffTool = lazy(() => import('./diff'));
 const ColorPickerTool = lazy(() => import('./colorpicker'));
 const ClipboardTool = lazy(() => import('./clipboard'));
+const ScreenshotTool = lazy(() => import('./screenshot'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -148,7 +148,7 @@ export const TOOLS: ToolDefinition[] = [
     icon: Camera,
     category: 'qa',
     isPro: false,
-    component: Placeholder,
+    component: ScreenshotTool,
   },
 ];
 
