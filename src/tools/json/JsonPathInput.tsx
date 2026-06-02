@@ -12,20 +12,22 @@ interface Props {
 
 export function JsonPathInput({ value, onChange, source, placeholder }: Props) {
   const [focused, setFocused] = useState(false);
-  const [activeIdx, setActiveIdx] = useState(0);
+  /** -1 = nothing highlighted yet. First ArrowDown brings it to 0. */
+  const [activeIdx, setActiveIdx] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
   const ac = useMemo(() => getSuggestions(source, value), [source, value]);
   const open = focused && ac.suggestions.length > 0;
 
+  // Reset highlight when the suggestion list changes (new typing, new path).
   useEffect(() => {
-    setActiveIdx(0);
+    setActiveIdx(-1);
   }, [value, ac.suggestions.length]);
 
   // Keep highlighted row visible while scrolling with arrows.
   useEffect(() => {
-    if (!open) return;
+    if (!open || activeIdx < 0) return;
     const list = listRef.current;
     if (!list) return;
     const row = list.children[activeIdx] as HTMLElement | undefined;
@@ -40,17 +42,24 @@ export function JsonPathInput({ value, onChange, source, placeholder }: Props) {
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (!open) return;
+    const n = ac.suggestions.length;
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setActiveIdx((i) => (i + 1) % ac.suggestions.length);
+      // -1 → 0 → 1 → ... → n-1 → 0
+      setActiveIdx((i) => (i < 0 ? 0 : (i + 1) % n));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setActiveIdx((i) => (i - 1 + ac.suggestions.length) % ac.suggestions.length);
+      // -1 → n-1, otherwise wrap backwards
+      setActiveIdx((i) => (i <= 0 ? n - 1 : i - 1));
     } else if (e.key === 'Tab' || e.key === 'Enter') {
       e.preventDefault();
-      apply(ac.suggestions[activeIdx]);
+      // If user hasn't moved the highlight yet, apply the first suggestion.
+      const idx = activeIdx < 0 ? 0 : activeIdx;
+      apply(ac.suggestions[idx]);
     } else if (e.key === 'Escape') {
+      e.preventDefault();
       setFocused(false);
+      inputRef.current?.blur();
     }
   };
 
@@ -68,6 +77,10 @@ export function JsonPathInput({ value, onChange, source, placeholder }: Props) {
         className="font-mono"
         spellCheck={false}
         autoComplete="off"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={open}
+        aria-activedescendant={activeIdx >= 0 ? `jsonpath-option-${activeIdx}` : undefined}
       />
       {open && (
         <ul
@@ -76,7 +89,12 @@ export function JsonPathInput({ value, onChange, source, placeholder }: Props) {
           className="absolute left-0 right-0 z-20 mt-1 max-h-48 overflow-y-auto rounded-md border border-border bg-background shadow-lg"
         >
           {ac.suggestions.map((s, i) => (
-            <li key={`${s}-${i}`} role="option" aria-selected={i === activeIdx}>
+            <li
+              key={`${s}-${i}`}
+              id={`jsonpath-option-${i}`}
+              role="option"
+              aria-selected={i === activeIdx}
+            >
               <button
                 type="button"
                 onMouseDown={(e) => {
@@ -86,12 +104,21 @@ export function JsonPathInput({ value, onChange, source, placeholder }: Props) {
                 onMouseEnter={() => setActiveIdx(i)}
                 className={cn(
                   'block w-full cursor-pointer px-2 py-1 text-left font-mono text-xs',
-                  i === activeIdx ? 'bg-accent text-foreground' : 'text-muted-foreground',
+                  i === activeIdx
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-foreground hover:bg-accent',
                 )}
               >
                 {ac.prefix ? (
                   <>
-                    <span className="text-primary">{s.slice(0, ac.prefix.length)}</span>
+                    <span
+                      className={cn(
+                        'font-semibold',
+                        i === activeIdx ? 'text-primary-foreground' : 'text-primary',
+                      )}
+                    >
+                      {s.slice(0, ac.prefix.length)}
+                    </span>
                     <span>{s.slice(ac.prefix.length)}</span>
                   </>
                 ) : (
@@ -104,7 +131,7 @@ export function JsonPathInput({ value, onChange, source, placeholder }: Props) {
       )}
       {open && (
         <p className="absolute -bottom-4 right-0 text-[10px] text-muted-foreground">
-          Tab / Enter · ↑ ↓ · Esc
+          ↑ ↓ to choose · Tab / Enter to insert · Esc to dismiss
         </p>
       )}
     </div>
