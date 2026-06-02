@@ -2,10 +2,10 @@ import { useMemo, useState, type DragEvent, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, FileJson, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { formatJson, minifyJson, validateJson, type JsonResult } from './logic';
 import { runJsonPath, type JsonPathResult } from './jsonpath';
+import { JsonPathInput } from './JsonPathInput';
 
 const SAMPLE = `{
   "store": {
@@ -95,11 +95,11 @@ export default function JsonTool() {
       />
 
       {mode === 'jsonpath' && (
-        <Input
+        <JsonPathInput
           value={path}
-          onChange={(e) => setPath(e.target.value)}
+          onChange={setPath}
+          source={validation?.ok ? validation.value : undefined}
           placeholder="$.store.book[*].price"
-          className="font-mono"
         />
       )}
 
