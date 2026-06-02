@@ -33,6 +33,17 @@ chrome.runtime.onMessage.addListener((message: CaptureRequest, _sender, sendResp
         sendResponse({ ok: false, error: 'No active tab' });
         return;
       }
+      if (
+        tab.url &&
+        /^(chrome|edge|brave|about|chrome-extension|devtools|view-source):/i.test(tab.url)
+      ) {
+        sendResponse({
+          ok: false,
+          error:
+            'Chrome does not allow capturing internal pages (chrome://, extensions, devtools).',
+        });
+        return;
+      }
       const dataUrl = await chrome.tabs.captureVisibleTab(tab.windowId, { format: 'png' });
       sendResponse({ ok: true, dataUrl });
     } catch (e) {

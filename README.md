@@ -96,15 +96,16 @@ DevKit Toolbox is **fully offline**. It never makes network requests, never
 collects telemetry, never uploads files. Settings and history live in
 `chrome.storage.local` and never leave your browser.
 
-| Permission                         | Why it's needed                                                   |
-| ---------------------------------- | ----------------------------------------------------------------- |
-| `storage`                          | Persist your theme, language and tool history locally             |
-| `sidePanel`                        | Render the toolbox in Chrome's side panel                         |
-| `activeTab` + `scripting`          | Take screenshots and capture clipboard data when you trigger them |
-| `clipboardRead` / `clipboardWrite` | Clipboard history and one-click "Copy" buttons                    |
+| Permission                         | Why it's needed                                                                                                   |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `storage`                          | Persist your theme, language and tool history locally                                                             |
+| `sidePanel`                        | Render the toolbox in Chrome's side panel                                                                         |
+| `activeTab` + `scripting`          | Take screenshots and capture clipboard data when you trigger them                                                 |
+| `clipboardRead` / `clipboardWrite` | Clipboard history and one-click "Copy" buttons                                                                    |
+| `<all_urls>` host access           | Required by `chrome.tabs.captureVisibleTab` for the Screenshot tool. Only used to capture; no page reads/injects. |
 
-No `<all_urls>` host permissions. No analytics endpoints. The `install_id`
-generated on first run lives only in your local storage; we don't have it.
+No analytics endpoints. The `install_id` generated on first run lives only
+in your local storage; we don't have it.
 
 ## Development
 

@@ -35,6 +35,12 @@ export default defineManifest({
     'clipboardRead',
     'clipboardWrite',
   ],
-  host_permissions: [],
+  // Required by chrome.tabs.captureVisibleTab() in the Screenshot tool.
+  // `activeTab` alone is not enough: it grants permission only at the moment
+  // the user clicks the extension's action, and only for the tab that was
+  // active then. Switching tabs revokes the grant, breaking screenshots
+  // taken from the side panel. <all_urls> here is read-only and only used
+  // by captureVisibleTab; we never inject scripts or fetch page contents.
+  host_permissions: ['<all_urls>'],
   minimum_chrome_version: '114',
 });

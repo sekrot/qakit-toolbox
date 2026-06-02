@@ -77,9 +77,12 @@ public/
 
 ## Permissions в manifest
 
-Текущие пермишены (`src/manifest.config.ts`): `storage`, `sidePanel`, `activeTab`, `scripting`, `clipboardRead`, `clipboardWrite`.
+Текущие пермишены (`src/manifest.config.ts`):
 
-Добавление нового пермишена требует обоснования в Chrome Web Store при ревью. Не добавлять `<all_urls>` или `tabs` без необходимости.
+- `permissions`: `storage`, `sidePanel`, `activeTab`, `scripting`, `clipboardRead`, `clipboardWrite`.
+- `host_permissions`: `<all_urls>` — единственный способ снимать скриншоты из side panel. `activeTab` теряется при переключении вкладок, а `chrome.tabs.captureVisibleTab` всё равно требует host-доступ к захватываемой странице. Используется только для capture, никаких inject/fetch.
+
+Добавление нового пермишена требует обоснования в Chrome Web Store при ревью.
 
 ## Тестирование расширения вручную
 
