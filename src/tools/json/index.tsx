@@ -21,7 +21,9 @@ type Mode = 'format' | 'minify' | 'jsonpath';
 export default function JsonTool() {
   const { t } = useTranslation('common');
   const [input, setInput] = useState('');
-  const [path, setPath] = useState('$.store.book[*].title');
+  // Pre-seed the prefix so autocomplete fires the moment the user focuses
+  // the field, but leave the actual key segment empty for them to type.
+  const [path, setPath] = useState('$.');
   const [mode, setMode] = useState<Mode>('format');
   const [copied, setCopied] = useState(false);
 
