@@ -31,14 +31,41 @@ chrome.sidePanel
   .catch((err) => console.warn('[DevKit Toolbox] setPanelBehavior failed', err));
 
 chrome.commands.onCommand.addListener(async (command) => {
+  console.info('[DevKit Toolbox] command fired:', command);
   const route = COMMAND_ROUTES[command];
-  if (!route) return;
+  if (!route) {
+    console.warn('[DevKit Toolbox] unknown command:', command);
+    return;
+  }
   const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-  if (!tab?.windowId) return;
-  // Queue the target route so the side panel can pick it up on mount or
-  // via its chrome.storage subscription if it's already open.
+  if (!tab?.windowId) {
+    console.warn('[DevKit Toolbox] no active tab/window for command:', command);
+    return;
+  }
+
+  // 1. Open the panel first (uses the gesture from the keyboard command).
+  //    Wrapped in try/catch because Chrome throws if the panel is already
+  //    open OR if the gesture window mismatches — neither should kill the
+  //    navigation that follows.
+  try {
+    await chrome.sidePanel.open({ windowId: tab.windowId });
+  } catch (e) {
+    console.warn('[DevKit Toolbox] sidePanel.open failed:', e);
+  }
+
+  // 2. Write the route AFTER the panel is open. If the panel was already
+  //    open, its onChanged subscription catches this. If it was just opened,
+  //    its mount-time `consume()` reads the value.
   await chrome.storage.local.set({ [PENDING_ROUTE_KEY]: route });
-  await chrome.sidePanel.open({ windowId: tab.windowId });
+
+  // 3. Belt-and-suspenders: also broadcast a runtime message in case the
+  //    storage write races with the side panel's listener registration.
+  //    `sendMessage` rejects when no receiver is listening — that's fine.
+  try {
+    await chrome.runtime.sendMessage({ type: 'navigate', route });
+  } catch {
+    // No listener yet (panel still loading). Storage handles the cold path.
+  }
 });
 
 interface CaptureRequest {
