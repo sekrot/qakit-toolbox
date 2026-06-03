@@ -15,7 +15,8 @@ import {
 } from './logic';
 
 export default function ClipboardTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string) => t(`tools:clipboard.ui.${k}`);
   const [items, setItems] = useState<ClipboardItem[]>([]);
   const [query, setQuery] = useState('');
   const [copied, setCopied] = useState<string | null>(null);
@@ -56,16 +57,12 @@ export default function ClipboardTool() {
     try {
       const text = await navigator.clipboard.readText();
       if (!text.trim()) {
-        setError('Clipboard is empty');
+        setError(ui('clipboardEmpty'));
         return;
       }
       persist(pushItem(items, text));
     } catch (e) {
-      setError(
-        e instanceof Error
-          ? `${e.message} (focus the side panel and try again)`
-          : 'Failed to read clipboard',
-      );
+      setError(e instanceof Error ? `${e.message} ${ui('readFailureSuffix')}` : ui('readFailed'));
     }
   };
 
@@ -82,11 +79,11 @@ export default function ClipboardTool() {
       <div className="flex items-center gap-2">
         <Button onClick={captureClipboard} size="sm">
           <ClipboardPaste className="h-3 w-3" />
-          Save current clipboard
+          {ui('save')}
         </Button>
         {items.some((i) => !i.pinned) && (
           <Button variant="ghost" size="sm" onClick={() => persist(clearUnpinned(items))}>
-            Clear unpinned
+            {ui('clearUnpinned')}
           </Button>
         )}
       </div>
@@ -102,19 +99,17 @@ export default function ClipboardTool() {
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search history…"
+          placeholder={ui('searchPlaceholder')}
           className="pl-8"
         />
       </div>
 
-      <p className="text-[10px] text-muted-foreground">
-        Tip: any text you copy inside this side panel is captured automatically.
-      </p>
+      <p className="text-[10px] text-muted-foreground">{ui('autoCaptureTip')}</p>
 
       <div className="flex-1 overflow-y-auto rounded-md border border-border bg-muted">
         {filtered.length === 0 ? (
           <p className="p-4 text-center text-xs text-muted-foreground">
-            {items.length === 0 ? 'History is empty' : 'No matches'}
+            {items.length === 0 ? ui('empty') : ui('noMatches')}
           </p>
         ) : (
           <ul className="divide-y divide-border">
@@ -133,7 +128,7 @@ export default function ClipboardTool() {
                       size="sm"
                       onClick={() => persist(togglePin(items, item.id))}
                       className="h-6 w-6 p-0"
-                      title={item.pinned ? 'Unpin' : 'Pin'}
+                      title={item.pinned ? t('common:actions.unpin') : t('common:actions.pin')}
                     >
                       {item.pinned ? <PinOff className="h-3 w-3" /> : <Pin className="h-3 w-3" />}
                     </Button>
@@ -142,10 +137,10 @@ export default function ClipboardTool() {
                       size="sm"
                       onClick={() => onCopy(item)}
                       className="h-6 w-6 p-0"
-                      title={t('copy')}
+                      title={t('common:copy')}
                     >
                       {copied === item.id ? (
-                        <span className="text-[10px]">{t('copied')}</span>
+                        <span className="text-[10px]">{t('common:copied')}</span>
                       ) : (
                         <Copy className="h-3 w-3" />
                       )}
@@ -155,7 +150,7 @@ export default function ClipboardTool() {
                       size="sm"
                       onClick={() => persist(removeItem(items, item.id))}
                       className="h-6 w-6 p-0"
-                      title="Remove"
+                      title={t('common:actions.remove')}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>

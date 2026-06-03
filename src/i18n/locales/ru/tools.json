@@ -8,46 +8,175 @@
   },
   "json": {
     "name": "JSON Formatter",
-    "description": "Форматирование, валидация и запросы JSONPath"
+    "description": "Форматирование, валидация и запросы JSONPath",
+    "ui": {
+      "mode": {
+        "format": "Форматировать",
+        "minify": "Минифицировать",
+        "jsonpath": "JSONPath"
+      },
+      "loadSampleTitle": "Загрузить пример",
+      "placeholderInput": "{\"hello\": \"world\"} — или перетащите .json сюда",
+      "placeholderPath": "$.store.book[*].price",
+      "errorLineCol": "(строка {{line}}, кол. {{col}})"
+    }
   },
   "jwt": {
     "name": "JWT Decoder",
-    "description": "Декодирование и проверка JSON Web Tokens"
+    "description": "Декодирование и проверка JSON Web Tokens",
+    "ui": {
+      "placeholderToken": "Вставьте JWT-токен (eyJhbGc…)",
+      "header": "Заголовок",
+      "payload": "Содержимое",
+      "signature": "Подпись",
+      "status": {
+        "expired": "Истёк",
+        "expiredSuffix": "{{duration}} назад",
+        "notYetValid": "Ещё не действителен",
+        "valid": "Действителен · истекает через {{duration}}",
+        "decoded": "Декодировано"
+      }
+    }
   },
   "encoders": {
     "name": "Base64 / URL",
-    "description": "Кодирование и декодирование Base64 и URL"
+    "description": "Кодирование и декодирование Base64 и URL",
+    "ui": {
+      "kinds": {
+        "base64": "Base64",
+        "base64url": "Base64 URL",
+        "url": "URL"
+      },
+      "direction": {
+        "auto": "Авто",
+        "encode": "Кодировать",
+        "decode": "Декодировать"
+      },
+      "placeholderInput": "Введите текст…"
+    }
   },
   "timestamp": {
     "name": "Unix Timestamp",
-    "description": "Конвертация между Unix timestamp и датой"
+    "description": "Конвертация между Unix timestamp и датой",
+    "ui": {
+      "useNow": "Сейчас",
+      "now": "сейчас:",
+      "clickToCopy": "Клик — скопировать",
+      "tsToDate": "Timestamp → Дата",
+      "dateToTs": "Дата → Timestamp",
+      "timezone": "Часовой пояс",
+      "seconds": "Секунды",
+      "milliseconds": "Миллисекунды",
+      "isoUtc": "ISO 8601 (UTC)"
+    }
   },
   "uuid": {
     "name": "Генератор UUID",
-    "description": "Генерация UUID v4, v7 и NIL"
+    "description": "Генерация UUID v4, v7 и NIL",
+    "ui": {
+      "versions": {
+        "v4Hint": "Случайный",
+        "v7Hint": "С привязкой ко времени",
+        "nilHint": "Все нули"
+      },
+      "generated": "сгенерировано: {{count}}",
+      "copyAll": "Копировать всё"
+    }
   },
   "regex": {
     "name": "Regex Tester",
-    "description": "Тестирование регулярных выражений с подсветкой"
+    "description": "Тестирование регулярных выражений с подсветкой",
+    "ui": {
+      "pattern": "шаблон",
+      "testString": "Тестовая строка",
+      "placeholderTest": "Вставьте текст для проверки…",
+      "matches": "Совпадения",
+      "matchTitle": "Совпадение {{index}}",
+      "captureGroups": "Группы захвата",
+      "cheatsheet": "Шпаргалка",
+      "copyAllMatches": "{{copy}} все совпадения"
+    }
   },
   "hash": {
     "name": "Калькулятор хэшей",
-    "description": "Расчёт MD5, SHA-1, SHA-256 и SHA-512"
+    "description": "Расчёт MD5, SHA-1, SHA-256 и SHA-512",
+    "ui": {
+      "modeText": "Текст",
+      "modeFile": "Файл",
+      "placeholderText": "Введите или вставьте текст — хэши обновляются на лету",
+      "dropFile": "Перетащите файл или кликните для выбора",
+      "privacyNote": "Хэшируется локально, никуда не загружается",
+      "computing": "Считаю…",
+      "kb": "{{size}} КБ"
+    }
   },
   "diff": {
     "name": "Text Diff",
-    "description": "Сравнение двух фрагментов текста"
+    "description": "Сравнение двух фрагментов текста",
+    "ui": {
+      "split": "Бок о бок",
+      "unified": "Единое",
+      "ignoreWhitespace": "Игнорировать пробелы",
+      "ignoreCase": "Игнорировать регистр",
+      "placeholderOriginal": "Оригинал",
+      "placeholderModified": "Изменённый"
+    }
   },
   "clipboard": {
     "name": "История буфера",
-    "description": "Просмотр и повторное использование скопированного"
+    "description": "Просмотр и повторное использование скопированного",
+    "ui": {
+      "save": "Сохранить буфер обмена",
+      "clearUnpinned": "Очистить незакреплённые",
+      "searchPlaceholder": "Поиск по истории…",
+      "autoCaptureTip": "Подсказка: любой текст, скопированный в этой панели, сохраняется автоматически.",
+      "empty": "История пуста",
+      "noMatches": "Совпадений нет",
+      "clipboardEmpty": "Буфер обмена пуст",
+      "readFailureSuffix": "(сфокусируйтесь на боковой панели и попробуйте снова)",
+      "readFailed": "Не удалось прочитать буфер обмена"
+    }
   },
   "colorpicker": {
     "name": "Пипетка цвета",
-    "description": "Выбор любого цвета на экране и копирование кода"
+    "description": "Выбор любого цвета на экране и копирование кода",
+    "ui": {
+      "pick": "Выбрать цвет с экрана",
+      "unsupported": "EyeDropper не поддерживается",
+      "invalidHex": "Некорректный hex-цвет",
+      "history": "История",
+      "clearUnpinned": "Очистить незакреплённые",
+      "empty": "Выберите или вставьте цвет, чтобы заполнить историю.",
+      "useColor": "Использовать {{hex}}"
+    }
   },
   "screenshot": {
     "name": "Скриншот",
-    "description": "Снимок активной вкладки с возможностью аннотаций"
+    "description": "Снимок активной вкладки с возможностью аннотаций",
+    "ui": {
+      "capture": "Сделать скриншот",
+      "capturing": "Снимаю…",
+      "recapture": "Сделать заново",
+      "png": "PNG",
+      "captureFailed": "Не удалось сделать скриншот",
+      "noActiveTab": "Нет активной вкладки",
+      "internalPagesError": "Chrome не разрешает снимать внутренние страницы (chrome://, расширения, devtools).",
+      "copyImageFailed": "Не удалось скопировать изображение",
+      "tools": {
+        "select": "Выбрать / двигать",
+        "rect": "Прямоугольник",
+        "highlight": "Подсветить",
+        "arrow": "Стрелка",
+        "line": "Прямая линия",
+        "pen": "Карандаш",
+        "text": "Текст",
+        "crop": "Обрезать"
+      },
+      "selectHint": "Кликните по фигуре, чтобы выделить её, и потяните, чтобы переместить. Кнопка Удалить — удаляет.",
+      "emptyHint": "Нажмите <strong>Сделать скриншот</strong>, чтобы сделать снимок активной вкладки и начать аннотировать.",
+      "textPlaceholder": "Введите текст, Enter — подтвердить, Esc — отмена",
+      "colorAria": "Цвет {{color}}",
+      "strokeAria": "Толщина линии"
+    }
   }
 }

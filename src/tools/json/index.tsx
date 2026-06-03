@@ -19,7 +19,8 @@ const SAMPLE = `{
 type Mode = 'format' | 'minify' | 'jsonpath';
 
 export default function JsonTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string, opts?: Record<string, unknown>) => t(`tools:json.ui.${k}`, opts);
   const [input, setInput] = useState('');
   // Pre-seed the prefix so autocomplete fires the moment the user focuses
   // the field, but leave the actual key segment empty for them to type.
@@ -69,19 +70,24 @@ export default function JsonTool() {
     <div className="flex h-full flex-col gap-3">
       <div className="flex flex-wrap items-center gap-2">
         <ModeButton current={mode} value="format" onClick={setMode}>
-          Format
+          {ui('mode.format')}
         </ModeButton>
         <ModeButton current={mode} value="minify" onClick={setMode}>
-          Minify
+          {ui('mode.minify')}
         </ModeButton>
         <ModeButton current={mode} value="jsonpath" onClick={setMode}>
-          JSONPath
+          {ui('mode.jsonpath')}
         </ModeButton>
         <div className="ml-auto flex items-center gap-1">
-          <Button variant="ghost" size="sm" onClick={() => setInput(SAMPLE)} title="Load sample">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setInput(SAMPLE)}
+            title={ui('loadSampleTitle')}
+          >
             <FileJson className="h-4 w-4" />
           </Button>
-          <Button variant="ghost" size="sm" onClick={() => setInput('')} title={t('clear')}>
+          <Button variant="ghost" size="sm" onClick={() => setInput('')} title={t('common:clear')}>
             <Trash2 className="h-4 w-4" />
           </Button>
         </div>
@@ -92,7 +98,7 @@ export default function JsonTool() {
         onChange={(e) => setInput(e.target.value)}
         onDrop={onDrop}
         onDragOver={(e) => e.preventDefault()}
-        placeholder='{"hello": "world"} — or drag a .json file here'
+        placeholder={ui('placeholderInput')}
         className="min-h-[140px]"
       />
 
@@ -101,7 +107,7 @@ export default function JsonTool() {
           value={path}
           onChange={setPath}
           source={validation?.ok ? validation.value : undefined}
-          placeholder="$.store.book[*].price"
+          placeholder={ui('placeholderPath')}
         />
       )}
 
@@ -110,7 +116,7 @@ export default function JsonTool() {
           {displayError}
           {errorLocation?.line && (
             <span className="ml-1 opacity-70">
-              (line {errorLocation.line}, col {errorLocation.column})
+              {ui('errorLineCol', { line: errorLocation.line, col: errorLocation.column })}
             </span>
           )}
         </div>
@@ -120,13 +126,13 @@ export default function JsonTool() {
         <Textarea
           value={displayOutput}
           readOnly
-          placeholder="Output will appear here"
+          placeholder={t('common:placeholders.outputArea')}
           className="h-full min-h-[160px]"
         />
         {displayOutput && (
           <Button variant="secondary" size="sm" onClick={copy} className="absolute right-2 top-2">
             <Copy className="h-3 w-3" />
-            {copied ? t('copied') : t('copy')}
+            {copied ? t('common:copied') : t('common:copy')}
           </Button>
         )}
       </div>

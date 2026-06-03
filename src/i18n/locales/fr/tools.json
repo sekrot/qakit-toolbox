@@ -8,46 +8,175 @@
   },
   "json": {
     "name": "Formateur JSON",
-    "description": "Formater, valider et interroger du JSON avec JSONPath"
+    "description": "Formater, valider et interroger du JSON avec JSONPath",
+    "ui": {
+      "mode": {
+        "format": "Formater",
+        "minify": "Minifier",
+        "jsonpath": "JSONPath"
+      },
+      "loadSampleTitle": "Charger l'exemple",
+      "placeholderInput": "{\"hello\": \"world\"} — ou glissez un .json ici",
+      "placeholderPath": "$.store.book[*].price",
+      "errorLineCol": "(ligne {{line}}, col. {{col}})"
+    }
   },
   "jwt": {
     "name": "Décodeur JWT",
-    "description": "Décoder et inspecter les JSON Web Tokens"
+    "description": "Décoder et inspecter les JSON Web Tokens",
+    "ui": {
+      "placeholderToken": "Collez un JWT ici (eyJhbGc…)",
+      "header": "En-tête",
+      "payload": "Charge utile",
+      "signature": "Signature",
+      "status": {
+        "expired": "Expiré",
+        "expiredSuffix": "il y a {{duration}}",
+        "notYetValid": "Pas encore valide",
+        "valid": "Valide · expire dans {{duration}}",
+        "decoded": "Décodé"
+      }
+    }
   },
   "encoders": {
     "name": "Base64 / URL",
-    "description": "Encoder et décoder du Base64 et des URL"
+    "description": "Encoder et décoder du Base64 et des URL",
+    "ui": {
+      "kinds": {
+        "base64": "Base64",
+        "base64url": "Base64 URL",
+        "url": "URL"
+      },
+      "direction": {
+        "auto": "Auto",
+        "encode": "Encoder",
+        "decode": "Décoder"
+      },
+      "placeholderInput": "Saisissez du texte…"
+    }
   },
   "timestamp": {
     "name": "Horodatage Unix",
-    "description": "Convertir entre horodatages Unix et dates lisibles"
+    "description": "Convertir entre horodatages Unix et dates lisibles",
+    "ui": {
+      "useNow": "Maintenant",
+      "now": "maintenant :",
+      "clickToCopy": "Cliquer pour copier",
+      "tsToDate": "Horodatage → Date",
+      "dateToTs": "Date → Horodatage",
+      "timezone": "Fuseau horaire",
+      "seconds": "Secondes",
+      "milliseconds": "Millisecondes",
+      "isoUtc": "ISO 8601 (UTC)"
+    }
   },
   "uuid": {
     "name": "Générateur d'UUID",
-    "description": "Générer des UUID v4, v7 et NIL"
+    "description": "Générer des UUID v4, v7 et NIL",
+    "ui": {
+      "versions": {
+        "v4Hint": "Aléatoire",
+        "v7Hint": "Ordonné dans le temps",
+        "nilHint": "Que des zéros"
+      },
+      "generated": "{{count}} généré(s)",
+      "copyAll": "Tout copier"
+    }
   },
   "regex": {
     "name": "Testeur de regex",
-    "description": "Tester les expressions régulières avec surlignage en direct"
+    "description": "Tester les expressions régulières avec surlignage en direct",
+    "ui": {
+      "pattern": "motif",
+      "testString": "Texte de test",
+      "placeholderTest": "Collez le texte à tester…",
+      "matches": "Correspondances",
+      "matchTitle": "Correspondance {{index}}",
+      "captureGroups": "Groupes de capture",
+      "cheatsheet": "Aide-mémoire",
+      "copyAllMatches": "{{copy}} toutes les correspondances"
+    }
   },
   "hash": {
     "name": "Calculateur de hachage",
-    "description": "Calculer MD5, SHA-1, SHA-256 et SHA-512"
+    "description": "Calculer MD5, SHA-1, SHA-256 et SHA-512",
+    "ui": {
+      "modeText": "Texte",
+      "modeFile": "Fichier",
+      "placeholderText": "Saisissez ou collez du texte — les hachages se mettent à jour en direct",
+      "dropFile": "Déposez un fichier ici ou cliquez pour sélectionner",
+      "privacyNote": "Haché localement, jamais envoyé",
+      "computing": "Calcul…",
+      "kb": "{{size}} Ko"
+    }
   },
   "diff": {
     "name": "Comparaison de texte",
-    "description": "Comparer deux textes côte à côte"
+    "description": "Comparer deux textes côte à côte",
+    "ui": {
+      "split": "Côte à côte",
+      "unified": "Unifié",
+      "ignoreWhitespace": "Ignorer les espaces",
+      "ignoreCase": "Ignorer la casse",
+      "placeholderOriginal": "Original",
+      "placeholderModified": "Modifié"
+    }
   },
   "clipboard": {
     "name": "Historique du presse-papiers",
-    "description": "Consulter et réutiliser l'historique du presse-papiers"
+    "description": "Consulter et réutiliser l'historique du presse-papiers",
+    "ui": {
+      "save": "Enregistrer le presse-papiers",
+      "clearUnpinned": "Effacer les non-épinglés",
+      "searchPlaceholder": "Rechercher dans l'historique…",
+      "autoCaptureTip": "Astuce : tout texte copié dans ce panneau latéral est capturé automatiquement.",
+      "empty": "Historique vide",
+      "noMatches": "Aucune correspondance",
+      "clipboardEmpty": "Presse-papiers vide",
+      "readFailureSuffix": "(donnez le focus au panneau et réessayez)",
+      "readFailed": "Impossible de lire le presse-papiers"
+    }
   },
   "colorpicker": {
     "name": "Pipette à couleur",
-    "description": "Capturer n'importe quelle couleur à l'écran et copier son code"
+    "description": "Capturer n'importe quelle couleur à l'écran et copier son code",
+    "ui": {
+      "pick": "Choisir une couleur à l'écran",
+      "unsupported": "EyeDropper non pris en charge",
+      "invalidHex": "Couleur hex invalide",
+      "history": "Historique",
+      "clearUnpinned": "Effacer les non-épinglés",
+      "empty": "Choisissez ou collez une couleur pour remplir l'historique.",
+      "useColor": "Utiliser {{hex}}"
+    }
   },
   "screenshot": {
     "name": "Capture d'écran",
-    "description": "Capturer et annoter l'onglet actif"
+    "description": "Capturer et annoter l'onglet actif",
+    "ui": {
+      "capture": "Capturer l'onglet",
+      "capturing": "Capture…",
+      "recapture": "Recapturer",
+      "png": "PNG",
+      "captureFailed": "Échec de la capture",
+      "noActiveTab": "Aucun onglet actif",
+      "internalPagesError": "Chrome n'autorise pas la capture des pages internes (chrome://, extensions, devtools).",
+      "copyImageFailed": "Impossible de copier l'image",
+      "tools": {
+        "select": "Sélection / déplacement",
+        "rect": "Rectangle",
+        "highlight": "Surligner",
+        "arrow": "Flèche",
+        "line": "Ligne droite",
+        "pen": "Crayon à main levée",
+        "text": "Texte",
+        "crop": "Rogner"
+      },
+      "selectHint": "Cliquez sur une forme pour la sélectionner, puis faites glisser pour la déplacer. Utilisez Supprimer pour l'enlever.",
+      "emptyHint": "Cliquez sur <strong>Capturer l'onglet</strong> pour prendre une capture de l'onglet actif et commencer à annoter.",
+      "textPlaceholder": "Tapez, Entrée pour confirmer, Échap pour annuler",
+      "colorAria": "Couleur {{color}}",
+      "strokeAria": "Épaisseur du trait"
+    }
   }
 }

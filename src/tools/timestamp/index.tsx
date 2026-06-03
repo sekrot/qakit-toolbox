@@ -22,7 +22,8 @@ const COMMON_TZS = [
 ];
 
 export default function TimestampTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string) => t(`tools:timestamp.ui.${k}`);
   const [tsInput, setTsInput] = useState('');
   const [dateInput, setDateInput] = useState('');
   const [unit, setUnit] = useState<Unit>('s');
@@ -53,15 +54,22 @@ export default function TimestampTool() {
   return (
     <div className="flex h-full flex-col gap-4">
       <div className="flex items-center justify-between gap-2">
-        <CurrentTimestamp now={nowTick} unit={unit} onCopy={copy} copied={copied === 'now'} />
+        <CurrentTimestamp
+          now={nowTick}
+          unit={unit}
+          onCopy={copy}
+          copied={copied === 'now'}
+          nowLabel={ui('now')}
+          clickToCopy={ui('clickToCopy')}
+        />
         <Button variant="secondary" size="sm" onClick={setNow}>
           <Clock className="h-3 w-3" />
-          Use now
+          {ui('useNow')}
         </Button>
       </div>
 
       <section className="flex flex-col gap-2">
-        <Label>Timestamp → Date</Label>
+        <Label>{ui('tsToDate')}</Label>
         <div className="flex items-center gap-2">
           <Input
             value={tsInput}
@@ -98,7 +106,7 @@ export default function TimestampTool() {
       </section>
 
       <section className="flex flex-col gap-2">
-        <Label>Date → Timestamp</Label>
+        <Label>{ui('dateToTs')}</Label>
         <Input
           value={dateInput}
           onChange={(e) => setDateInput(e.target.value)}
@@ -109,7 +117,7 @@ export default function TimestampTool() {
         {fromDate.ok && fromDate.date && (
           <div className="flex flex-col gap-1 rounded-md border border-border bg-muted p-2 text-xs">
             <Row
-              label="Seconds"
+              label={ui('seconds')}
               value={String(Math.floor(fromDate.date.getTime() / 1000))}
               onCopy={copy}
               copyKey="d-s"
@@ -117,7 +125,7 @@ export default function TimestampTool() {
               t={t}
             />
             <Row
-              label="Milliseconds"
+              label={ui('milliseconds')}
               value={String(fromDate.date.getTime())}
               onCopy={copy}
               copyKey="d-ms"
@@ -129,7 +137,7 @@ export default function TimestampTool() {
       </section>
 
       <section className="flex flex-col gap-1">
-        <Label>Timezone</Label>
+        <Label>{ui('timezone')}</Label>
         <select
           value={tz}
           onChange={(e) => setTz(e.target.value)}
@@ -151,20 +159,24 @@ function CurrentTimestamp({
   unit,
   onCopy,
   copied,
+  nowLabel,
+  clickToCopy,
 }: {
   now: number;
   unit: Unit;
   onCopy: (text: string, key: string) => void;
   copied: boolean;
+  nowLabel: string;
+  clickToCopy: string;
 }) {
   const value = unit === 's' ? Math.floor(now / 1000) : now;
   return (
     <button
       onClick={() => onCopy(String(value), 'now')}
       className="flex items-center gap-2 rounded-md border border-border bg-muted px-2 py-1 font-mono text-xs hover:bg-accent"
-      title="Click to copy"
+      title={clickToCopy}
     >
-      <span className="text-muted-foreground">now:</span>
+      <span className="text-muted-foreground">{nowLabel}</span>
       <span>{value}</span>
       {copied && <span className="text-primary">✓</span>}
     </button>
@@ -191,7 +203,7 @@ function DateOutput({
   return (
     <div className="flex flex-col gap-1 rounded-md border border-border bg-muted p-2 text-xs">
       <Row
-        label="ISO 8601 (UTC)"
+        label={t('tools:timestamp.ui.isoUtc')}
         value={iso}
         onCopy={(text) => onCopy(text)}
         copyKey="iso"
@@ -238,7 +250,7 @@ function Row({
           className="h-6 w-6 p-0"
         >
           {copied ? (
-            <span className="text-[10px]">{t('copied')}</span>
+            <span className="text-[10px]">{t('common:copied')}</span>
           ) : (
             <Copy className="h-3 w-3" />
           )}

@@ -5,14 +5,15 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { generateMany, type UuidVersion } from './logic';
 
-const VERSIONS: { value: UuidVersion; label: string; hint: string }[] = [
-  { value: 'v4', label: 'v4', hint: 'Random' },
-  { value: 'v7', label: 'v7', hint: 'Time-ordered' },
-  { value: 'nil', label: 'NIL', hint: 'All zeros' },
+const VERSIONS: { value: UuidVersion; label: string; hintKey: string }[] = [
+  { value: 'v4', label: 'v4', hintKey: 'v4Hint' },
+  { value: 'v7', label: 'v7', hintKey: 'v7Hint' },
+  { value: 'nil', label: 'NIL', hintKey: 'nilHint' },
 ];
 
 export default function UuidTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string, opts?: Record<string, unknown>) => t(`tools:uuid.ui.${k}`, opts);
   const [version, setVersion] = useState<UuidVersion>('v4');
   const [count, setCount] = useState(5);
   const [ids, setIds] = useState<string[]>(() => generateMany('v4', 5));
@@ -38,13 +39,13 @@ export default function UuidTool() {
             variant={version === v.value ? 'primary' : 'secondary'}
             size="sm"
             onClick={() => regenerate(v.value)}
-            title={v.hint}
+            title={ui(`versions.${v.hintKey}`)}
           >
             {v.label}
           </Button>
         ))}
         <div className="ml-auto flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">Count</span>
+          <span className="text-xs text-muted-foreground">{t('common:labels.count')}</span>
           <Input
             type="number"
             min={1}
@@ -67,11 +68,12 @@ export default function UuidTool() {
 
       <div className="flex items-center justify-between text-xs text-muted-foreground">
         <span>
-          {VERSIONS.find((v) => v.value === version)?.hint} · {ids.length} generated
+          {ui(`versions.${VERSIONS.find((v) => v.value === version)?.hintKey}`)} ·{' '}
+          {ui('generated', { count: ids.length })}
         </span>
         <Button variant="ghost" size="sm" onClick={() => copy(ids.join('\n'), 'all')}>
           <Copy className="h-3 w-3" />
-          {copied === 'all' ? t('copied') : 'Copy all'}
+          {copied === 'all' ? t('common:copied') : ui('copyAll')}
         </Button>
       </div>
 
@@ -87,7 +89,7 @@ export default function UuidTool() {
                 className="h-6 w-6 p-0"
               >
                 {copied === String(i) ? (
-                  <span className="text-[10px]">{t('copied')}</span>
+                  <span className="text-[10px]">{t('common:copied')}</span>
                 ) : (
                   <Copy className="h-3 w-3" />
                 )}

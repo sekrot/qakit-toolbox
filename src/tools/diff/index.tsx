@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Trash2 } from 'lucide-react';
 import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
@@ -17,6 +18,8 @@ const RIGHT_SAMPLE = `function greet(name) {
 type ViewMode = 'split' | 'unified';
 
 export default function DiffTool() {
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string) => t(`tools:diff.ui.${k}`);
   const [left, setLeft] = useState(LEFT_SAMPLE);
   const [right, setRight] = useState(RIGHT_SAMPLE);
   const [view, setView] = useState<ViewMode>('split');
@@ -33,13 +36,13 @@ export default function DiffTool() {
               key={v}
               onClick={() => setView(v)}
               className={cn(
-                'rounded-sm px-2 py-1 capitalize',
+                'rounded-sm px-2 py-1',
                 view === v
                   ? 'bg-accent text-foreground'
                   : 'text-muted-foreground hover:text-foreground',
               )}
             >
-              {v}
+              {ui(v)}
             </button>
           ))}
         </div>
@@ -49,7 +52,7 @@ export default function DiffTool() {
             checked={!!opts.ignoreWhitespace}
             onChange={(e) => setOpts((p) => ({ ...p, ignoreWhitespace: e.target.checked }))}
           />
-          Ignore whitespace
+          {ui('ignoreWhitespace')}
         </label>
         <label className="flex items-center gap-1 text-xs text-muted-foreground">
           <input
@@ -57,7 +60,7 @@ export default function DiffTool() {
             checked={!!opts.ignoreCase}
             onChange={(e) => setOpts((p) => ({ ...p, ignoreCase: e.target.checked }))}
           />
-          Ignore case
+          {ui('ignoreCase')}
         </label>
         <Stats
           added={diff.stats.added}
@@ -72,7 +75,7 @@ export default function DiffTool() {
               setLeft('');
               setRight('');
             }}
-            title="Clear"
+            title={t('common:clear')}
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -83,13 +86,13 @@ export default function DiffTool() {
         <Textarea
           value={left}
           onChange={(e) => setLeft(e.target.value)}
-          placeholder="Original"
+          placeholder={ui('placeholderOriginal')}
           className="min-h-[120px]"
         />
         <Textarea
           value={right}
           onChange={(e) => setRight(e.target.value)}
-          placeholder="Modified"
+          placeholder={ui('placeholderModified')}
           className="min-h-[120px]"
         />
       </div>

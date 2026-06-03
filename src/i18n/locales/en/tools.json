@@ -8,46 +8,175 @@
   },
   "json": {
     "name": "JSON Formatter",
-    "description": "Format, validate and query JSON with JSONPath"
+    "description": "Format, validate and query JSON with JSONPath",
+    "ui": {
+      "mode": {
+        "format": "Format",
+        "minify": "Minify",
+        "jsonpath": "JSONPath"
+      },
+      "loadSampleTitle": "Load sample",
+      "placeholderInput": "{\"hello\": \"world\"} — or drag a .json file here",
+      "placeholderPath": "$.store.book[*].price",
+      "errorLineCol": "(line {{line}}, col {{col}})"
+    }
   },
   "jwt": {
     "name": "JWT Decoder",
-    "description": "Decode and inspect JSON Web Tokens"
+    "description": "Decode and inspect JSON Web Tokens",
+    "ui": {
+      "placeholderToken": "Paste a JWT token here (eyJhbGc…)",
+      "header": "Header",
+      "payload": "Payload",
+      "signature": "Signature",
+      "status": {
+        "expired": "Expired",
+        "expiredSuffix": "{{duration}} ago",
+        "notYetValid": "Not yet valid",
+        "valid": "Valid · expires in {{duration}}",
+        "decoded": "Decoded"
+      }
+    }
   },
   "encoders": {
     "name": "Base64 / URL Encode",
-    "description": "Encode and decode Base64 and URL strings"
+    "description": "Encode and decode Base64 and URL strings",
+    "ui": {
+      "kinds": {
+        "base64": "Base64",
+        "base64url": "Base64 URL",
+        "url": "URL"
+      },
+      "direction": {
+        "auto": "Auto",
+        "encode": "Encode",
+        "decode": "Decode"
+      },
+      "placeholderInput": "Enter text…"
+    }
   },
   "timestamp": {
     "name": "Unix Timestamp",
-    "description": "Convert between Unix timestamps and human-readable dates"
+    "description": "Convert between Unix timestamps and human-readable dates",
+    "ui": {
+      "useNow": "Use now",
+      "now": "now:",
+      "clickToCopy": "Click to copy",
+      "tsToDate": "Timestamp → Date",
+      "dateToTs": "Date → Timestamp",
+      "timezone": "Timezone",
+      "seconds": "Seconds",
+      "milliseconds": "Milliseconds",
+      "isoUtc": "ISO 8601 (UTC)"
+    }
   },
   "uuid": {
     "name": "UUID Generator",
-    "description": "Generate UUID v4, v7, and NIL identifiers"
+    "description": "Generate UUID v4, v7, and NIL identifiers",
+    "ui": {
+      "versions": {
+        "v4Hint": "Random",
+        "v7Hint": "Time-ordered",
+        "nilHint": "All zeros"
+      },
+      "generated": "{{count}} generated",
+      "copyAll": "Copy all"
+    }
   },
   "regex": {
     "name": "Regex Tester",
-    "description": "Test regular expressions with live highlighting"
+    "description": "Test regular expressions with live highlighting",
+    "ui": {
+      "pattern": "pattern",
+      "testString": "Test string",
+      "placeholderTest": "Paste text to test against…",
+      "matches": "Matches",
+      "matchTitle": "Match {{index}}",
+      "captureGroups": "Capture groups",
+      "cheatsheet": "Cheatsheet",
+      "copyAllMatches": "{{copy}} all matches"
+    }
   },
   "hash": {
     "name": "Hash Calculator",
-    "description": "Compute MD5, SHA-1, SHA-256 and SHA-512 hashes"
+    "description": "Compute MD5, SHA-1, SHA-256 and SHA-512 hashes",
+    "ui": {
+      "modeText": "Text",
+      "modeFile": "File",
+      "placeholderText": "Type or paste text — hashes update live",
+      "dropFile": "Drop a file here or click to select",
+      "privacyNote": "Hashed locally; never uploaded",
+      "computing": "Computing…",
+      "kb": "{{size}} KB"
+    }
   },
   "diff": {
     "name": "Text Diff",
-    "description": "Compare two pieces of text side by side"
+    "description": "Compare two pieces of text side by side",
+    "ui": {
+      "split": "Split",
+      "unified": "Unified",
+      "ignoreWhitespace": "Ignore whitespace",
+      "ignoreCase": "Ignore case",
+      "placeholderOriginal": "Original",
+      "placeholderModified": "Modified"
+    }
   },
   "clipboard": {
     "name": "Clipboard History",
-    "description": "View and reuse your clipboard history"
+    "description": "View and reuse your clipboard history",
+    "ui": {
+      "save": "Save current clipboard",
+      "clearUnpinned": "Clear unpinned",
+      "searchPlaceholder": "Search history…",
+      "autoCaptureTip": "Tip: any text you copy inside this side panel is captured automatically.",
+      "empty": "History is empty",
+      "noMatches": "No matches",
+      "clipboardEmpty": "Clipboard is empty",
+      "readFailureSuffix": "(focus the side panel and try again)",
+      "readFailed": "Failed to read clipboard"
+    }
   },
   "colorpicker": {
     "name": "Color Picker",
-    "description": "Pick any color on screen and copy its code"
+    "description": "Pick any color on screen and copy its code",
+    "ui": {
+      "pick": "Pick color from screen",
+      "unsupported": "EyeDropper not supported",
+      "invalidHex": "Invalid hex color",
+      "history": "History",
+      "clearUnpinned": "Clear unpinned",
+      "empty": "Pick or paste a color to populate history.",
+      "useColor": "Use {{hex}}"
+    }
   },
   "screenshot": {
     "name": "Screenshot",
-    "description": "Capture and annotate screenshots of the current tab"
+    "description": "Capture and annotate screenshots of the current tab",
+    "ui": {
+      "capture": "Capture tab",
+      "capturing": "Capturing…",
+      "recapture": "Recapture",
+      "png": "PNG",
+      "captureFailed": "Capture failed",
+      "noActiveTab": "No active tab",
+      "internalPagesError": "Chrome does not allow capturing internal pages (chrome://, extensions, devtools).",
+      "copyImageFailed": "Failed to copy image",
+      "tools": {
+        "select": "Select / move",
+        "rect": "Rectangle",
+        "highlight": "Highlight",
+        "arrow": "Arrow",
+        "line": "Straight line",
+        "pen": "Freehand pen",
+        "text": "Text",
+        "crop": "Crop"
+      },
+      "selectHint": "Click a shape to select it, then drag to move. Use Delete to remove.",
+      "emptyHint": "Click <strong>Capture tab</strong> to take a screenshot of the active tab and start annotating.",
+      "textPlaceholder": "Type, Enter to confirm, Esc to cancel",
+      "colorAria": "Color {{color}}",
+      "strokeAria": "Stroke width"
+    }
   }
 }

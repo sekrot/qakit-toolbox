@@ -1,14 +1,14 @@
 {
-  "title": "Settings",
+  "title": "Einstellungen",
   "theme": "Theme",
   "themes": {
-    "light": "Light",
-    "dark": "Dark",
+    "light": "Hell",
+    "dark": "Dunkel",
     "system": "System"
   },
-  "language": "Language",
+  "language": "Sprache",
   "languages": {
-    "system": "System default",
+    "system": "Systemstandard",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,16 +16,18 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "shortcuts": "Keyboard shortcuts",
-  "shortcutsHint": "Open the Chrome shortcuts page to remap these.",
-  "shortcutsCustomise": "Customise in Chrome",
-  "shortcutsUnassigned": "Not set",
-  "data": "Data",
-  "clearHistory": "Clear all history",
-  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
-  "exportSettings": "Export settings",
-  "importSettings": "Import settings",
-  "imported": "Imported {{count}} keys",
-  "importFailed": "Import failed: {{error}}",
-  "about": "About"
+  "shortcuts": "Tastenkürzel",
+  "shortcutsHint": "Öffnen Sie die Chrome-Tastenkürzel-Seite, um sie neu zu belegen.",
+  "shortcutsCustomise": "In Chrome anpassen",
+  "shortcutsUnassigned": "Nicht zugewiesen",
+  "data": "Daten",
+  "clearHistory": "Verlauf löschen",
+  "clearHistoryConfirm": "Verlauf von Zwischenablage und Farbpipette löschen? Angeheftete Einträge werden ebenfalls entfernt.",
+  "exportSettings": "Einstellungen exportieren",
+  "importSettings": "Einstellungen importieren",
+  "imported": "{{count}} Einträge importiert",
+  "importFailed": "Import fehlgeschlagen: {{error}}",
+  "about": "Über",
+  "onboarding": "Einführung",
+  "onboardingReplay": "Wiederholen"
 }

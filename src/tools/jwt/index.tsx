@@ -12,7 +12,8 @@ const SAMPLE =
   'SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 
 export default function JwtTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string, opts?: Record<string, unknown>) => t(`tools:jwt.ui.${k}`, opts);
   const [token, setToken] = useState('');
   const [copied, setCopied] = useState<string | null>(null);
 
@@ -28,9 +29,9 @@ export default function JwtTool() {
     <div className="flex h-full flex-col gap-3">
       <div className="flex items-center justify-end gap-1">
         <Button variant="ghost" size="sm" onClick={() => setToken(SAMPLE)}>
-          Load sample
+          {t('common:actions.loadSample')}
         </Button>
-        <Button variant="ghost" size="sm" onClick={() => setToken('')} title={t('clear')}>
+        <Button variant="ghost" size="sm" onClick={() => setToken('')} title={t('common:clear')}>
           <Trash2 className="h-4 w-4" />
         </Button>
       </div>
@@ -38,7 +39,7 @@ export default function JwtTool() {
       <Textarea
         value={token}
         onChange={(e) => setToken(e.target.value.replace(/\s+/g, ''))}
-        placeholder="Paste a JWT token here (eyJhbGc…)"
+        placeholder={ui('placeholderToken')}
         className="min-h-[100px] break-all"
       />
 
@@ -50,16 +51,16 @@ export default function JwtTool() {
 
       {result?.ok && result.parts && result.status && (
         <>
-          <StatusBadge status={result.status} />
+          <StatusBadge status={result.status} ui={ui} />
           <Section
-            title="Header"
+            title={ui('header')}
             value={pretty(result.parts.header)}
             onCopy={() => copy(pretty(result.parts!.header), 'header')}
             copied={copied === 'header'}
             t={t}
           />
           <Section
-            title="Payload"
+            title={ui('payload')}
             value={pretty(result.parts.payload)}
             onCopy={() => copy(pretty(result.parts!.payload), 'payload')}
             copied={copied === 'payload'}
@@ -67,7 +68,7 @@ export default function JwtTool() {
             extra={<ClaimTimestamps payload={result.parts.payload} />}
           />
           <Section
-            title="Signature"
+            title={ui('signature')}
             value={result.parts.signature}
             onCopy={() => copy(result.parts!.signature, 'sig')}
             copied={copied === 'sig'}
@@ -101,7 +102,7 @@ function Section({ title, value, onCopy, copied, t, extra }: SectionProps) {
         </h3>
         <Button variant="ghost" size="sm" onClick={onCopy}>
           <Copy className="h-3 w-3" />
-          {copied ? t('copied') : t('copy')}
+          {copied ? t('common:copied') : t('common:copy')}
         </Button>
       </div>
       <pre className="overflow-x-auto rounded-md border border-border bg-muted p-2 font-mono text-xs">
@@ -112,32 +113,43 @@ function Section({ title, value, onCopy, copied, t, extra }: SectionProps) {
   );
 }
 
-function StatusBadge({ status }: { status: NonNullable<ReturnType<typeof decodeJwt>['status']> }) {
+function StatusBadge({
+  status,
+  ui,
+}: {
+  status: NonNullable<ReturnType<typeof decodeJwt>['status']>;
+  ui: (k: string, opts?: Record<string, unknown>) => string;
+}) {
   if (status.expired) {
     return (
       <Badge tone="error" icon={AlertTriangle}>
-        Expired
-        {status.expiresIn != null && <span> · {formatDuration(status.expiresIn)} ago</span>}
+        {ui('status.expired')}
+        {status.expiresIn != null && (
+          <span>
+            {' '}
+            · {ui('status.expiredSuffix', { duration: formatDuration(status.expiresIn) })}
+          </span>
+        )}
       </Badge>
     );
   }
   if (status.notYetValid) {
     return (
       <Badge tone="warn" icon={Clock}>
-        Not yet valid
+        {ui('status.notYetValid')}
       </Badge>
     );
   }
   if (status.expiresIn != null) {
     return (
       <Badge tone="ok" icon={CheckCircle2}>
-        Valid · expires in {formatDuration(status.expiresIn)}
+        {ui('status.valid', { duration: formatDuration(status.expiresIn) })}
       </Badge>
     );
   }
   return (
     <Badge tone="ok" icon={CheckCircle2}>
-      Decoded
+      {ui('status.decoded')}
     </Badge>
   );
 }

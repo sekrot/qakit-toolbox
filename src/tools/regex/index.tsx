@@ -12,7 +12,8 @@ const SAMPLE_INPUT =
 const SAMPLE_PATTERN = '\\b[\\w.+-]+@[\\w-]+\\.[\\w.-]+\\b';
 
 export default function RegexTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string, opts?: Record<string, unknown>) => t(`tools:regex.ui.${k}`, opts);
   const [pattern, setPattern] = useState(SAMPLE_PATTERN);
   const [flags, setFlags] = useState('gi');
   const [text, setText] = useState(SAMPLE_INPUT);
@@ -36,7 +37,7 @@ export default function RegexTool() {
           <Input
             value={pattern}
             onChange={(e) => setPattern(e.target.value)}
-            placeholder="pattern"
+            placeholder={ui('pattern')}
             className="h-8 flex-1 border-0 px-0 focus-visible:ring-0"
           />
           <span className="px-2 text-muted-foreground">/{flags}</span>
@@ -69,12 +70,12 @@ export default function RegexTool() {
 
       <div className="flex flex-col gap-1">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          Test string
+          {ui('testString')}
         </h3>
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Paste text to test against…"
+          placeholder={ui('placeholderTest')}
           className="min-h-[100px]"
         />
       </div>
@@ -82,7 +83,7 @@ export default function RegexTool() {
       <div className="flex flex-col gap-1">
         <h3 className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           <span>
-            Matches{' '}
+            {ui('matches')}{' '}
             {result.ok && (
               <span className="ml-1 rounded-md bg-muted px-1.5 py-0.5 font-mono normal-case text-foreground">
                 {result.matches.length}
@@ -96,7 +97,7 @@ export default function RegexTool() {
               <mark
                 key={i}
                 className="rounded-sm bg-primary/30 px-0.5 text-foreground"
-                title={`Match ${seg.matchIndex + 1}`}
+                title={ui('matchTitle', { index: seg.matchIndex + 1 })}
               >
                 {seg.text}
               </mark>
@@ -113,7 +114,7 @@ export default function RegexTool() {
         ) && (
           <div className="flex flex-col gap-1">
             <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Capture groups
+              {ui('captureGroups')}
             </h3>
             <div className="flex max-h-32 flex-col gap-1 overflow-y-auto rounded-md border border-border bg-muted p-2 text-xs">
               {result.matches.map((m, i) => (
@@ -146,7 +147,7 @@ export default function RegexTool() {
             <ChevronRight className="h-3 w-3" />
           )}
           <BookOpen className="h-3 w-3" />
-          Cheatsheet
+          {ui('cheatsheet')}
         </button>
         {cheatsheetOpen && (
           <div className="grid grid-cols-1 gap-1 rounded-md border border-border bg-muted p-2 text-xs">
@@ -169,7 +170,7 @@ export default function RegexTool() {
           }
           className="self-start"
         >
-          {t('copy')} all matches
+          {ui('copyAllMatches', { copy: t('common:copy') })}
         </Button>
       )}
     </div>

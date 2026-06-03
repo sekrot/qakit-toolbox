@@ -8,46 +8,175 @@
   },
   "json": {
     "name": "JSON Formatter",
-    "description": "JSON formatieren, validieren und mit JSONPath abfragen"
+    "description": "JSON formatieren, validieren und mit JSONPath abfragen",
+    "ui": {
+      "mode": {
+        "format": "Formatieren",
+        "minify": "Minify",
+        "jsonpath": "JSONPath"
+      },
+      "loadSampleTitle": "Beispiel laden",
+      "placeholderInput": "{\"hello\": \"world\"} — oder .json hierher ziehen",
+      "placeholderPath": "$.store.book[*].price",
+      "errorLineCol": "(Zeile {{line}}, Spalte {{col}})"
+    }
   },
   "jwt": {
     "name": "JWT Decoder",
-    "description": "JSON Web Tokens dekodieren und prüfen"
+    "description": "JSON Web Tokens dekodieren und prüfen",
+    "ui": {
+      "placeholderToken": "JWT-Token einfügen (eyJhbGc…)",
+      "header": "Header",
+      "payload": "Payload",
+      "signature": "Signatur",
+      "status": {
+        "expired": "Abgelaufen",
+        "expiredSuffix": "vor {{duration}}",
+        "notYetValid": "Noch nicht gültig",
+        "valid": "Gültig · läuft in {{duration}} ab",
+        "decoded": "Dekodiert"
+      }
+    }
   },
   "encoders": {
     "name": "Base64 / URL",
-    "description": "Base64 und URL kodieren und dekodieren"
+    "description": "Base64 und URL kodieren und dekodieren",
+    "ui": {
+      "kinds": {
+        "base64": "Base64",
+        "base64url": "Base64 URL",
+        "url": "URL"
+      },
+      "direction": {
+        "auto": "Auto",
+        "encode": "Kodieren",
+        "decode": "Dekodieren"
+      },
+      "placeholderInput": "Text eingeben…"
+    }
   },
   "timestamp": {
     "name": "Unix-Timestamp",
-    "description": "Zwischen Unix-Timestamps und Datum umrechnen"
+    "description": "Zwischen Unix-Timestamps und Datum umrechnen",
+    "ui": {
+      "useNow": "Jetzt",
+      "now": "jetzt:",
+      "clickToCopy": "Klicken zum Kopieren",
+      "tsToDate": "Timestamp → Datum",
+      "dateToTs": "Datum → Timestamp",
+      "timezone": "Zeitzone",
+      "seconds": "Sekunden",
+      "milliseconds": "Millisekunden",
+      "isoUtc": "ISO 8601 (UTC)"
+    }
   },
   "uuid": {
     "name": "UUID-Generator",
-    "description": "UUIDs v4, v7 und NIL erzeugen"
+    "description": "UUIDs v4, v7 und NIL erzeugen",
+    "ui": {
+      "versions": {
+        "v4Hint": "Zufällig",
+        "v7Hint": "Zeitgeordnet",
+        "nilHint": "Nur Nullen"
+      },
+      "generated": "{{count}} erzeugt",
+      "copyAll": "Alle kopieren"
+    }
   },
   "regex": {
     "name": "Regex-Tester",
-    "description": "Reguläre Ausdrücke mit Live-Hervorhebung testen"
+    "description": "Reguläre Ausdrücke mit Live-Hervorhebung testen",
+    "ui": {
+      "pattern": "Muster",
+      "testString": "Testtext",
+      "placeholderTest": "Text zum Testen einfügen…",
+      "matches": "Treffer",
+      "matchTitle": "Treffer {{index}}",
+      "captureGroups": "Capture-Gruppen",
+      "cheatsheet": "Spickzettel",
+      "copyAllMatches": "Alle Treffer {{copy}}"
+    }
   },
   "hash": {
     "name": "Hash-Rechner",
-    "description": "MD5, SHA-1, SHA-256 und SHA-512 berechnen"
+    "description": "MD5, SHA-1, SHA-256 und SHA-512 berechnen",
+    "ui": {
+      "modeText": "Text",
+      "modeFile": "Datei",
+      "placeholderText": "Text eingeben oder einfügen — Hashes aktualisieren live",
+      "dropFile": "Datei hierher ziehen oder anklicken",
+      "privacyNote": "Lokal gehasht, niemals hochgeladen",
+      "computing": "Berechne…",
+      "kb": "{{size}} KB"
+    }
   },
   "diff": {
     "name": "Text-Diff",
-    "description": "Zwei Textstücke nebeneinander vergleichen"
+    "description": "Zwei Textstücke nebeneinander vergleichen",
+    "ui": {
+      "split": "Geteilt",
+      "unified": "Vereint",
+      "ignoreWhitespace": "Leerzeichen ignorieren",
+      "ignoreCase": "Groß-/Kleinschreibung ignorieren",
+      "placeholderOriginal": "Original",
+      "placeholderModified": "Bearbeitet"
+    }
   },
   "clipboard": {
     "name": "Zwischenablage-Verlauf",
-    "description": "Zwischenablage-Verlauf ansehen und wiederverwenden"
+    "description": "Zwischenablage-Verlauf ansehen und wiederverwenden",
+    "ui": {
+      "save": "Zwischenablage speichern",
+      "clearUnpinned": "Nicht angeheftete löschen",
+      "searchPlaceholder": "Verlauf durchsuchen…",
+      "autoCaptureTip": "Tipp: Jeder Text, den Sie in dieser Seitenleiste kopieren, wird automatisch erfasst.",
+      "empty": "Verlauf ist leer",
+      "noMatches": "Keine Treffer",
+      "clipboardEmpty": "Zwischenablage ist leer",
+      "readFailureSuffix": "(Seitenleiste fokussieren und erneut versuchen)",
+      "readFailed": "Zwischenablage konnte nicht gelesen werden"
+    }
   },
   "colorpicker": {
     "name": "Farbpipette",
-    "description": "Beliebige Farbe vom Bildschirm aufnehmen und kopieren"
+    "description": "Beliebige Farbe vom Bildschirm aufnehmen und kopieren",
+    "ui": {
+      "pick": "Farbe vom Bildschirm wählen",
+      "unsupported": "EyeDropper nicht unterstützt",
+      "invalidHex": "Ungültige Hex-Farbe",
+      "history": "Verlauf",
+      "clearUnpinned": "Nicht angeheftete löschen",
+      "empty": "Eine Farbe wählen oder einfügen, um den Verlauf zu füllen.",
+      "useColor": "{{hex}} verwenden"
+    }
   },
   "screenshot": {
     "name": "Screenshot",
-    "description": "Screenshots des aktiven Tabs aufnehmen und annotieren"
+    "description": "Screenshots des aktiven Tabs aufnehmen und annotieren",
+    "ui": {
+      "capture": "Tab aufnehmen",
+      "capturing": "Nehme auf…",
+      "recapture": "Neu aufnehmen",
+      "png": "PNG",
+      "captureFailed": "Aufnahme fehlgeschlagen",
+      "noActiveTab": "Kein aktiver Tab",
+      "internalPagesError": "Chrome erlaubt keine Aufnahme interner Seiten (chrome://, Erweiterungen, devtools).",
+      "copyImageFailed": "Bild konnte nicht kopiert werden",
+      "tools": {
+        "select": "Auswählen / verschieben",
+        "rect": "Rechteck",
+        "highlight": "Markieren",
+        "arrow": "Pfeil",
+        "line": "Gerade Linie",
+        "pen": "Freihand-Stift",
+        "text": "Text",
+        "crop": "Zuschneiden"
+      },
+      "selectHint": "Form anklicken zum Auswählen, dann ziehen zum Verschieben. Mit Löschen entfernen.",
+      "emptyHint": "<strong>Tab aufnehmen</strong> klicken, um einen Screenshot des aktiven Tabs zu machen und mit den Anmerkungen zu beginnen.",
+      "textPlaceholder": "Text eingeben, Enter bestätigt, Esc bricht ab",
+      "colorAria": "Farbe {{color}}",
+      "strokeAria": "Strichstärke"
+    }
   }
 }

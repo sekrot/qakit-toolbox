@@ -8,46 +8,175 @@
   },
   "json": {
     "name": "Formateador JSON",
-    "description": "Formatear, validar y consultar JSON con JSONPath"
+    "description": "Formatear, validar y consultar JSON con JSONPath",
+    "ui": {
+      "mode": {
+        "format": "Formatear",
+        "minify": "Minificar",
+        "jsonpath": "JSONPath"
+      },
+      "loadSampleTitle": "Cargar ejemplo",
+      "placeholderInput": "{\"hello\": \"world\"} — o arrastra un .json aquí",
+      "placeholderPath": "$.store.book[*].price",
+      "errorLineCol": "(línea {{line}}, col. {{col}})"
+    }
   },
   "jwt": {
     "name": "Decodificador JWT",
-    "description": "Decodificar e inspeccionar JSON Web Tokens"
+    "description": "Decodificar e inspeccionar JSON Web Tokens",
+    "ui": {
+      "placeholderToken": "Pega un JWT aquí (eyJhbGc…)",
+      "header": "Encabezado",
+      "payload": "Carga útil",
+      "signature": "Firma",
+      "status": {
+        "expired": "Expirado",
+        "expiredSuffix": "hace {{duration}}",
+        "notYetValid": "Aún no válido",
+        "valid": "Válido · expira en {{duration}}",
+        "decoded": "Decodificado"
+      }
+    }
   },
   "encoders": {
     "name": "Base64 / URL",
-    "description": "Codificar y decodificar Base64 y URL"
+    "description": "Codificar y decodificar Base64 y URL",
+    "ui": {
+      "kinds": {
+        "base64": "Base64",
+        "base64url": "Base64 URL",
+        "url": "URL"
+      },
+      "direction": {
+        "auto": "Auto",
+        "encode": "Codificar",
+        "decode": "Decodificar"
+      },
+      "placeholderInput": "Escribe texto…"
+    }
   },
   "timestamp": {
     "name": "Timestamp Unix",
-    "description": "Convertir entre timestamps Unix y fechas legibles"
+    "description": "Convertir entre timestamps Unix y fechas legibles",
+    "ui": {
+      "useNow": "Ahora",
+      "now": "ahora:",
+      "clickToCopy": "Clic para copiar",
+      "tsToDate": "Timestamp → Fecha",
+      "dateToTs": "Fecha → Timestamp",
+      "timezone": "Zona horaria",
+      "seconds": "Segundos",
+      "milliseconds": "Milisegundos",
+      "isoUtc": "ISO 8601 (UTC)"
+    }
   },
   "uuid": {
     "name": "Generador de UUID",
-    "description": "Generar UUID v4, v7 y NIL"
+    "description": "Generar UUID v4, v7 y NIL",
+    "ui": {
+      "versions": {
+        "v4Hint": "Aleatorio",
+        "v7Hint": "Ordenado por tiempo",
+        "nilHint": "Todo ceros"
+      },
+      "generated": "{{count}} generados",
+      "copyAll": "Copiar todo"
+    }
   },
   "regex": {
     "name": "Tester de regex",
-    "description": "Probar expresiones regulares con resaltado en vivo"
+    "description": "Probar expresiones regulares con resaltado en vivo",
+    "ui": {
+      "pattern": "patrón",
+      "testString": "Texto de prueba",
+      "placeholderTest": "Pega el texto a probar…",
+      "matches": "Coincidencias",
+      "matchTitle": "Coincidencia {{index}}",
+      "captureGroups": "Grupos de captura",
+      "cheatsheet": "Chuleta",
+      "copyAllMatches": "{{copy}} todas las coincidencias"
+    }
   },
   "hash": {
     "name": "Calculadora de hash",
-    "description": "Calcular MD5, SHA-1, SHA-256 y SHA-512"
+    "description": "Calcular MD5, SHA-1, SHA-256 y SHA-512",
+    "ui": {
+      "modeText": "Texto",
+      "modeFile": "Archivo",
+      "placeholderText": "Escribe o pega texto — los hashes se actualizan al vuelo",
+      "dropFile": "Suelta un archivo aquí o clic para seleccionarlo",
+      "privacyNote": "Hash local; nunca se sube",
+      "computing": "Calculando…",
+      "kb": "{{size}} KB"
+    }
   },
   "diff": {
     "name": "Diff de texto",
-    "description": "Comparar dos textos lado a lado"
+    "description": "Comparar dos textos lado a lado",
+    "ui": {
+      "split": "Dividido",
+      "unified": "Unificado",
+      "ignoreWhitespace": "Ignorar espacios",
+      "ignoreCase": "Ignorar mayúsculas",
+      "placeholderOriginal": "Original",
+      "placeholderModified": "Modificado"
+    }
   },
   "clipboard": {
     "name": "Historial del portapapeles",
-    "description": "Ver y reutilizar el historial del portapapeles"
+    "description": "Ver y reutilizar el historial del portapapeles",
+    "ui": {
+      "save": "Guardar portapapeles",
+      "clearUnpinned": "Borrar no fijados",
+      "searchPlaceholder": "Buscar en el historial…",
+      "autoCaptureTip": "Consejo: cualquier texto que copies en este panel se guarda automáticamente.",
+      "empty": "Historial vacío",
+      "noMatches": "Sin coincidencias",
+      "clipboardEmpty": "El portapapeles está vacío",
+      "readFailureSuffix": "(da foco al panel lateral e inténtalo de nuevo)",
+      "readFailed": "No se pudo leer el portapapeles"
+    }
   },
   "colorpicker": {
     "name": "Cuentagotas de color",
-    "description": "Capturar cualquier color de la pantalla y copiar su código"
+    "description": "Capturar cualquier color de la pantalla y copiar su código",
+    "ui": {
+      "pick": "Elegir color de la pantalla",
+      "unsupported": "EyeDropper no soportado",
+      "invalidHex": "Color hex inválido",
+      "history": "Historial",
+      "clearUnpinned": "Borrar no fijados",
+      "empty": "Elige o pega un color para llenar el historial.",
+      "useColor": "Usar {{hex}}"
+    }
   },
   "screenshot": {
     "name": "Captura de pantalla",
-    "description": "Capturar y anotar la pestaña activa"
+    "description": "Capturar y anotar la pestaña activa",
+    "ui": {
+      "capture": "Capturar pestaña",
+      "capturing": "Capturando…",
+      "recapture": "Recapturar",
+      "png": "PNG",
+      "captureFailed": "Captura fallida",
+      "noActiveTab": "Sin pestaña activa",
+      "internalPagesError": "Chrome no permite capturar páginas internas (chrome://, extensiones, devtools).",
+      "copyImageFailed": "No se pudo copiar la imagen",
+      "tools": {
+        "select": "Seleccionar / mover",
+        "rect": "Rectángulo",
+        "highlight": "Resaltar",
+        "arrow": "Flecha",
+        "line": "Línea recta",
+        "pen": "Lápiz libre",
+        "text": "Texto",
+        "crop": "Recortar"
+      },
+      "selectHint": "Haz clic en una figura para seleccionarla y arrastra para moverla. Usa Eliminar para quitarla.",
+      "emptyHint": "Pulsa <strong>Capturar pestaña</strong> para hacer una captura de la pestaña activa y empezar a anotar.",
+      "textPlaceholder": "Escribe, Enter para confirmar, Esc para cancelar",
+      "colorAria": "Color {{color}}",
+      "strokeAria": "Grosor del trazo"
+    }
   }
 }

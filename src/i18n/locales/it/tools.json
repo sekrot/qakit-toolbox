@@ -8,46 +8,175 @@
   },
   "json": {
     "name": "Formattatore JSON",
-    "description": "Formatta, valida e interroga il JSON con JSONPath"
+    "description": "Formatta, valida e interroga il JSON con JSONPath",
+    "ui": {
+      "mode": {
+        "format": "Formatta",
+        "minify": "Minifica",
+        "jsonpath": "JSONPath"
+      },
+      "loadSampleTitle": "Carica esempio",
+      "placeholderInput": "{\"hello\": \"world\"} — o trascina qui un .json",
+      "placeholderPath": "$.store.book[*].price",
+      "errorLineCol": "(riga {{line}}, col. {{col}})"
+    }
   },
   "jwt": {
     "name": "Decoder JWT",
-    "description": "Decodifica e analizza i JSON Web Token"
+    "description": "Decodifica e analizza i JSON Web Token",
+    "ui": {
+      "placeholderToken": "Incolla qui un JWT (eyJhbGc…)",
+      "header": "Header",
+      "payload": "Payload",
+      "signature": "Firma",
+      "status": {
+        "expired": "Scaduto",
+        "expiredSuffix": "{{duration}} fa",
+        "notYetValid": "Non ancora valido",
+        "valid": "Valido · scade tra {{duration}}",
+        "decoded": "Decodificato"
+      }
+    }
   },
   "encoders": {
     "name": "Base64 / URL",
-    "description": "Codifica e decodifica Base64 e URL"
+    "description": "Codifica e decodifica Base64 e URL",
+    "ui": {
+      "kinds": {
+        "base64": "Base64",
+        "base64url": "Base64 URL",
+        "url": "URL"
+      },
+      "direction": {
+        "auto": "Auto",
+        "encode": "Codifica",
+        "decode": "Decodifica"
+      },
+      "placeholderInput": "Inserisci testo…"
+    }
   },
   "timestamp": {
     "name": "Timestamp Unix",
-    "description": "Converti tra timestamp Unix e date leggibili"
+    "description": "Converti tra timestamp Unix e date leggibili",
+    "ui": {
+      "useNow": "Adesso",
+      "now": "adesso:",
+      "clickToCopy": "Clic per copiare",
+      "tsToDate": "Timestamp → Data",
+      "dateToTs": "Data → Timestamp",
+      "timezone": "Fuso orario",
+      "seconds": "Secondi",
+      "milliseconds": "Millisecondi",
+      "isoUtc": "ISO 8601 (UTC)"
+    }
   },
   "uuid": {
     "name": "Generatore UUID",
-    "description": "Genera UUID v4, v7 e NIL"
+    "description": "Genera UUID v4, v7 e NIL",
+    "ui": {
+      "versions": {
+        "v4Hint": "Casuale",
+        "v7Hint": "Ordinato nel tempo",
+        "nilHint": "Tutti zeri"
+      },
+      "generated": "{{count}} generati",
+      "copyAll": "Copia tutto"
+    }
   },
   "regex": {
     "name": "Tester regex",
-    "description": "Prova le espressioni regolari con evidenziazione in tempo reale"
+    "description": "Prova le espressioni regolari con evidenziazione in tempo reale",
+    "ui": {
+      "pattern": "pattern",
+      "testString": "Stringa di test",
+      "placeholderTest": "Incolla il testo da testare…",
+      "matches": "Corrispondenze",
+      "matchTitle": "Corrispondenza {{index}}",
+      "captureGroups": "Gruppi di cattura",
+      "cheatsheet": "Cheatsheet",
+      "copyAllMatches": "{{copy}} tutte le corrispondenze"
+    }
   },
   "hash": {
     "name": "Calcolatore di hash",
-    "description": "Calcola MD5, SHA-1, SHA-256 e SHA-512"
+    "description": "Calcola MD5, SHA-1, SHA-256 e SHA-512",
+    "ui": {
+      "modeText": "Testo",
+      "modeFile": "File",
+      "placeholderText": "Scrivi o incolla testo — gli hash si aggiornano in tempo reale",
+      "dropFile": "Trascina qui un file o clic per selezionarlo",
+      "privacyNote": "Hash locale, mai caricato",
+      "computing": "Sto calcolando…",
+      "kb": "{{size}} KB"
+    }
   },
   "diff": {
     "name": "Diff testo",
-    "description": "Confronta due porzioni di testo affiancate"
+    "description": "Confronta due porzioni di testo affiancate",
+    "ui": {
+      "split": "Affiancato",
+      "unified": "Unificato",
+      "ignoreWhitespace": "Ignora spazi",
+      "ignoreCase": "Ignora maiuscole",
+      "placeholderOriginal": "Originale",
+      "placeholderModified": "Modificato"
+    }
   },
   "clipboard": {
     "name": "Cronologia appunti",
-    "description": "Visualizza e riusa la cronologia degli appunti"
+    "description": "Visualizza e riusa la cronologia degli appunti",
+    "ui": {
+      "save": "Salva appunti correnti",
+      "clearUnpinned": "Cancella non fissati",
+      "searchPlaceholder": "Cerca nella cronologia…",
+      "autoCaptureTip": "Suggerimento: qualsiasi testo copiato in questo pannello viene salvato automaticamente.",
+      "empty": "Cronologia vuota",
+      "noMatches": "Nessuna corrispondenza",
+      "clipboardEmpty": "Appunti vuoti",
+      "readFailureSuffix": "(dai focus al pannello laterale e riprova)",
+      "readFailed": "Impossibile leggere gli appunti"
+    }
   },
   "colorpicker": {
     "name": "Contagocce colore",
-    "description": "Preleva un colore dallo schermo e copialo"
+    "description": "Preleva un colore dallo schermo e copialo",
+    "ui": {
+      "pick": "Preleva colore dallo schermo",
+      "unsupported": "EyeDropper non supportato",
+      "invalidHex": "Colore hex non valido",
+      "history": "Cronologia",
+      "clearUnpinned": "Cancella non fissati",
+      "empty": "Scegli o incolla un colore per popolare la cronologia.",
+      "useColor": "Usa {{hex}}"
+    }
   },
   "screenshot": {
     "name": "Screenshot",
-    "description": "Cattura e annota la scheda attiva"
+    "description": "Cattura e annota la scheda attiva",
+    "ui": {
+      "capture": "Cattura scheda",
+      "capturing": "Sto catturando…",
+      "recapture": "Ricattura",
+      "png": "PNG",
+      "captureFailed": "Cattura fallita",
+      "noActiveTab": "Nessuna scheda attiva",
+      "internalPagesError": "Chrome non permette di catturare pagine interne (chrome://, estensioni, devtools).",
+      "copyImageFailed": "Impossibile copiare l'immagine",
+      "tools": {
+        "select": "Seleziona / sposta",
+        "rect": "Rettangolo",
+        "highlight": "Evidenzia",
+        "arrow": "Freccia",
+        "line": "Linea retta",
+        "pen": "Penna a mano libera",
+        "text": "Testo",
+        "crop": "Ritaglia"
+      },
+      "selectHint": "Clicca una forma per selezionarla, poi trascina per spostarla. Usa Elimina per rimuoverla.",
+      "emptyHint": "Clicca <strong>Cattura scheda</strong> per fare uno screenshot della scheda attiva e iniziare ad annotarla.",
+      "textPlaceholder": "Scrivi, Invio per confermare, Esc per annullare",
+      "colorAria": "Colore {{color}}",
+      "strokeAria": "Spessore del tratto"
+    }
   }
 }

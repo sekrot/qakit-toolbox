@@ -6,7 +6,7 @@
   "settings": "Settings",
   "home": "Home",
   "copy": "Copy",
-  "copied": "Copied to clipboard",
+  "copied": "Copied",
   "clear": "Clear",
   "noResults": "No tools match your search",
   "recent": "Recent",
@@ -14,6 +14,33 @@
   "skip": "Skip",
   "next": "Next",
   "getStarted": "Get started",
+  "actions": {
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "undo": "Undo",
+    "remove": "Remove",
+    "pin": "Pin",
+    "unpin": "Unpin",
+    "loadSample": "Load sample",
+    "download": "Download",
+    "swap": "Swap",
+    "save": "Save",
+    "regenerate": "Regenerate"
+  },
+  "labels": {
+    "input": "Input",
+    "output": "Output",
+    "text": "Text",
+    "file": "File",
+    "size": "Size",
+    "count": "Count",
+    "history": "History",
+    "copyAll": "Copy all"
+  },
+  "placeholders": {
+    "outputArea": "Output will appear here"
+  },
   "onboarding": {
     "welcome": {
       "title": "Welcome to DevKit Toolbox",

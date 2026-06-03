@@ -9,7 +9,8 @@ import { ALGORITHMS, ALGO_LABELS, hashFile, hashString, type Algorithm } from '.
 type Mode = 'text' | 'file';
 
 export default function HashTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string, opts?: Record<string, unknown>) => t(`tools:hash.ui.${k}`, opts);
   const [mode, setMode] = useState<Mode>('text');
   const [text, setText] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -94,14 +95,14 @@ export default function HashTool() {
           size="sm"
           onClick={() => setMode('text')}
         >
-          Text
+          {ui('modeText')}
         </Button>
         <Button
           variant={mode === 'file' ? 'primary' : 'secondary'}
           size="sm"
           onClick={() => setMode('file')}
         >
-          File
+          {ui('modeFile')}
         </Button>
         <div className="ml-auto">
           <Button
@@ -112,7 +113,7 @@ export default function HashTool() {
               setFile(null);
               setResults({});
             }}
-            title={t('clear')}
+            title={t('common:clear')}
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -140,7 +141,7 @@ export default function HashTool() {
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Type or paste text — hashes update live"
+          placeholder={ui('placeholderText')}
           className="min-h-[100px]"
         />
       ) : (
@@ -151,6 +152,10 @@ export default function HashTool() {
             setFile(f);
             void computeFile(f);
           }}
+          dropLabel={ui('dropFile')}
+          privacyLabel={ui('privacyNote')}
+          kbLabel={(size) => ui('kb', { size })}
+          computingLabel={ui('computing')}
         />
       )}
 
@@ -170,12 +175,12 @@ export default function HashTool() {
               {results[algo] && (
                 <Button variant="ghost" size="sm" onClick={() => copy(results[algo]!, algo)}>
                   <Copy className="h-3 w-3" />
-                  {copied === algo ? t('copied') : t('copy')}
+                  {copied === algo ? t('common:copied') : t('common:copy')}
                 </Button>
               )}
             </div>
             <code className="block break-all font-mono text-xs">
-              {results[algo] ?? (busy ? 'Computing…' : '—')}
+              {results[algo] ?? (busy ? ui('computing') : '—')}
             </code>
           </div>
         ))}
@@ -188,10 +193,18 @@ function FileDrop({
   file,
   busy,
   onSelect,
+  dropLabel,
+  privacyLabel,
+  kbLabel,
+  computingLabel,
 }: {
   file: File | null;
   busy: boolean;
   onSelect: (f: File) => void;
+  dropLabel: string;
+  privacyLabel: string;
+  kbLabel: (size: string) => string;
+  computingLabel: string;
 }) {
   return (
     <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-dashed border-border bg-muted px-4 py-6 text-center text-sm hover:bg-accent">
@@ -200,13 +213,13 @@ function FileDrop({
         <div className="flex flex-col gap-0.5">
           <span className="font-medium">{file.name}</span>
           <span className="text-xs text-muted-foreground">
-            {(file.size / 1024).toFixed(1)} KB {busy && '· computing…'}
+            {kbLabel((file.size / 1024).toFixed(1))} {busy && `· ${computingLabel}`}
           </span>
         </div>
       ) : (
         <>
-          <span>Drop a file here or click to select</span>
-          <span className="text-xs text-muted-foreground">Hashed locally; never uploaded</span>
+          <span>{dropLabel}</span>
+          <span className="text-xs text-muted-foreground">{privacyLabel}</span>
         </>
       )}
       <input

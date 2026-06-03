@@ -46,15 +46,15 @@ import {
 
 type Tool = 'select' | 'rect' | 'highlight' | 'arrow' | 'line' | 'pen' | 'text' | 'crop';
 
-const TOOLS: { value: Tool; label: string; icon: typeof Square }[] = [
-  { value: 'select', label: 'Select / move', icon: MousePointer },
-  { value: 'rect', label: 'Rectangle', icon: Square },
-  { value: 'highlight', label: 'Highlight', icon: Highlighter },
-  { value: 'arrow', label: 'Arrow', icon: ArrowUpRight },
-  { value: 'line', label: 'Straight line', icon: Minus },
-  { value: 'pen', label: 'Freehand pen', icon: Pencil },
-  { value: 'text', label: 'Text', icon: Type },
-  { value: 'crop', label: 'Crop', icon: Crop },
+const TOOLS: { value: Tool; icon: typeof Square }[] = [
+  { value: 'select', icon: MousePointer },
+  { value: 'rect', icon: Square },
+  { value: 'highlight', icon: Highlighter },
+  { value: 'arrow', icon: ArrowUpRight },
+  { value: 'line', icon: Minus },
+  { value: 'pen', icon: Pencil },
+  { value: 'text', icon: Type },
+  { value: 'crop', icon: Crop },
 ];
 
 interface TextDraft {
@@ -73,7 +73,8 @@ interface DragState {
 }
 
 export default function ScreenshotTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string, opts?: Record<string, unknown>) => t(`tools:screenshot.ui.${k}`, opts);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [img, setImg] = useState<HTMLImageElement | null>(null);
   const [shapes, setShapes] = useState<Shape[]>([]);
@@ -141,7 +142,7 @@ export default function ScreenshotTool() {
         type: 'capture-visible-tab',
       })) as ScreenshotCaptureResponse;
       if (!response?.ok || !response.dataUrl) {
-        setError(response?.error ?? 'Capture failed');
+        setError(response?.error ?? ui('captureFailed'));
         return;
       }
       setImgUrl(response.dataUrl);
@@ -289,7 +290,7 @@ export default function ScreenshotTool() {
         setCopied(true);
         window.setTimeout(() => setCopied(false), 1500);
       } catch {
-        setError(e instanceof Error ? e.message : 'Failed to copy image');
+        setError(e instanceof Error ? e.message : ui('copyImageFailed'));
       }
     }
   };
@@ -360,17 +361,17 @@ export default function ScreenshotTool() {
       <div className="flex flex-wrap items-center gap-2">
         <Button onClick={capture} disabled={busy} size="sm">
           <Camera className="h-3 w-3" />
-          {busy ? 'Capturing…' : imgUrl ? 'Recapture' : 'Capture tab'}
+          {busy ? ui('capturing') : imgUrl ? ui('recapture') : ui('capture')}
         </Button>
         {imgUrl && (
           <>
             <Button variant="secondary" size="sm" onClick={download}>
               <Download className="h-3 w-3" />
-              PNG
+              {ui('png')}
             </Button>
             <Button variant="secondary" size="sm" onClick={copy}>
               <Copy className="h-3 w-3" />
-              {copied ? t('copied') : 'Copy'}
+              {copied ? t('common:copied') : t('common:copy')}
             </Button>
           </>
         )}
@@ -386,22 +387,23 @@ export default function ScreenshotTool() {
         <>
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex gap-0.5">
-              {TOOLS.map((it) => {
-                const Icon = it.icon;
+              {TOOLS.map((toolDef) => {
+                const Icon = toolDef.icon;
+                const label = ui(`tools.${toolDef.value}`);
                 return (
                   <button
-                    key={it.value}
+                    key={toolDef.value}
                     onClick={() => {
-                      setTool(it.value);
+                      setTool(toolDef.value);
                       setCropDraft(null);
                       cancelText();
-                      if (it.value !== 'select') setSelectedId(null);
+                      if (toolDef.value !== 'select') setSelectedId(null);
                     }}
-                    title={it.label}
-                    aria-label={it.label}
+                    title={label}
+                    aria-label={label}
                     className={cn(
                       'rounded-md border p-1.5 transition-colors',
-                      tool === it.value
+                      tool === toolDef.value
                         ? 'border-primary bg-primary/10 text-primary'
                         : 'border-border text-muted-foreground hover:text-foreground',
                     )}
@@ -423,20 +425,20 @@ export default function ScreenshotTool() {
                   )}
                   style={{ backgroundColor: c }}
                   title={c}
-                  aria-label={`Color ${c}`}
+                  aria-label={ui('colorAria', { color: c })}
                 />
               ))}
             </div>
 
             <div className="flex items-center gap-1 text-xs">
-              <span className="text-muted-foreground">Size</span>
+              <span className="text-muted-foreground">{t('common:labels.size')}</span>
               <input
                 type="range"
                 min={1}
                 max={12}
                 value={strokeWidth}
                 onChange={(e) => setStrokeWidth(Number(e.target.value))}
-                aria-label="Stroke width"
+                aria-label={ui('strokeAria')}
                 className="w-16"
               />
               <span className="w-5 font-mono">{strokeWidth}</span>
@@ -447,11 +449,11 @@ export default function ScreenshotTool() {
                 <>
                   <Button variant="primary" size="sm" onClick={applyCrop}>
                     <Check className="h-3 w-3" />
-                    Apply
+                    {t('common:actions.apply')}
                   </Button>
                   <Button variant="ghost" size="sm" onClick={() => setCropDraft(null)}>
                     <X className="h-3 w-3" />
-                    Cancel
+                    {t('common:actions.cancel')}
                   </Button>
                 </>
               ) : (
@@ -459,16 +461,16 @@ export default function ScreenshotTool() {
                   {selectedId && (
                     <Button variant="ghost" size="sm" onClick={deleteSelected}>
                       <X className="h-3 w-3" />
-                      Delete
+                      {t('common:actions.delete')}
                     </Button>
                   )}
                   <Button variant="ghost" size="sm" onClick={undo} disabled={shapes.length === 0}>
                     <Undo2 className="h-3 w-3" />
-                    Undo
+                    {t('common:actions.undo')}
                   </Button>
                   <Button variant="ghost" size="sm" onClick={clear} disabled={shapes.length === 0}>
                     <Trash2 className="h-3 w-3" />
-                    Clear
+                    {t('common:clear')}
                   </Button>
                 </>
               )}
@@ -476,9 +478,7 @@ export default function ScreenshotTool() {
           </div>
 
           {tool === 'select' && (
-            <p className="text-[10px] text-muted-foreground">
-              Click a shape to select it, then drag to move. Use <strong>Delete</strong> to remove.
-            </p>
+            <p className="text-[10px] text-muted-foreground">{ui('selectHint')}</p>
           )}
 
           <div
@@ -500,7 +500,7 @@ export default function ScreenshotTool() {
                 value={textValue}
                 onChange={(e) => setTextValue(e.target.value)}
                 onKeyDown={onTextKeyDown}
-                placeholder="Type, Enter to confirm, Esc to cancel"
+                placeholder={ui('textPlaceholder')}
                 className="absolute rounded-sm border border-primary bg-background/95 px-1 outline-none"
                 style={{
                   left: textDraft.screenX,
@@ -517,10 +517,10 @@ export default function ScreenshotTool() {
       )}
 
       {!imgUrl && (
-        <p className="text-center text-xs text-muted-foreground">
-          Click <strong>Capture tab</strong> to take a screenshot of the active tab and start
-          annotating.
-        </p>
+        <p
+          className="text-center text-xs text-muted-foreground"
+          dangerouslySetInnerHTML={{ __html: ui('emptyHint') }}
+        />
       )}
     </div>
   );

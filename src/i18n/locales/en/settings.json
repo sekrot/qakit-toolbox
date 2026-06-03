@@ -27,5 +27,7 @@
   "importSettings": "Import settings",
   "imported": "Imported {{count}} keys",
   "importFailed": "Import failed: {{error}}",
-  "about": "About"
+  "about": "About",
+  "onboarding": "Onboarding",
+  "onboardingReplay": "Replay"
 }

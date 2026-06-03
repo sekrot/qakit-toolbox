@@ -14,6 +14,33 @@
   "skip": "Überspringen",
   "next": "Weiter",
   "getStarted": "Loslegen",
+  "actions": {
+    "apply": "Anwenden",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "undo": "Rückgängig",
+    "remove": "Entfernen",
+    "pin": "Anheften",
+    "unpin": "Lösen",
+    "loadSample": "Beispiel laden",
+    "download": "Herunterladen",
+    "swap": "Tauschen",
+    "save": "Speichern",
+    "regenerate": "Neu generieren"
+  },
+  "labels": {
+    "input": "Eingabe",
+    "output": "Ausgabe",
+    "text": "Text",
+    "file": "Datei",
+    "size": "Größe",
+    "count": "Anzahl",
+    "history": "Verlauf",
+    "copyAll": "Alle kopieren"
+  },
+  "placeholders": {
+    "outputArea": "Hier erscheint das Ergebnis"
+  },
   "onboarding": {
     "welcome": {
       "title": "Willkommen bei DevKit Toolbox",

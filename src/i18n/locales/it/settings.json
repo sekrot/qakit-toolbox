@@ -1,14 +1,14 @@
 {
-  "title": "Settings",
-  "theme": "Theme",
+  "title": "Impostazioni",
+  "theme": "Tema",
   "themes": {
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
+    "light": "Chiaro",
+    "dark": "Scuro",
+    "system": "Sistema"
   },
-  "language": "Language",
+  "language": "Lingua",
   "languages": {
-    "system": "System default",
+    "system": "Lingua di sistema",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,16 +16,18 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "shortcuts": "Keyboard shortcuts",
-  "shortcutsHint": "Open the Chrome shortcuts page to remap these.",
-  "shortcutsCustomise": "Customise in Chrome",
-  "shortcutsUnassigned": "Not set",
-  "data": "Data",
-  "clearHistory": "Clear all history",
-  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
-  "exportSettings": "Export settings",
-  "importSettings": "Import settings",
-  "imported": "Imported {{count}} keys",
-  "importFailed": "Import failed: {{error}}",
-  "about": "About"
+  "shortcuts": "Scorciatoie da tastiera",
+  "shortcutsHint": "Apri la pagina delle scorciatoie di Chrome per modificarle.",
+  "shortcutsCustomise": "Personalizza in Chrome",
+  "shortcutsUnassigned": "Non assegnata",
+  "data": "Dati",
+  "clearHistory": "Cancella cronologia",
+  "clearHistoryConfirm": "Eliminare la cronologia degli appunti e del contagocce? Anche gli elementi fissati saranno rimossi.",
+  "exportSettings": "Esporta impostazioni",
+  "importSettings": "Importa impostazioni",
+  "imported": "Importate {{count}} voci",
+  "importFailed": "Importazione fallita: {{error}}",
+  "about": "Informazioni",
+  "onboarding": "Presentazione",
+  "onboardingReplay": "Riavvia"
 }

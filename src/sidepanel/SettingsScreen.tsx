@@ -153,9 +153,9 @@ export function SettingsScreen() {
       </section>
 
       <section className="flex items-center justify-between">
-        <span className="text-sm">Onboarding</span>
+        <span className="text-sm">{t('onboarding')}</span>
         <Button variant="secondary" size="sm" onClick={() => setOnboarded(false)}>
-          Replay
+          {t('onboardingReplay')}
         </Button>
       </section>
     </div>

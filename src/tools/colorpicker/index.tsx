@@ -29,7 +29,8 @@ interface HistoryItem {
 }
 
 export default function ColorPickerTool() {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'tools']);
+  const ui = (k: string, opts?: Record<string, unknown>) => t(`tools:colorpicker.ui.${k}`, opts);
   const [hex, setHex] = useState('#ff8800');
   const [hexInput, setHexInput] = useState('#ff8800');
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +52,7 @@ export default function ColorPickerTool() {
   const apply = (value: string) => {
     const rgb = parseHex(value);
     if (!rgb) {
-      setError('Invalid hex color');
+      setError(ui('invalidHex'));
       return;
     }
     setError(null);
@@ -128,7 +129,7 @@ export default function ColorPickerTool() {
           />
           <Button onClick={onPick} disabled={!supported} size="sm">
             <Pipette className="h-3 w-3" />
-            {supported ? 'Pick color from screen' : 'EyeDropper not supported'}
+            {supported ? ui('pick') : ui('unsupported')}
           </Button>
         </div>
       </div>
@@ -151,7 +152,7 @@ export default function ColorPickerTool() {
               className="h-6 w-6 p-0"
             >
               {copied === f.label ? (
-                <span className="text-[10px]">{t('copied')}</span>
+                <span className="text-[10px]">{t('common:copied')}</span>
               ) : (
                 <Copy className="h-3 w-3" />
               )}
@@ -162,7 +163,7 @@ export default function ColorPickerTool() {
 
       <div className="flex items-center justify-between">
         <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-          History
+          {ui('history')}
         </h3>
         {history.length > 0 && (
           <Button
@@ -170,17 +171,13 @@ export default function ColorPickerTool() {
             size="sm"
             onClick={() => persist(history.filter((i) => i.pinned))}
           >
-            Clear unpinned
+            {ui('clearUnpinned')}
           </Button>
         )}
       </div>
 
       <div className="flex flex-wrap gap-2 overflow-y-auto">
-        {history.length === 0 && (
-          <p className="text-xs text-muted-foreground">
-            Pick or paste a color to populate history.
-          </p>
-        )}
+        {history.length === 0 && <p className="text-xs text-muted-foreground">{ui('empty')}</p>}
         {history.map((item) => (
           <div
             key={item.hex}
@@ -192,7 +189,7 @@ export default function ColorPickerTool() {
             )}
             style={{ backgroundColor: item.hex }}
             title={item.hex}
-            aria-label={`Use ${item.hex}`}
+            aria-label={ui('useColor', { hex: item.hex })}
             onClick={() => apply(item.hex)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -208,7 +205,7 @@ export default function ColorPickerTool() {
                   togglePin(item.hex);
                 }}
                 className="rounded-full bg-background p-0.5 shadow"
-                aria-label={item.pinned ? 'Unpin' : 'Pin'}
+                aria-label={item.pinned ? t('common:actions.unpin') : t('common:actions.pin')}
               >
                 {item.pinned ? <PinOff className="h-3 w-3" /> : <Pin className="h-3 w-3" />}
               </button>
@@ -218,7 +215,7 @@ export default function ColorPickerTool() {
                   removeItem(item.hex);
                 }}
                 className="rounded-full bg-background p-0.5 shadow"
-                aria-label="Remove"
+                aria-label={t('common:actions.remove')}
               >
                 <Trash2 className="h-3 w-3" />
               </button>
