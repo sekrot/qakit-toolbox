@@ -18,7 +18,12 @@ export function JsonPathInput({ value, onChange, source, placeholder }: Props) {
   const listRef = useRef<HTMLUListElement>(null);
 
   const ac = useMemo(() => getSuggestions(source, value), [source, value]);
-  const open = focused && ac.suggestions.length > 0;
+  // Hide the dropdown when the only remaining option matches exactly what the
+  // user has already typed — there's nothing to insert and the popup is just
+  // visual noise.
+  const onlyExactMatch =
+    ac.suggestions.length === 1 && normaliseToken(ac.suggestions[0]) === normaliseToken(ac.prefix);
+  const open = focused && ac.suggestions.length > 0 && !onlyExactMatch;
 
   // Reset highlight when the suggestion list changes (new typing, new path).
   useEffect(() => {
@@ -136,4 +141,9 @@ export function JsonPathInput({ value, onChange, source, placeholder }: Props) {
       )}
     </div>
   );
+}
+
+/** Strip surrounding quotes (bracket-string suggestions) and lowercase. */
+function normaliseToken(token: string): string {
+  return token.replace(/^['"]/, '').replace(/['"]$/, '').toLowerCase();
 }
