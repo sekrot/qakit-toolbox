@@ -7,6 +7,7 @@ import { HomeScreen } from './HomeScreen';
 import { SettingsScreen } from './SettingsScreen';
 import { ToolScreen } from './ToolScreen';
 import { Onboarding } from './Onboarding';
+import { PendingRouteWatcher } from './PendingRouteWatcher';
 
 export function App() {
   const onboarded = useSettings((s) => s.onboarded);
@@ -20,6 +21,7 @@ export function App() {
   return (
     <ThemeProvider>
       <HashRouter>
+        <PendingRouteWatcher />
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<HomeScreen />} />

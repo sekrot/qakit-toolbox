@@ -16,6 +16,10 @@
     "ru": "Русский",
     "it": "Italiano"
   },
+  "shortcuts": "Keyboard shortcuts",
+  "shortcutsHint": "Open the Chrome shortcuts page to remap these.",
+  "shortcutsCustomise": "Customise in Chrome",
+  "shortcutsUnassigned": "Not set",
   "data": "Data",
   "clearHistory": "Clear all history",
   "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",

@@ -1,14 +1,14 @@
 {
-  "title": "Paramètres",
-  "theme": "Thème",
+  "title": "Settings",
+  "theme": "Theme",
   "themes": {
-    "light": "Clair",
-    "dark": "Sombre",
-    "system": "Système"
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   },
-  "language": "Langue",
+  "language": "Language",
   "languages": {
-    "system": "Langue du système",
+    "system": "System default",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,12 +16,16 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "data": "Données",
-  "clearHistory": "Effacer l'historique",
-  "clearHistoryConfirm": "Supprimer l'historique du presse-papiers et de la pipette à couleur ? Les éléments épinglés seront également supprimés.",
-  "exportSettings": "Exporter les paramètres",
-  "importSettings": "Importer les paramètres",
-  "imported": "{{count}} entrées importées",
-  "importFailed": "Échec de l'import : {{error}}",
-  "about": "À propos"
+  "shortcuts": "Keyboard shortcuts",
+  "shortcutsHint": "Open the Chrome shortcuts page to remap these.",
+  "shortcutsCustomise": "Customise in Chrome",
+  "shortcutsUnassigned": "Not set",
+  "data": "Data",
+  "clearHistory": "Clear all history",
+  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
+  "exportSettings": "Export settings",
+  "importSettings": "Import settings",
+  "imported": "Imported {{count}} keys",
+  "importFailed": "Import failed: {{error}}",
+  "about": "About"
 }

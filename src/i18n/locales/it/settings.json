@@ -1,14 +1,14 @@
 {
-  "title": "Impostazioni",
-  "theme": "Tema",
+  "title": "Settings",
+  "theme": "Theme",
   "themes": {
-    "light": "Chiaro",
-    "dark": "Scuro",
-    "system": "Sistema"
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   },
-  "language": "Lingua",
+  "language": "Language",
   "languages": {
-    "system": "Lingua di sistema",
+    "system": "System default",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,12 +16,16 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "data": "Dati",
-  "clearHistory": "Cancella cronologia",
-  "clearHistoryConfirm": "Eliminare la cronologia degli appunti e del contagocce? Anche gli elementi fissati saranno rimossi.",
-  "exportSettings": "Esporta impostazioni",
-  "importSettings": "Importa impostazioni",
-  "imported": "Importate {{count}} voci",
-  "importFailed": "Importazione fallita: {{error}}",
-  "about": "Informazioni"
+  "shortcuts": "Keyboard shortcuts",
+  "shortcutsHint": "Open the Chrome shortcuts page to remap these.",
+  "shortcutsCustomise": "Customise in Chrome",
+  "shortcutsUnassigned": "Not set",
+  "data": "Data",
+  "clearHistory": "Clear all history",
+  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
+  "exportSettings": "Export settings",
+  "importSettings": "Import settings",
+  "imported": "Imported {{count}} keys",
+  "importFailed": "Import failed: {{error}}",
+  "about": "About"
 }

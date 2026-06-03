@@ -1,14 +1,14 @@
 {
-  "title": "Настройки",
-  "theme": "Тема",
+  "title": "Settings",
+  "theme": "Theme",
   "themes": {
-    "light": "Светлая",
-    "dark": "Тёмная",
-    "system": "Системная"
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   },
-  "language": "Язык",
+  "language": "Language",
   "languages": {
-    "system": "Как в системе",
+    "system": "System default",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,12 +16,16 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "data": "Данные",
-  "clearHistory": "Очистить историю",
-  "clearHistoryConfirm": "Удалить историю буфера обмена и пипетки цвета? Закреплённые записи также будут удалены.",
-  "exportSettings": "Экспорт настроек",
-  "importSettings": "Импорт настроек",
-  "imported": "Импортировано {{count}} ключей",
-  "importFailed": "Импорт не удался: {{error}}",
-  "about": "О приложении"
+  "shortcuts": "Горячие клавиши",
+  "shortcutsHint": "Назначить или поменять можно на странице горячих клавиш Chrome.",
+  "shortcutsCustomise": "Настроить в Chrome",
+  "shortcutsUnassigned": "Не назначено",
+  "data": "Data",
+  "clearHistory": "Clear all history",
+  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
+  "exportSettings": "Export settings",
+  "importSettings": "Import settings",
+  "imported": "Imported {{count}} keys",
+  "importFailed": "Import failed: {{error}}",
+  "about": "About"
 }

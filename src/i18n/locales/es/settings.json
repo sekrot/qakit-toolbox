@@ -1,14 +1,14 @@
 {
-  "title": "Ajustes",
-  "theme": "Tema",
+  "title": "Settings",
+  "theme": "Theme",
   "themes": {
-    "light": "Claro",
-    "dark": "Oscuro",
-    "system": "Sistema"
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   },
-  "language": "Idioma",
+  "language": "Language",
   "languages": {
-    "system": "Idioma del sistema",
+    "system": "System default",
     "en": "English",
     "de": "Deutsch",
     "fr": "Français",
@@ -16,12 +16,16 @@
     "ru": "Русский",
     "it": "Italiano"
   },
-  "data": "Datos",
-  "clearHistory": "Borrar historial",
-  "clearHistoryConfirm": "¿Eliminar el historial del portapapeles y del cuentagotas? Los elementos fijados también se eliminarán.",
-  "exportSettings": "Exportar ajustes",
-  "importSettings": "Importar ajustes",
-  "imported": "Se importaron {{count}} entradas",
-  "importFailed": "Error al importar: {{error}}",
-  "about": "Acerca de"
+  "shortcuts": "Keyboard shortcuts",
+  "shortcutsHint": "Open the Chrome shortcuts page to remap these.",
+  "shortcutsCustomise": "Customise in Chrome",
+  "shortcutsUnassigned": "Not set",
+  "data": "Data",
+  "clearHistory": "Clear all history",
+  "clearHistoryConfirm": "Delete clipboard and color picker history? Pinned items will be removed too.",
+  "exportSettings": "Export settings",
+  "importSettings": "Import settings",
+  "imported": "Imported {{count}} keys",
+  "importFailed": "Import failed: {{error}}",
+  "about": "About"
 }

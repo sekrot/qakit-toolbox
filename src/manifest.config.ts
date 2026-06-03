@@ -42,5 +42,26 @@ export default defineManifest({
   // taken from the side panel. <all_urls> here is read-only and only used
   // by captureVisibleTab; we never inject scripts or fetch page contents.
   host_permissions: ['<all_urls>'],
+  // Default keyboard shortcuts. Chrome lets the user remap these via
+  // chrome://extensions/shortcuts (up to four are user-rebindable per
+  // extension). The `open-toolbox` slot mirrors clicking the action icon.
+  commands: {
+    'open-toolbox': {
+      suggested_key: { default: 'Alt+Shift+D', mac: 'Alt+Shift+D' },
+      description: 'Open DevKit Toolbox side panel',
+    },
+    'open-json': {
+      suggested_key: { default: 'Alt+Shift+J', mac: 'Alt+Shift+J' },
+      description: 'Open JSON Formatter',
+    },
+    'open-regex': {
+      suggested_key: { default: 'Alt+Shift+R', mac: 'Alt+Shift+R' },
+      description: 'Open Regex Tester',
+    },
+    'open-screenshot': {
+      suggested_key: { default: 'Alt+Shift+S', mac: 'Alt+Shift+S' },
+      description: 'Open Screenshot tool',
+    },
+  },
   minimum_chrome_version: '114',
 });
