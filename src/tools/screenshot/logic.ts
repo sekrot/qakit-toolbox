@@ -1,4 +1,4 @@
-export type ShapeKind = 'rect' | 'arrow' | 'text';
+export type ShapeKind = 'rect' | 'arrow' | 'text' | 'highlight' | 'line';
 
 export interface BaseShape {
   id: string;
@@ -15,8 +15,24 @@ export interface RectShape extends BaseShape {
   h: number;
 }
 
+export interface HighlightShape extends BaseShape {
+  kind: 'highlight';
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 export interface ArrowShape extends BaseShape {
   kind: 'arrow';
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+}
+
+export interface LineShape extends BaseShape {
+  kind: 'line';
   x1: number;
   y1: number;
   x2: number;
@@ -31,7 +47,14 @@ export interface TextShape extends BaseShape {
   fontSize: number;
 }
 
-export type Shape = RectShape | ArrowShape | TextShape;
+export type Shape = RectShape | HighlightShape | ArrowShape | LineShape | TextShape;
+
+export interface CropRect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
 
 export interface ScreenshotCaptureResponse {
   ok: boolean;
@@ -57,8 +80,20 @@ export function drawShapes(ctx: CanvasRenderingContext2D, shapes: Shape[]): void
       case 'rect':
         ctx.strokeRect(shape.x, shape.y, shape.w, shape.h);
         break;
+      case 'highlight':
+        ctx.save();
+        ctx.globalAlpha = 0.35;
+        ctx.fillRect(shape.x, shape.y, shape.w, shape.h);
+        ctx.restore();
+        break;
       case 'arrow':
         drawArrow(ctx, shape);
+        break;
+      case 'line':
+        ctx.beginPath();
+        ctx.moveTo(shape.x1, shape.y1);
+        ctx.lineTo(shape.x2, shape.y2);
+        ctx.stroke();
         break;
       case 'text': {
         ctx.font = `bold ${shape.fontSize}px ui-sans-serif, system-ui, sans-serif`;
@@ -132,4 +167,106 @@ export function isPointInRect(px: number, py: number, r: RectShape): boolean {
   const w = Math.abs(r.w);
   const h = Math.abs(r.h);
   return px >= x && px <= x + w && py >= y && py <= y + h;
+}
+
+/** Normalise a possibly-flipped rectangle into positive width/height form. */
+export function normaliseRect(rect: CropRect): CropRect {
+  return {
+    x: Math.min(rect.x, rect.x + rect.w),
+    y: Math.min(rect.y, rect.y + rect.h),
+    w: Math.abs(rect.w),
+    h: Math.abs(rect.h),
+  };
+}
+
+interface BBox {
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+}
+
+export function shapeBBox(shape: Shape): BBox {
+  switch (shape.kind) {
+    case 'rect':
+    case 'highlight': {
+      const left = Math.min(shape.x, shape.x + shape.w);
+      const right = Math.max(shape.x, shape.x + shape.w);
+      const top = Math.min(shape.y, shape.y + shape.h);
+      const bottom = Math.max(shape.y, shape.y + shape.h);
+      return { left, top, right, bottom };
+    }
+    case 'arrow':
+    case 'line':
+      return {
+        left: Math.min(shape.x1, shape.x2),
+        right: Math.max(shape.x1, shape.x2),
+        top: Math.min(shape.y1, shape.y2),
+        bottom: Math.max(shape.y1, shape.y2),
+      };
+    case 'text': {
+      const width = shape.text.length * shape.fontSize * 0.6;
+      return {
+        left: shape.x,
+        top: shape.y,
+        right: shape.x + width,
+        bottom: shape.y + shape.fontSize,
+      };
+    }
+  }
+}
+
+/** Returns true when the bbox has any overlap with [0..w] × [0..h]. */
+function intersects(bbox: BBox, w: number, h: number): boolean {
+  return !(bbox.right < 0 || bbox.left > w || bbox.bottom < 0 || bbox.top > h);
+}
+
+function translateShape(shape: Shape, dx: number, dy: number): Shape {
+  switch (shape.kind) {
+    case 'rect':
+    case 'highlight':
+      return { ...shape, x: shape.x + dx, y: shape.y + dy };
+    case 'arrow':
+    case 'line':
+      return {
+        ...shape,
+        x1: shape.x1 + dx,
+        y1: shape.y1 + dy,
+        x2: shape.x2 + dx,
+        y2: shape.y2 + dy,
+      };
+    case 'text':
+      return { ...shape, x: shape.x + dx, y: shape.y + dy };
+  }
+}
+
+/**
+ * Shift every shape so the new origin matches the crop, and drop shapes
+ * whose bounding box has no overlap with the cropped region.
+ */
+export function translateShapesForCrop(shapes: Shape[], crop: CropRect): Shape[] {
+  const c = normaliseRect(crop);
+  const out: Shape[] = [];
+  for (const shape of shapes) {
+    const translated = translateShape(shape, -c.x, -c.y);
+    if (intersects(shapeBBox(translated), c.w, c.h)) out.push(translated);
+  }
+  return out;
+}
+
+/**
+ * Returns a data URL containing the source canvas cropped to `crop`.
+ * Crop is normalised first so flipped selections behave the same.
+ */
+export function cropImage(source: HTMLCanvasElement, crop: CropRect): string {
+  const c = normaliseRect(crop);
+  const w = Math.max(1, Math.round(c.w));
+  const h = Math.max(1, Math.round(c.h));
+  const out = document.createElement('canvas');
+  out.width = w;
+  out.height = h;
+  const ctx = out.getContext('2d');
+  if (!ctx) throw new Error('Failed to acquire 2D context');
+  ctx.drawImage(source, c.x, c.y, c.w, c.h, 0, 0, w, h);
+  return out.toDataURL('image/png');
 }

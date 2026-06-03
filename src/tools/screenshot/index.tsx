@@ -1,37 +1,63 @@
-import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowUpRight,
   Camera,
+  Check,
   Copy,
+  Crop,
   Download,
+  Highlighter,
+  Minus,
   MousePointer,
   Square,
   Trash2,
   Type,
   Undo2,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/cn';
 import {
   blobFromCanvas,
+  cropImage,
   downloadPng,
   drawShapes,
   exportPng,
   makeId,
+  normaliseRect,
   PALETTE,
-  type Shape,
+  translateShapesForCrop,
+  type CropRect,
   type ScreenshotCaptureResponse,
+  type Shape,
 } from './logic';
 
-type Tool = 'select' | 'rect' | 'arrow' | 'text';
+type Tool = 'select' | 'rect' | 'highlight' | 'arrow' | 'line' | 'text' | 'crop';
 
 const TOOLS: { value: Tool; label: string; icon: typeof Square }[] = [
   { value: 'select', label: 'Select', icon: MousePointer },
   { value: 'rect', label: 'Rectangle', icon: Square },
+  { value: 'highlight', label: 'Highlight', icon: Highlighter },
   { value: 'arrow', label: 'Arrow', icon: ArrowUpRight },
+  { value: 'line', label: 'Line / underline', icon: Minus },
   { value: 'text', label: 'Text', icon: Type },
+  { value: 'crop', label: 'Crop', icon: Crop },
 ];
+
+interface TextDraft {
+  x: number; // canvas-space
+  y: number;
+  screenX: number; // viewport-space within wrapper
+  screenY: number;
+}
 
 export default function ScreenshotTool() {
   const { t } = useTranslation('common');
@@ -42,10 +68,17 @@ export default function ScreenshotTool() {
   const [color, setColor] = useState(PALETTE[0]);
   const [strokeWidth, setStrokeWidth] = useState(3);
   const [drawing, setDrawing] = useState<Shape | null>(null);
+  const [cropDraft, setCropDraft] = useState<CropRect | null>(null);
+  const [textDraft, setTextDraft] = useState<TextDraft | null>(null);
+  const [textValue, setTextValue] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const textInputRef = useRef<HTMLInputElement>(null);
+
+  const fontSize = Math.max(16, strokeWidth * 8);
 
   // Load image when URL changes
   useEffect(() => {
@@ -69,7 +102,13 @@ export default function ScreenshotTool() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, 0, 0);
     drawShapes(ctx, drawing ? [...shapes, drawing] : shapes);
-  }, [img, shapes, drawing]);
+    if (cropDraft) drawCropOverlay(ctx, cropDraft);
+  }, [img, shapes, drawing, cropDraft]);
+
+  // Focus inline text input when it appears
+  useEffect(() => {
+    if (textDraft) textInputRef.current?.focus();
+  }, [textDraft]);
 
   const capture = async () => {
     setError(null);
@@ -84,6 +123,8 @@ export default function ScreenshotTool() {
       }
       setImgUrl(response.dataUrl);
       setShapes([]);
+      setCropDraft(null);
+      setTextDraft(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -101,38 +142,49 @@ export default function ScreenshotTool() {
 
   const onPointerDown = (e: ReactMouseEvent<HTMLCanvasElement>) => {
     if (!img || tool === 'select') return;
+    if (textDraft) return; // typing in progress — wait for commit
     const { x, y } = toCanvasCoords(e);
+
     if (tool === 'text') {
-      const text = window.prompt('Annotation text');
-      if (!text) return;
-      setShapes((prev) => [
-        ...prev,
-        {
-          id: makeId(),
-          kind: 'text',
-          color,
-          strokeWidth,
-          x,
-          y,
-          text,
-          fontSize: Math.max(16, strokeWidth * 8),
-        },
-      ]);
+      const canvas = canvasRef.current!;
+      const rect = canvas.getBoundingClientRect();
+      const wrap = wrapperRef.current!.getBoundingClientRect();
+      setTextValue('');
+      setTextDraft({
+        x,
+        y,
+        screenX: rect.left - wrap.left + (x / canvas.width) * rect.width,
+        screenY: rect.top - wrap.top + (y / canvas.height) * rect.height,
+      });
+      return;
+    }
+
+    if (tool === 'crop') {
+      setCropDraft({ x, y, w: 0, h: 0 });
       return;
     }
     if (tool === 'rect') {
       setDrawing({ id: makeId(), kind: 'rect', color, strokeWidth, x, y, w: 0, h: 0 });
-    } else {
+    } else if (tool === 'highlight') {
+      setDrawing({ id: makeId(), kind: 'highlight', color, strokeWidth, x, y, w: 0, h: 0 });
+    } else if (tool === 'line') {
+      setDrawing({ id: makeId(), kind: 'line', color, strokeWidth, x1: x, y1: y, x2: x, y2: y });
+    } else if (tool === 'arrow') {
       setDrawing({ id: makeId(), kind: 'arrow', color, strokeWidth, x1: x, y1: y, x2: x, y2: y });
     }
   };
 
   const onPointerMove = (e: ReactMouseEvent<HTMLCanvasElement>) => {
+    if (cropDraft && tool === 'crop' && e.buttons === 1) {
+      const { x, y } = toCanvasCoords(e);
+      setCropDraft({ ...cropDraft, w: x - cropDraft.x, h: y - cropDraft.y });
+      return;
+    }
     if (!drawing) return;
     const { x, y } = toCanvasCoords(e);
-    if (drawing.kind === 'rect') {
+    if (drawing.kind === 'rect' || drawing.kind === 'highlight') {
       setDrawing({ ...drawing, w: x - drawing.x, h: y - drawing.y });
-    } else if (drawing.kind === 'arrow') {
+    } else if (drawing.kind === 'arrow' || drawing.kind === 'line') {
       setDrawing({ ...drawing, x2: x, y2: y });
     }
   };
@@ -159,7 +211,6 @@ export default function ScreenshotTool() {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1500);
     } catch (e) {
-      // Fallback: copy data URL as text
       try {
         await navigator.clipboard.writeText(exportPng(canvasRef.current!));
         setCopied(true);
@@ -169,6 +220,69 @@ export default function ScreenshotTool() {
       }
     }
   };
+
+  const applyCrop = () => {
+    if (!cropDraft || !canvasRef.current) return;
+    const normalised = normaliseRect(cropDraft);
+    if (normalised.w < 4 || normalised.h < 4) {
+      setCropDraft(null);
+      return;
+    }
+    // Render shapes BEFORE cropping so partial shapes look right.
+    const composed = canvasRef.current;
+    const next = cropImage(composed, normalised);
+    // But shapes coords are relative to the original image — translate them
+    // so the cropped canvas will redraw them at the right position.
+    setShapes((prev) => translateShapesForCrop(prev, normalised));
+    setImgUrl(next);
+    setCropDraft(null);
+  };
+
+  const commitText = () => {
+    if (!textDraft) return;
+    const value = textValue.trim();
+    if (value) {
+      setShapes((prev) => [
+        ...prev,
+        {
+          id: makeId(),
+          kind: 'text',
+          color,
+          strokeWidth,
+          x: textDraft.x,
+          y: textDraft.y,
+          text: value,
+          fontSize,
+        },
+      ]);
+    }
+    setTextDraft(null);
+    setTextValue('');
+  };
+
+  const cancelText = () => {
+    setTextDraft(null);
+    setTextValue('');
+  };
+
+  const onTextKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      commitText();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      cancelText();
+    }
+  };
+
+  const cursorClass = useMemo(() => {
+    if (tool === 'select') return 'cursor-default';
+    if (tool === 'text') return 'cursor-text';
+    return 'cursor-crosshair';
+  }, [tool]);
+
+  const cropPending =
+    tool === 'crop' && cropDraft && Math.abs(cropDraft.w) >= 4 && Math.abs(cropDraft.h) >= 4;
 
   return (
     <div className="flex h-full flex-col gap-3">
@@ -206,7 +320,11 @@ export default function ScreenshotTool() {
                 return (
                   <button
                     key={it.value}
-                    onClick={() => setTool(it.value)}
+                    onClick={() => {
+                      setTool(it.value);
+                      setCropDraft(null);
+                      cancelText();
+                    }}
                     title={it.label}
                     aria-label={it.label}
                     className={cn(
@@ -253,29 +371,64 @@ export default function ScreenshotTool() {
             </div>
 
             <div className="ml-auto flex items-center gap-1">
-              <Button variant="ghost" size="sm" onClick={undo} disabled={shapes.length === 0}>
-                <Undo2 className="h-3 w-3" />
-                Undo
-              </Button>
-              <Button variant="ghost" size="sm" onClick={clear} disabled={shapes.length === 0}>
-                <Trash2 className="h-3 w-3" />
-                Clear
-              </Button>
+              {cropPending ? (
+                <>
+                  <Button variant="primary" size="sm" onClick={applyCrop}>
+                    <Check className="h-3 w-3" />
+                    Apply
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => setCropDraft(null)}>
+                    <X className="h-3 w-3" />
+                    Cancel
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" size="sm" onClick={undo} disabled={shapes.length === 0}>
+                    <Undo2 className="h-3 w-3" />
+                    Undo
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={clear} disabled={shapes.length === 0}>
+                    <Trash2 className="h-3 w-3" />
+                    Clear
+                  </Button>
+                </>
+              )}
             </div>
           </div>
 
-          <div className="flex-1 overflow-auto rounded-md border border-border bg-muted/40 p-1">
+          <div
+            ref={wrapperRef}
+            className="relative flex-1 overflow-auto rounded-md border border-border bg-muted/40 p-1"
+          >
             <canvas
               ref={canvasRef}
               onMouseDown={onPointerDown}
               onMouseMove={onPointerMove}
               onMouseUp={onPointerUp}
               onMouseLeave={onPointerUp}
-              className={cn(
-                'max-w-full',
-                tool === 'select' ? 'cursor-default' : 'cursor-crosshair',
-              )}
+              className={cn('max-w-full', cursorClass)}
             />
+            {textDraft && (
+              <input
+                ref={textInputRef}
+                type="text"
+                value={textValue}
+                onChange={(e) => setTextValue(e.target.value)}
+                onKeyDown={onTextKeyDown}
+                onBlur={commitText}
+                placeholder="Type text, Enter to confirm, Esc to cancel"
+                className="absolute rounded-sm border border-primary bg-background/95 px-1 outline-none"
+                style={{
+                  left: textDraft.screenX,
+                  top: textDraft.screenY,
+                  color,
+                  fontSize: `${fontSize * (canvasRef.current ? canvasRef.current.getBoundingClientRect().width / canvasRef.current.width : 1)}px`,
+                  fontWeight: 700,
+                  minWidth: 100,
+                }}
+              />
+            )}
           </div>
         </>
       )}
@@ -288,4 +441,21 @@ export default function ScreenshotTool() {
       )}
     </div>
   );
+}
+
+function drawCropOverlay(ctx: CanvasRenderingContext2D, draft: CropRect) {
+  const r = normaliseRect(draft);
+  ctx.save();
+  // Dim everything outside the crop rectangle.
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+  ctx.fillRect(0, 0, ctx.canvas.width, r.y);
+  ctx.fillRect(0, r.y + r.h, ctx.canvas.width, ctx.canvas.height - (r.y + r.h));
+  ctx.fillRect(0, r.y, r.x, r.h);
+  ctx.fillRect(r.x + r.w, r.y, ctx.canvas.width - (r.x + r.w), r.h);
+  // Dashed outline.
+  ctx.strokeStyle = '#3b82f6';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([8, 6]);
+  ctx.strokeRect(r.x, r.y, r.w, r.h);
+  ctx.restore();
 }
