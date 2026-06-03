@@ -1,4 +1,4 @@
-export type ShapeKind = 'rect' | 'arrow' | 'text' | 'highlight' | 'line';
+export type ShapeKind = 'rect' | 'arrow' | 'text' | 'highlight' | 'line' | 'pen';
 
 export interface BaseShape {
   id: string;
@@ -47,7 +47,12 @@ export interface TextShape extends BaseShape {
   fontSize: number;
 }
 
-export type Shape = RectShape | HighlightShape | ArrowShape | LineShape | TextShape;
+export interface PenShape extends BaseShape {
+  kind: 'pen';
+  points: { x: number; y: number }[];
+}
+
+export type Shape = RectShape | HighlightShape | ArrowShape | LineShape | TextShape | PenShape;
 
 export interface CropRect {
   x: number;
@@ -93,6 +98,15 @@ export function drawShapes(ctx: CanvasRenderingContext2D, shapes: Shape[]): void
         ctx.beginPath();
         ctx.moveTo(shape.x1, shape.y1);
         ctx.lineTo(shape.x2, shape.y2);
+        ctx.stroke();
+        break;
+      case 'pen':
+        if (shape.points.length === 0) break;
+        ctx.beginPath();
+        ctx.moveTo(shape.points[0].x, shape.points[0].y);
+        for (let i = 1; i < shape.points.length; i++) {
+          ctx.lineTo(shape.points[i].x, shape.points[i].y);
+        }
         ctx.stroke();
         break;
       case 'text': {
@@ -213,6 +227,20 @@ export function shapeBBox(shape: Shape): BBox {
         bottom: shape.y + shape.fontSize,
       };
     }
+    case 'pen': {
+      if (shape.points.length === 0) return { left: 0, top: 0, right: 0, bottom: 0 };
+      let left = shape.points[0].x;
+      let right = shape.points[0].x;
+      let top = shape.points[0].y;
+      let bottom = shape.points[0].y;
+      for (const p of shape.points) {
+        if (p.x < left) left = p.x;
+        if (p.x > right) right = p.x;
+        if (p.y < top) top = p.y;
+        if (p.y > bottom) bottom = p.y;
+      }
+      return { left, top, right, bottom };
+    }
   }
 }
 
@@ -221,7 +249,7 @@ function intersects(bbox: BBox, w: number, h: number): boolean {
   return !(bbox.right < 0 || bbox.left > w || bbox.bottom < 0 || bbox.top > h);
 }
 
-function translateShape(shape: Shape, dx: number, dy: number): Shape {
+export function translateShape(shape: Shape, dx: number, dy: number): Shape {
   switch (shape.kind) {
     case 'rect':
     case 'highlight':
@@ -237,7 +265,79 @@ function translateShape(shape: Shape, dx: number, dy: number): Shape {
       };
     case 'text':
       return { ...shape, x: shape.x + dx, y: shape.y + dy };
+    case 'pen':
+      return {
+        ...shape,
+        points: shape.points.map((p) => ({ x: p.x + dx, y: p.y + dy })),
+      };
   }
+}
+
+/** Distance from a point to a line segment. */
+function distancePointToSegment(
+  px: number,
+  py: number,
+  ax: number,
+  ay: number,
+  bx: number,
+  by: number,
+): number {
+  const dx = bx - ax;
+  const dy = by - ay;
+  if (dx === 0 && dy === 0) return Math.hypot(px - ax, py - ay);
+  const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)));
+  return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+}
+
+/** Returns true if (px, py) is "on" the shape within `tolerance` canvas px. */
+export function hitTestShape(shape: Shape, px: number, py: number, tolerance = 8): boolean {
+  switch (shape.kind) {
+    case 'highlight':
+    case 'text': {
+      const b = shapeBBox(shape);
+      return (
+        px >= b.left - tolerance &&
+        px <= b.right + tolerance &&
+        py >= b.top - tolerance &&
+        py <= b.bottom + tolerance
+      );
+    }
+    case 'rect': {
+      // Outline only: near any of the 4 edges
+      const x = Math.min(shape.x, shape.x + shape.w);
+      const y = Math.min(shape.y, shape.y + shape.h);
+      const w = Math.abs(shape.w);
+      const h = Math.abs(shape.h);
+      const t = Math.max(tolerance, shape.strokeWidth);
+      const onLeft = Math.abs(px - x) <= t && py >= y - t && py <= y + h + t;
+      const onRight = Math.abs(px - (x + w)) <= t && py >= y - t && py <= y + h + t;
+      const onTop = Math.abs(py - y) <= t && px >= x - t && px <= x + w + t;
+      const onBottom = Math.abs(py - (y + h)) <= t && px >= x - t && px <= x + w + t;
+      return onLeft || onRight || onTop || onBottom;
+    }
+    case 'arrow':
+    case 'line': {
+      const t = Math.max(tolerance, shape.strokeWidth);
+      return distancePointToSegment(px, py, shape.x1, shape.y1, shape.x2, shape.y2) <= t;
+    }
+    case 'pen': {
+      const t = Math.max(tolerance, shape.strokeWidth);
+      for (let i = 1; i < shape.points.length; i++) {
+        const a = shape.points[i - 1];
+        const b = shape.points[i];
+        if (distancePointToSegment(px, py, a.x, a.y, b.x, b.y) <= t) return true;
+      }
+      return false;
+    }
+  }
+}
+
+/** Finds the topmost shape (last-drawn) under the point. */
+export function findShapeAt(shapes: Shape[], px: number, py: number, tolerance = 8): Shape | null {
+  for (let i = shapes.length - 1; i >= 0; i--) {
+    if (hitTestShape(shapes[i], px, py, tolerance)) return shapes[i];
+  }
+  return null;
 }
 
 /**

@@ -17,6 +17,7 @@ import {
   Highlighter,
   Minus,
   MousePointer,
+  Pencil,
   Square,
   Trash2,
   Type,
@@ -31,32 +32,44 @@ import {
   downloadPng,
   drawShapes,
   exportPng,
+  findShapeAt,
   makeId,
   normaliseRect,
   PALETTE,
+  shapeBBox,
+  translateShape,
   translateShapesForCrop,
   type CropRect,
   type ScreenshotCaptureResponse,
   type Shape,
 } from './logic';
 
-type Tool = 'select' | 'rect' | 'highlight' | 'arrow' | 'line' | 'text' | 'crop';
+type Tool = 'select' | 'rect' | 'highlight' | 'arrow' | 'line' | 'pen' | 'text' | 'crop';
 
 const TOOLS: { value: Tool; label: string; icon: typeof Square }[] = [
-  { value: 'select', label: 'Select', icon: MousePointer },
+  { value: 'select', label: 'Select / move', icon: MousePointer },
   { value: 'rect', label: 'Rectangle', icon: Square },
   { value: 'highlight', label: 'Highlight', icon: Highlighter },
   { value: 'arrow', label: 'Arrow', icon: ArrowUpRight },
-  { value: 'line', label: 'Line / underline', icon: Minus },
+  { value: 'line', label: 'Straight line', icon: Minus },
+  { value: 'pen', label: 'Freehand pen', icon: Pencil },
   { value: 'text', label: 'Text', icon: Type },
   { value: 'crop', label: 'Crop', icon: Crop },
 ];
 
 interface TextDraft {
-  x: number; // canvas-space
+  x: number;
   y: number;
-  screenX: number; // viewport-space within wrapper
+  screenX: number;
   screenY: number;
+}
+
+interface DragState {
+  shapeId: string;
+  originX: number;
+  originY: number;
+  startX: number;
+  startY: number;
 }
 
 export default function ScreenshotTool() {
@@ -71,6 +84,8 @@ export default function ScreenshotTool() {
   const [cropDraft, setCropDraft] = useState<CropRect | null>(null);
   const [textDraft, setTextDraft] = useState<TextDraft | null>(null);
   const [textValue, setTextValue] = useState('');
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [drag, setDrag] = useState<DragState | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -103,11 +118,19 @@ export default function ScreenshotTool() {
     ctx.drawImage(img, 0, 0);
     drawShapes(ctx, drawing ? [...shapes, drawing] : shapes);
     if (cropDraft) drawCropOverlay(ctx, cropDraft);
-  }, [img, shapes, drawing, cropDraft]);
+    if (selectedId) {
+      const sel = shapes.find((s) => s.id === selectedId);
+      if (sel) drawSelectionMarker(ctx, sel);
+    }
+  }, [img, shapes, drawing, cropDraft, selectedId]);
 
-  // Focus inline text input when it appears
+  // Focus inline text input when it appears (in addition to autoFocus attribute,
+  // belt-and-suspenders so it survives React strict-mode double-invoke).
   useEffect(() => {
-    if (textDraft) textInputRef.current?.focus();
+    if (textDraft) {
+      const id = window.setTimeout(() => textInputRef.current?.focus(), 0);
+      return () => window.clearTimeout(id);
+    }
   }, [textDraft]);
 
   const capture = async () => {
@@ -125,6 +148,7 @@ export default function ScreenshotTool() {
       setShapes([]);
       setCropDraft(null);
       setTextDraft(null);
+      setSelectedId(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
@@ -141,9 +165,22 @@ export default function ScreenshotTool() {
   };
 
   const onPointerDown = (e: ReactMouseEvent<HTMLCanvasElement>) => {
-    if (!img || tool === 'select') return;
+    if (!img) return;
     if (textDraft) return; // typing in progress — wait for commit
     const { x, y } = toCanvasCoords(e);
+
+    if (tool === 'select') {
+      const hit = findShapeAt(shapes, x, y);
+      if (hit) {
+        setSelectedId(hit.id);
+        // Use the bbox top-left as the origin to translate relative to.
+        const b = shapeBBox(hit);
+        setDrag({ shapeId: hit.id, originX: b.left, originY: b.top, startX: x, startY: y });
+      } else {
+        setSelectedId(null);
+      }
+      return;
+    }
 
     if (tool === 'text') {
       const canvas = canvasRef.current!;
@@ -163,6 +200,8 @@ export default function ScreenshotTool() {
       setCropDraft({ x, y, w: 0, h: 0 });
       return;
     }
+
+    setSelectedId(null);
     if (tool === 'rect') {
       setDrawing({ id: makeId(), kind: 'rect', color, strokeWidth, x, y, w: 0, h: 0 });
     } else if (tool === 'highlight') {
@@ -171,10 +210,26 @@ export default function ScreenshotTool() {
       setDrawing({ id: makeId(), kind: 'line', color, strokeWidth, x1: x, y1: y, x2: x, y2: y });
     } else if (tool === 'arrow') {
       setDrawing({ id: makeId(), kind: 'arrow', color, strokeWidth, x1: x, y1: y, x2: x, y2: y });
+    } else if (tool === 'pen') {
+      setDrawing({ id: makeId(), kind: 'pen', color, strokeWidth, points: [{ x, y }] });
     }
   };
 
   const onPointerMove = (e: ReactMouseEvent<HTMLCanvasElement>) => {
+    if (drag && tool === 'select' && e.buttons === 1) {
+      const { x, y } = toCanvasCoords(e);
+      const dx = x - drag.startX;
+      const dy = y - drag.startY;
+      setShapes((prev) =>
+        prev.map((s) => {
+          if (s.id !== drag.shapeId) return s;
+          const b = shapeBBox(s);
+          // Translate relative to original drag-start position
+          return translateShape(s, drag.originX + dx - b.left, drag.originY + dy - b.top);
+        }),
+      );
+      return;
+    }
     if (cropDraft && tool === 'crop' && e.buttons === 1) {
       const { x, y } = toCanvasCoords(e);
       setCropDraft({ ...cropDraft, w: x - cropDraft.x, h: y - cropDraft.y });
@@ -186,18 +241,36 @@ export default function ScreenshotTool() {
       setDrawing({ ...drawing, w: x - drawing.x, h: y - drawing.y });
     } else if (drawing.kind === 'arrow' || drawing.kind === 'line') {
       setDrawing({ ...drawing, x2: x, y2: y });
+    } else if (drawing.kind === 'pen') {
+      // Append a point if it's moved enough — keeps the data lean.
+      const last = drawing.points[drawing.points.length - 1];
+      if (Math.hypot(x - last.x, y - last.y) >= 1.5) {
+        setDrawing({ ...drawing, points: [...drawing.points, { x, y }] });
+      }
     }
   };
 
   const onPointerUp = () => {
+    setDrag(null);
     if (drawing) {
       setShapes((prev) => [...prev, drawing]);
       setDrawing(null);
     }
   };
 
-  const undo = () => setShapes((prev) => prev.slice(0, -1));
-  const clear = () => setShapes([]);
+  const undo = () => {
+    setShapes((prev) => prev.slice(0, -1));
+    setSelectedId(null);
+  };
+  const clear = () => {
+    setShapes([]);
+    setSelectedId(null);
+  };
+  const deleteSelected = () => {
+    if (!selectedId) return;
+    setShapes((prev) => prev.filter((s) => s.id !== selectedId));
+    setSelectedId(null);
+  };
 
   const download = () => {
     if (canvasRef.current) downloadPng(canvasRef.current, `devkit-${Date.now()}.png`);
@@ -228,14 +301,12 @@ export default function ScreenshotTool() {
       setCropDraft(null);
       return;
     }
-    // Render shapes BEFORE cropping so partial shapes look right.
     const composed = canvasRef.current;
     const next = cropImage(composed, normalised);
-    // But shapes coords are relative to the original image — translate them
-    // so the cropped canvas will redraw them at the right position.
     setShapes((prev) => translateShapesForCrop(prev, normalised));
     setImgUrl(next);
     setCropDraft(null);
+    setSelectedId(null);
   };
 
   const commitText = () => {
@@ -324,6 +395,7 @@ export default function ScreenshotTool() {
                       setTool(it.value);
                       setCropDraft(null);
                       cancelText();
+                      if (it.value !== 'select') setSelectedId(null);
                     }}
                     title={it.label}
                     aria-label={it.label}
@@ -384,6 +456,12 @@ export default function ScreenshotTool() {
                 </>
               ) : (
                 <>
+                  {selectedId && (
+                    <Button variant="ghost" size="sm" onClick={deleteSelected}>
+                      <X className="h-3 w-3" />
+                      Delete
+                    </Button>
+                  )}
                   <Button variant="ghost" size="sm" onClick={undo} disabled={shapes.length === 0}>
                     <Undo2 className="h-3 w-3" />
                     Undo
@@ -396,6 +474,12 @@ export default function ScreenshotTool() {
               )}
             </div>
           </div>
+
+          {tool === 'select' && (
+            <p className="text-[10px] text-muted-foreground">
+              Click a shape to select it, then drag to move. Use <strong>Delete</strong> to remove.
+            </p>
+          )}
 
           <div
             ref={wrapperRef}
@@ -416,8 +500,7 @@ export default function ScreenshotTool() {
                 value={textValue}
                 onChange={(e) => setTextValue(e.target.value)}
                 onKeyDown={onTextKeyDown}
-                onBlur={commitText}
-                placeholder="Type text, Enter to confirm, Esc to cancel"
+                placeholder="Type, Enter to confirm, Esc to cancel"
                 className="absolute rounded-sm border border-primary bg-background/95 px-1 outline-none"
                 style={{
                   left: textDraft.screenX,
@@ -446,16 +529,26 @@ export default function ScreenshotTool() {
 function drawCropOverlay(ctx: CanvasRenderingContext2D, draft: CropRect) {
   const r = normaliseRect(draft);
   ctx.save();
-  // Dim everything outside the crop rectangle.
   ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
   ctx.fillRect(0, 0, ctx.canvas.width, r.y);
   ctx.fillRect(0, r.y + r.h, ctx.canvas.width, ctx.canvas.height - (r.y + r.h));
   ctx.fillRect(0, r.y, r.x, r.h);
   ctx.fillRect(r.x + r.w, r.y, ctx.canvas.width - (r.x + r.w), r.h);
-  // Dashed outline.
   ctx.strokeStyle = '#3b82f6';
   ctx.lineWidth = 2;
   ctx.setLineDash([8, 6]);
   ctx.strokeRect(r.x, r.y, r.w, r.h);
+  ctx.restore();
+}
+
+/** Dashed bounding box around the currently selected shape. */
+function drawSelectionMarker(ctx: CanvasRenderingContext2D, shape: Shape) {
+  const b = shapeBBox(shape);
+  const pad = 4;
+  ctx.save();
+  ctx.strokeStyle = '#3b82f6';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([4, 4]);
+  ctx.strokeRect(b.left - pad, b.top - pad, b.right - b.left + pad * 2, b.bottom - b.top + pad * 2);
   ctx.restore();
 }

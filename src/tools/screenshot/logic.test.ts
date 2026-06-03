@@ -1,12 +1,16 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   drawShapes,
+  findShapeAt,
+  hitTestShape,
   isPointInRect,
   makeId,
   normaliseRect,
   PALETTE,
   shapeBBox,
+  translateShape,
   translateShapesForCrop,
+  type PenShape,
   type RectShape,
   type Shape,
 } from './logic';
@@ -256,5 +260,131 @@ describe('drawShapes', () => {
       { id: 'l', kind: 'line', color: '#000', strokeWidth: 2, x1: 0, y1: 0, x2: 10, y2: 0 },
     ]);
     expect(ctx.stroke).toHaveBeenCalled();
+  });
+
+  it('pen connects every recorded point with lineTo', () => {
+    const ctx = mockCtx() as ReturnType<typeof mockCtx> & { lineTo: ReturnType<typeof vi.fn> };
+    const pen: PenShape = {
+      id: 'p',
+      kind: 'pen',
+      color: '#000',
+      strokeWidth: 2,
+      points: [
+        { x: 0, y: 0 },
+        { x: 5, y: 5 },
+        { x: 10, y: 0 },
+      ],
+    };
+    drawShapes(ctx, [pen]);
+    expect(ctx.stroke).toHaveBeenCalled();
+    expect(ctx.lineTo as ReturnType<typeof vi.fn>).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('pen shape', () => {
+  const pen: PenShape = {
+    id: 'p',
+    kind: 'pen',
+    color: '#000',
+    strokeWidth: 2,
+    points: [
+      { x: 10, y: 20 },
+      { x: 50, y: 60 },
+      { x: 30, y: 100 },
+    ],
+  };
+
+  it('bbox spans min/max over all points', () => {
+    expect(shapeBBox(pen)).toEqual({ left: 10, top: 20, right: 50, bottom: 100 });
+  });
+  it('translate shifts every point', () => {
+    const moved = translateShape(pen, -5, 10) as PenShape;
+    expect(moved.points).toEqual([
+      { x: 5, y: 30 },
+      { x: 45, y: 70 },
+      { x: 25, y: 110 },
+    ]);
+  });
+});
+
+describe('hitTestShape', () => {
+  const rect: RectShape = {
+    id: 'r',
+    kind: 'rect',
+    color: '#000',
+    strokeWidth: 2,
+    x: 100,
+    y: 100,
+    w: 100,
+    h: 80,
+  };
+
+  it('rect hits along an edge but not the centre', () => {
+    expect(hitTestShape(rect, 100, 140, 4)).toBe(true); // left edge
+    expect(hitTestShape(rect, 150, 100, 4)).toBe(true); // top edge
+    expect(hitTestShape(rect, 150, 140, 4)).toBe(false); // middle interior
+  });
+
+  it('arrow / line hits near the segment', () => {
+    const arr: Shape = {
+      id: 'a',
+      kind: 'arrow',
+      color: '#000',
+      strokeWidth: 2,
+      x1: 0,
+      y1: 0,
+      x2: 100,
+      y2: 0,
+    };
+    expect(hitTestShape(arr, 50, 2, 4)).toBe(true);
+    expect(hitTestShape(arr, 50, 30, 4)).toBe(false);
+  });
+
+  it('pen hits along the polyline', () => {
+    const pen: PenShape = {
+      id: 'p',
+      kind: 'pen',
+      color: '#000',
+      strokeWidth: 2,
+      points: [
+        { x: 0, y: 0 },
+        { x: 50, y: 50 },
+        { x: 100, y: 0 },
+      ],
+    };
+    expect(hitTestShape(pen, 25, 25, 4)).toBe(true);
+    expect(hitTestShape(pen, 25, 100, 4)).toBe(false);
+  });
+
+  it('text hits inside its approximate bbox', () => {
+    const t: Shape = {
+      id: 't',
+      kind: 'text',
+      color: '#000',
+      strokeWidth: 1,
+      x: 100,
+      y: 100,
+      text: 'Hello',
+      fontSize: 16,
+    };
+    expect(hitTestShape(t, 102, 102, 0)).toBe(true);
+    expect(hitTestShape(t, 1000, 100, 0)).toBe(false);
+  });
+});
+
+describe('findShapeAt', () => {
+  const shapes: Shape[] = [
+    { id: 'a', kind: 'rect', color: '#000', strokeWidth: 2, x: 0, y: 0, w: 100, h: 100 },
+    { id: 'b', kind: 'rect', color: '#fff', strokeWidth: 2, x: 50, y: 50, w: 100, h: 100 },
+  ];
+
+  it('returns the topmost shape when multiple overlap', () => {
+    // Point (60, 60) is near the top edge of `b` (top edge at y=50), not on `a`'s edges.
+    const hit = findShapeAt(shapes, 60, 50, 4);
+    expect(hit?.id).toBe('b');
+  });
+
+  it('returns null when nothing is hit', () => {
+    expect(findShapeAt(shapes, 500, 500)).toBeNull();
   });
 });
