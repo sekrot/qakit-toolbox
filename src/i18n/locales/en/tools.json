@@ -94,7 +94,33 @@
       "matchTitle": "Match {{index}}",
       "captureGroups": "Capture groups",
       "cheatsheet": "Cheatsheet",
-      "copyAllMatches": "{{copy}} all matches"
+      "copyAllMatches": "{{copy}} all matches",
+      "flags": {
+        "g": { "name": "global", "description": "Find all matches" },
+        "i": { "name": "ignore case", "description": "Case-insensitive" },
+        "m": { "name": "multiline", "description": "^ and $ match line breaks" },
+        "s": { "name": "dotall", "description": ". matches newlines" },
+        "u": { "name": "unicode", "description": "Unicode mode" },
+        "y": { "name": "sticky", "description": "Match from lastIndex" }
+      },
+      "cheatsheetMeanings": [
+        "Any character (except newline)",
+        "Digit / non-digit",
+        "Word char / non-word",
+        "Whitespace / non-whitespace",
+        "Word boundary / non-boundary",
+        "Start / end of string (or line with m)",
+        "0 or more (greedy)",
+        "1 or more (greedy)",
+        "0 or 1 / lazy modifier",
+        "Between n and m repetitions",
+        "Capturing group",
+        "Non-capturing group",
+        "Named capturing group",
+        "Lookahead / negative lookahead",
+        "Character class / negated",
+        "Alternation"
+      ]
     }
   },
   "hash": {

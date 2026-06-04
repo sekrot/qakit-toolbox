@@ -94,7 +94,36 @@
       "matchTitle": "Treffer {{index}}",
       "captureGroups": "Capture-Gruppen",
       "cheatsheet": "Spickzettel",
-      "copyAllMatches": "Alle Treffer {{copy}}"
+      "copyAllMatches": "Alle Treffer {{copy}}",
+      "flags": {
+        "g": { "name": "global", "description": "Alle Treffer finden" },
+        "i": {
+          "name": "Groß-/Kleinschreibung ignorieren",
+          "description": "Unabhängig von Groß-/Kleinschreibung"
+        },
+        "m": { "name": "mehrzeilig", "description": "^ und $ passen zeilenweise" },
+        "s": { "name": "dotall", "description": ". passt auch auf Zeilenumbrüche" },
+        "u": { "name": "Unicode", "description": "Unicode-Modus" },
+        "y": { "name": "sticky", "description": "Suche ab lastIndex" }
+      },
+      "cheatsheetMeanings": [
+        "Beliebiges Zeichen (außer Zeilenumbruch)",
+        "Ziffer / keine Ziffer",
+        "Wortzeichen / kein Wortzeichen",
+        "Leerzeichen / kein Leerzeichen",
+        "Wortgrenze / keine Wortgrenze",
+        "Anfang / Ende des Strings (oder der Zeile mit m)",
+        "0 oder mehr (gierig)",
+        "1 oder mehr (gierig)",
+        "0 oder 1 / fauler Modifikator",
+        "Zwischen n und m Wiederholungen",
+        "Erfassungsgruppe",
+        "Nicht erfassende Gruppe",
+        "Benannte Erfassungsgruppe",
+        "Lookahead / negatives Lookahead",
+        "Zeichenklasse / negiert",
+        "Alternative"
+      ]
     }
   },
   "hash": {

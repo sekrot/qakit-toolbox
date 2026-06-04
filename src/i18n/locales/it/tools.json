@@ -94,7 +94,33 @@
       "matchTitle": "Corrispondenza {{index}}",
       "captureGroups": "Gruppi di cattura",
       "cheatsheet": "Cheatsheet",
-      "copyAllMatches": "{{copy}} tutte le corrispondenze"
+      "copyAllMatches": "{{copy}} tutte le corrispondenze",
+      "flags": {
+        "g": { "name": "globale", "description": "Trova tutte le corrispondenze" },
+        "i": { "name": "ignora maiuscole", "description": "Non distingue maiuscole/minuscole" },
+        "m": { "name": "multiriga", "description": "^ e $ funzionano per riga" },
+        "s": { "name": "dotall", "description": ". corrisponde anche ai ritorni a capo" },
+        "u": { "name": "unicode", "description": "Modalità Unicode" },
+        "y": { "name": "sticky", "description": "Cerca da lastIndex" }
+      },
+      "cheatsheetMeanings": [
+        "Qualsiasi carattere (eccetto ritorno a capo)",
+        "Cifra / non cifra",
+        "Carattere di parola / non parola",
+        "Spazio / non spazio",
+        "Confine di parola / non confine",
+        "Inizio / fine della stringa (o riga con m)",
+        "0 o più (avido)",
+        "1 o più (avido)",
+        "0 o 1 / modificatore pigro",
+        "Tra n e m ripetizioni",
+        "Gruppo di cattura",
+        "Gruppo non catturante",
+        "Gruppo di cattura nominato",
+        "Lookahead / lookahead negativo",
+        "Classe di caratteri / negata",
+        "Alternativa"
+      ]
     }
   },
   "hash": {

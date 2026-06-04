@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { cn } from '@/lib/cn';
-import { runRegex, highlight, FLAG_INFO, CHEATSHEET } from './logic';
+import { runRegex, highlight, FLAGS, CHEATSHEET_SYNTAX } from './logic';
 
 const SAMPLE_INPUT =
   'Contact us at hello@example.com or support@devkit.io.\nPhone: +1-555-0100, fax 555-0200.';
@@ -45,21 +45,25 @@ export default function RegexTool() {
       </div>
 
       <div className="flex flex-wrap items-center gap-1">
-        {FLAG_INFO.map((f) => (
-          <button
-            key={f.flag}
-            onClick={() => toggleFlag(f.flag)}
-            title={`${f.name}: ${f.description}`}
-            className={cn(
-              'rounded-md border px-2 py-1 font-mono text-xs transition-colors',
-              flags.includes(f.flag)
-                ? 'border-primary bg-primary/10 text-primary'
-                : 'border-border text-muted-foreground hover:text-foreground',
-            )}
-          >
-            {f.flag}
-          </button>
-        ))}
+        {FLAGS.map((flag) => {
+          const name = ui(`flags.${flag}.name`);
+          const description = ui(`flags.${flag}.description`);
+          return (
+            <button
+              key={flag}
+              onClick={() => toggleFlag(flag)}
+              title={`${name}: ${description}`}
+              className={cn(
+                'rounded-md border px-2 py-1 font-mono text-xs transition-colors',
+                flags.includes(flag)
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'border-border text-muted-foreground hover:text-foreground',
+              )}
+            >
+              {flag}
+            </button>
+          );
+        })}
       </div>
 
       {result.error && (
@@ -151,10 +155,12 @@ export default function RegexTool() {
         </button>
         {cheatsheetOpen && (
           <div className="grid grid-cols-1 gap-1 rounded-md border border-border bg-muted p-2 text-xs">
-            {CHEATSHEET.map((row) => (
-              <div key={row.syntax} className="flex items-center gap-3">
-                <code className="min-w-[110px] font-mono text-primary">{row.syntax}</code>
-                <span className="text-muted-foreground">{row.meaning}</span>
+            {CHEATSHEET_SYNTAX.map((syntax, i) => (
+              <div key={syntax} className="flex items-center gap-3">
+                <code className="min-w-[110px] font-mono text-primary">{syntax}</code>
+                <span className="text-muted-foreground">
+                  {t(`tools:regex.ui.cheatsheetMeanings.${i}`)}
+                </span>
               </div>
             ))}
           </div>

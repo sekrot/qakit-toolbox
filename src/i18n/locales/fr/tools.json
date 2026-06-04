@@ -94,7 +94,33 @@
       "matchTitle": "Correspondance {{index}}",
       "captureGroups": "Groupes de capture",
       "cheatsheet": "Aide-mémoire",
-      "copyAllMatches": "{{copy}} toutes les correspondances"
+      "copyAllMatches": "{{copy}} toutes les correspondances",
+      "flags": {
+        "g": { "name": "global", "description": "Trouver toutes les correspondances" },
+        "i": { "name": "insensible à la casse", "description": "Ignorer la casse" },
+        "m": { "name": "multiligne", "description": "^ et $ correspondent aux sauts de ligne" },
+        "s": { "name": "dotall", "description": ". correspond aux sauts de ligne" },
+        "u": { "name": "unicode", "description": "Mode Unicode" },
+        "y": { "name": "sticky", "description": "Recherche à partir de lastIndex" }
+      },
+      "cheatsheetMeanings": [
+        "Tout caractère (sauf saut de ligne)",
+        "Chiffre / non chiffre",
+        "Caractère de mot / non-mot",
+        "Espace / non-espace",
+        "Limite de mot / non-limite",
+        "Début / fin de chaîne (ou de ligne avec m)",
+        "0 ou plus (gourmand)",
+        "1 ou plus (gourmand)",
+        "0 ou 1 / modificateur paresseux",
+        "Entre n et m répétitions",
+        "Groupe de capture",
+        "Groupe non capturant",
+        "Groupe de capture nommé",
+        "Lookahead / lookahead négatif",
+        "Classe de caractères / négation",
+        "Alternance"
+      ]
     }
   },
   "hash": {

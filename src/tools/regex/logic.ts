@@ -72,30 +72,26 @@ export function highlight(input: string, matches: RegexMatch[]): HighlightSegmen
   return segments;
 }
 
-export const FLAG_INFO: { flag: string; name: string; description: string }[] = [
-  { flag: 'g', name: 'global', description: 'Find all matches' },
-  { flag: 'i', name: 'ignore case', description: 'Case-insensitive' },
-  { flag: 'm', name: 'multiline', description: '^ and $ match line breaks' },
-  { flag: 's', name: 'dotall', description: '. matches newlines' },
-  { flag: 'u', name: 'unicode', description: 'Unicode mode' },
-  { flag: 'y', name: 'sticky', description: 'Match from lastIndex' },
-];
+/** Order matches the i18n table; the name/description strings live in tools.json. */
+export const FLAGS = ['g', 'i', 'm', 's', 'u', 'y'] as const;
+export type RegexFlag = (typeof FLAGS)[number];
 
-export const CHEATSHEET: { syntax: string; meaning: string }[] = [
-  { syntax: '.', meaning: 'Any character (except newline)' },
-  { syntax: '\\d / \\D', meaning: 'Digit / non-digit' },
-  { syntax: '\\w / \\W', meaning: 'Word char / non-word' },
-  { syntax: '\\s / \\S', meaning: 'Whitespace / non-whitespace' },
-  { syntax: '\\b / \\B', meaning: 'Word boundary / non-boundary' },
-  { syntax: '^ / $', meaning: 'Start / end of string (or line with m)' },
-  { syntax: '*', meaning: '0 or more (greedy)' },
-  { syntax: '+', meaning: '1 or more (greedy)' },
-  { syntax: '?', meaning: '0 or 1 / lazy modifier' },
-  { syntax: '{n,m}', meaning: 'Between n and m repetitions' },
-  { syntax: '(...)', meaning: 'Capturing group' },
-  { syntax: '(?:...)', meaning: 'Non-capturing group' },
-  { syntax: '(?<name>...)', meaning: 'Named capturing group' },
-  { syntax: '(?=...) / (?!...)', meaning: 'Lookahead / negative lookahead' },
-  { syntax: '[abc] / [^abc]', meaning: 'Character class / negated' },
-  { syntax: 'a|b', meaning: 'Alternation' },
+/** Cheatsheet syntax tokens. Meanings live in tools.json under their index. */
+export const CHEATSHEET_SYNTAX = [
+  '.',
+  '\\d / \\D',
+  '\\w / \\W',
+  '\\s / \\S',
+  '\\b / \\B',
+  '^ / $',
+  '*',
+  '+',
+  '?',
+  '{n,m}',
+  '(...)',
+  '(?:...)',
+  '(?<name>...)',
+  '(?=...) / (?!...)',
+  '[abc] / [^abc]',
+  'a|b',
 ];
