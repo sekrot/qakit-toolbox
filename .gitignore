@@ -17,3 +17,4 @@ coverage/
 !.vscode/extensions.json
 stats.html
 .serena/
+test-unpacked/
