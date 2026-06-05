@@ -28,6 +28,10 @@
   "imported": "Importate {{count}} voci",
   "importFailed": "Importazione fallita: {{error}}",
   "about": "Informazioni",
+  "aboutVersion": "Versione",
+  "aboutDeveloper": "Sviluppatore",
+  "aboutContact": "Contatto",
+  "aboutTagline": "Realizzato con cura per ingegneri QA e sviluppatori.",
   "onboarding": "Presentazione",
   "onboardingReplay": "Riavvia"
 }

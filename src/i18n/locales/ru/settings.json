@@ -22,12 +22,16 @@
   "shortcutsUnassigned": "Не назначено",
   "data": "Данные",
   "clearHistory": "Очистить историю",
-  "clearHistoryConfirm": "Удалить историю буфера обмена и пипетки цвета? Закреплённые записи также будут удалены.",
+  "clearHistoryConfirm": "Удалить историю буфера обмена и подбора цвета? Закреплённые записи также будут удалены.",
   "exportSettings": "Экспорт настроек",
   "importSettings": "Импорт настроек",
   "imported": "Импортировано {{count}} ключей",
   "importFailed": "Импорт не удался: {{error}}",
   "about": "О приложении",
+  "aboutVersion": "Версия",
+  "aboutDeveloper": "Разработчик",
+  "aboutContact": "Связаться",
+  "aboutTagline": "Сделано с заботой о QA-инженерах и разработчиках.",
   "onboarding": "Знакомство с приложением",
   "onboardingReplay": "Повторить"
 }

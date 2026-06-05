@@ -1,5 +1,5 @@
 {
-  "appName": "DevKit Toolbox",
+  "appName": "QAKit Toolbox",
   "tagline": "Utilidades sin conexión para desarrolladores y QA",
   "search": "Buscar herramientas…",
   "back": "Atrás",
@@ -43,7 +43,7 @@
   },
   "onboarding": {
     "welcome": {
-      "title": "Bienvenido a DevKit Toolbox",
+      "title": "Bienvenido a QAKit Toolbox",
       "body": "11 utilidades sin conexión para desarrolladores y QA: JSON, JWT, hashes, regex, cuentagotas de color, capturas de pantalla y más. Todo en el panel lateral, a un clic."
     },
     "tools": {
@@ -52,7 +52,7 @@
     },
     "privacy": {
       "title": "Tus datos no salen de tu dispositivo",
-      "body": "DevKit Toolbox funciona totalmente sin conexión. Sin telemetría, sin envíos. Todo se procesa localmente y se guarda solo en tu navegador."
+      "body": "QAKit Toolbox funciona totalmente sin conexión. Sin telemetría, sin envíos. Todo se procesa localmente y se guarda solo en tu navegador."
     },
     "ready": {
       "title": "Todo listo",

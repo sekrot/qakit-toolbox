@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Download, ExternalLink, Keyboard, Trash2, Upload } from 'lucide-react';
+import { Download, ExternalLink, Info, Keyboard, Mail, Trash2, Upload } from 'lucide-react';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/Button';
@@ -158,6 +158,49 @@ export function SettingsScreen() {
           {t('onboardingReplay')}
         </Button>
       </section>
+
+      <AboutSection />
     </div>
+  );
+}
+
+const DEVELOPER_NAME = 'Sergey Krotov';
+const DEVELOPER_EMAIL = 'siargey.krotov@gmail.com';
+
+function AboutSection() {
+  const { t } = useTranslation('settings');
+  // chrome.runtime is unavailable when running outside of an extension context
+  // (e.g. `vite dev`). Fall back to the build-time version injected by Vite.
+  const version =
+    (typeof chrome !== 'undefined' && chrome.runtime?.getManifest?.().version) || __APP_VERSION__;
+
+  return (
+    <section className="mt-2 flex flex-col gap-2 border-t border-border pt-4">
+      <h2 className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        <Info className="h-3 w-3" />
+        {t('about')}
+      </h2>
+      <div className="flex flex-col gap-1 rounded-md border border-border bg-muted p-3 text-xs">
+        <div className="flex items-center justify-between">
+          <span className="text-muted-foreground">{t('aboutVersion')}</span>
+          <span className="font-mono">{version}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-muted-foreground">{t('aboutDeveloper')}</span>
+          <span>{DEVELOPER_NAME}</span>
+        </div>
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-muted-foreground">{t('aboutContact')}</span>
+          <a
+            href={`mailto:${DEVELOPER_EMAIL}`}
+            className="flex items-center gap-1 text-primary hover:underline"
+          >
+            <Mail className="h-3 w-3" />
+            {DEVELOPER_EMAIL}
+          </a>
+        </div>
+      </div>
+      <p className="text-[10px] text-muted-foreground">{t('aboutTagline')}</p>
+    </section>
   );
 }

@@ -203,7 +203,7 @@
       },
       "selectHint": "Haz clic en una figura para seleccionarla y arrastra para moverla. Usa Eliminar para quitarla.",
       "emptyHint": "Pulsa <strong>Capturar pestaña</strong> para hacer una captura de la pestaña activa y empezar a anotar.",
-      "textPlaceholder": "Escribe, Enter para confirmar, Esc para cancelar",
+      "textPlaceholder": "Escribe, clic fuera para confirmar, Esc para cancelar",
       "colorAria": "Color {{color}}",
       "strokeAria": "Grosor del trazo"
     }

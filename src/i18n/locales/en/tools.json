@@ -200,7 +200,7 @@
       },
       "selectHint": "Click a shape to select it, then drag to move. Use Delete to remove.",
       "emptyHint": "Click <strong>Capture tab</strong> to take a screenshot of the active tab and start annotating.",
-      "textPlaceholder": "Type, Enter to confirm, Esc to cancel",
+      "textPlaceholder": "Type, click outside to confirm, Esc to cancel",
       "colorAria": "Color {{color}}",
       "strokeAria": "Stroke width"
     }

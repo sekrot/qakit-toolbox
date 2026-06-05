@@ -31,6 +31,7 @@ export default [
         ...globals.browser,
         ...globals.es2022,
         chrome: 'readonly',
+        __APP_VERSION__: 'readonly',
       },
     },
     plugins: {

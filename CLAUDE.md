@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## Project
 
-**DevKit Toolbox** — Chrome extension (Manifest V3) с набором офлайн-утилит для разработчиков и QA. Side panel UI, 11 утилит в MVP, без сетевых запросов, всё хранение — `chrome.storage.local`.
+**QAKit Toolbox** — Chrome extension (Manifest V3) с набором офлайн-утилит для разработчиков и QA. Side panel UI, 11 утилит в MVP, без сетевых запросов, всё хранение — `chrome.storage.local`.
 
 Полный план задач: [TASKS.md](./TASKS.md). Фазы 0 и 1 завершены; текущая работа — Фаза 2 (реализация утилит).
 
@@ -101,6 +101,6 @@ npm run build
 
 ## Open questions
 
-- Имя "DevKit Toolbox" — проверить доступность в Chrome Web Store перед публикацией.
+- Имя "QAKit Toolbox" — проверить доступность в Chrome Web Store перед публикацией.
 - Перевод non-en локалей: пока заглушки (копии en). Делать после стабилизации всех `t()` ключей в Фазе 2.
 - Placeholder иконки — заменить на финальный логотип в Фазе 3.

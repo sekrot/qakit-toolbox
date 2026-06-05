@@ -28,6 +28,10 @@
   "imported": "{{count}} entrées importées",
   "importFailed": "Échec de l'import : {{error}}",
   "about": "À propos",
+  "aboutVersion": "Version",
+  "aboutDeveloper": "Développeur",
+  "aboutContact": "Contact",
+  "aboutTagline": "Conçu avec soin pour les ingénieurs QA et les développeurs.",
   "onboarding": "Présentation",
   "onboardingReplay": "Rejouer"
 }

@@ -1,9 +1,9 @@
 {
-  "name": "devkit-toolbox",
+  "name": "qakit-toolbox",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "DevKit Toolbox — Chrome extension with utilities for QA engineers and developers",
+  "description": "QAKit Toolbox — Chrome extension with utilities for QA engineers and developers",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -15,7 +15,7 @@
     "i18n:check": "node scripts/check-i18n.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "zip": "cd dist && zip -r ../dist-zip/devkit-toolbox.zip .",
+    "zip": "cd dist && zip -r ../dist-zip/qakit-toolbox.zip .",
     "prepare": "husky"
   },
   "dependencies": {

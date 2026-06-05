@@ -1,4 +1,4 @@
-# TASKS: DevKit Toolbox — Chrome Extension MVP
+# TASKS: QAKit Toolbox — Chrome Extension MVP
 
 > Создано: 2026-05-30
 > Статус: In Progress
@@ -265,6 +265,6 @@ Chrome-расширение со швейцарским ножом утилит 
 
 ## Открытые вопросы
 
-- [ ] Проверить доступность имени "DevKit Toolbox" в Chrome Web Store перед стартом
+- [ ] Проверить доступность имени "QAKit Toolbox" в Chrome Web Store перед стартом
 - [ ] Источник переводов: DeepL API / ручной перевод носителями / community? Для MVP — DeepL + ручная вычитка ru
 - [ ] Нужен ли отдельный slug для лендинга на GitHub Pages (например, `devkit-toolbox.github.io`) или сойдёт `username.github.io/devkit-toolbox`

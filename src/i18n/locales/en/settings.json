@@ -28,6 +28,10 @@
   "imported": "Imported {{count}} keys",
   "importFailed": "Import failed: {{error}}",
   "about": "About",
+  "aboutVersion": "Version",
+  "aboutDeveloper": "Developer",
+  "aboutContact": "Contact",
+  "aboutTagline": "Built with care for QA engineers and developers.",
   "onboarding": "Onboarding",
   "onboardingReplay": "Replay"
 }

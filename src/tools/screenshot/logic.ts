@@ -45,6 +45,8 @@ export interface TextShape extends BaseShape {
   y: number;
   text: string;
   fontSize: number;
+  /** Wrap width in canvas px. If undefined → render as single line (legacy). */
+  width?: number;
 }
 
 export interface PenShape extends BaseShape {
@@ -110,13 +112,46 @@ export function drawShapes(ctx: CanvasRenderingContext2D, shapes: Shape[]): void
         ctx.stroke();
         break;
       case 'text': {
-        ctx.font = `bold ${shape.fontSize}px ui-sans-serif, system-ui, sans-serif`;
+        ctx.font = `${shape.fontSize}px ui-sans-serif, system-ui, sans-serif`;
         ctx.textBaseline = 'top';
-        ctx.fillText(shape.text, shape.x, shape.y);
+        const lineHeight = shape.fontSize * 1.25;
+        const lines = shape.width ? wrapText(ctx, shape.text, shape.width) : shape.text.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          ctx.fillText(lines[i], shape.x, shape.y + i * lineHeight);
+        }
         break;
       }
     }
   }
+}
+
+/**
+ * Greedy word-wrap: splits the text into lines that fit `maxWidth` in the
+ * current canvas font. Honours explicit `\n` as hard breaks. A single word
+ * longer than the limit is emitted on its own line (no character-level
+ * splitting — keeps the implementation simple and predictable).
+ */
+function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {
+  const out: string[] = [];
+  for (const para of text.split('\n')) {
+    if (para === '') {
+      out.push('');
+      continue;
+    }
+    const words = para.split(/\s+/).filter(Boolean);
+    let line = '';
+    for (const word of words) {
+      const candidate = line ? line + ' ' + word : word;
+      if (!line || ctx.measureText(candidate).width <= maxWidth) {
+        line = candidate;
+      } else {
+        out.push(line);
+        line = word;
+      }
+    }
+    if (line) out.push(line);
+  }
+  return out.length === 0 ? [''] : out;
 }
 
 function drawArrow(ctx: CanvasRenderingContext2D, a: ArrowShape): void {
@@ -219,6 +254,28 @@ export function shapeBBox(shape: Shape): BBox {
         bottom: Math.max(shape.y1, shape.y2),
       };
     case 'text': {
+      const lineHeight = shape.fontSize * 1.25;
+      if (shape.width) {
+        // Estimate line count without a 2D context: roughly ceil(text * charWidth / width)
+        // per paragraph, plus blank lines for explicit newlines. Used for hit testing
+        // and crop overlap — exact pixel accuracy isn't required.
+        const avgCharW = shape.fontSize * 0.55;
+        let lines = 0;
+        for (const para of shape.text.split('\n')) {
+          if (para === '') {
+            lines += 1;
+            continue;
+          }
+          const est = Math.max(1, Math.ceil((para.length * avgCharW) / shape.width));
+          lines += est;
+        }
+        return {
+          left: shape.x,
+          top: shape.y,
+          right: shape.x + shape.width,
+          bottom: shape.y + Math.max(1, lines) * lineHeight,
+        };
+      }
       const width = shape.text.length * shape.fontSize * 0.6;
       return {
         left: shape.x,

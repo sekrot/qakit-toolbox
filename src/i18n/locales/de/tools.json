@@ -203,7 +203,7 @@
       },
       "selectHint": "Form anklicken zum Auswählen, dann ziehen zum Verschieben. Mit Löschen entfernen.",
       "emptyHint": "<strong>Tab aufnehmen</strong> klicken, um einen Screenshot des aktiven Tabs zu machen und mit den Anmerkungen zu beginnen.",
-      "textPlaceholder": "Text eingeben, Enter bestätigt, Esc bricht ab",
+      "textPlaceholder": "Text eingeben, klicken außerhalb bestätigt, Esc bricht ab",
       "colorAria": "Farbe {{color}}",
       "strokeAria": "Strichstärke"
     }

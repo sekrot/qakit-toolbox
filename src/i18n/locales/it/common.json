@@ -1,5 +1,5 @@
 {
-  "appName": "DevKit Toolbox",
+  "appName": "QAKit Toolbox",
   "tagline": "Utility offline per sviluppatori e QA",
   "search": "Cerca strumenti…",
   "back": "Indietro",
@@ -43,7 +43,7 @@
   },
   "onboarding": {
     "welcome": {
-      "title": "Benvenuto in DevKit Toolbox",
+      "title": "Benvenuto in QAKit Toolbox",
       "body": "11 utility offline per sviluppatori e QA: JSON, JWT, hash, regex, contagocce colore, screenshot e altro. Tutto nel pannello laterale, a un clic di distanza."
     },
     "tools": {
@@ -52,7 +52,7 @@
     },
     "privacy": {
       "title": "I tuoi dati restano sul dispositivo",
-      "body": "DevKit Toolbox è completamente offline. Nessuna telemetria, nessun upload. Tutto viene elaborato in locale e salvato solo nel tuo browser."
+      "body": "QAKit Toolbox è completamente offline. Nessuna telemetria, nessun upload. Tutto viene elaborato in locale e salvato solo nel tuo browser."
     },
     "ready": {
       "title": "Tutto pronto",

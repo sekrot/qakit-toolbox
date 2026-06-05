@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="public/icons/icon-128.png" alt="DevKit Toolbox icon" width="96" height="96"/>
+  <img src="public/icons/icon-128.png" alt="QAKit Toolbox icon" width="96" height="96"/>
 
-# DevKit Toolbox
+# QAKit Toolbox
 
 **A Chrome side-panel companion for developers and QA engineers.**
 Eleven utilities you reach for every day — JSON, JWT, regex, hashes, color picker,
@@ -86,13 +86,13 @@ Then load the unpacked extension:
 1. Open `chrome://extensions`
 2. Toggle **Developer mode** (top-right)
 3. Click **Load unpacked** and select the `dist/` folder
-4. Click the DevKit Toolbox icon in the toolbar — the side panel opens
+4. Click the QAKit Toolbox icon in the toolbar — the side panel opens
 
 A four-step onboarding tour runs on first launch.
 
 ## Privacy
 
-DevKit Toolbox is **fully offline**. It never makes network requests, never
+QAKit Toolbox is **fully offline**. It never makes network requests, never
 collects telemetry, never uploads files. Settings and history live in
 `chrome.storage.local` and never leave your browser.
 

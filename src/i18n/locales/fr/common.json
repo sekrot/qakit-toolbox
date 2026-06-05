@@ -1,5 +1,5 @@
 {
-  "appName": "DevKit Toolbox",
+  "appName": "QAKit Toolbox",
   "tagline": "Utilitaires hors ligne pour développeurs et QA",
   "search": "Rechercher un outil…",
   "back": "Retour",
@@ -43,7 +43,7 @@
   },
   "onboarding": {
     "welcome": {
-      "title": "Bienvenue dans DevKit Toolbox",
+      "title": "Bienvenue dans QAKit Toolbox",
       "body": "11 utilitaires hors ligne pour les développeurs et la QA : JSON, JWT, hachages, regex, pipette de couleur, captures d'écran et plus encore. Tout dans le panneau latéral, à un clic."
     },
     "tools": {
@@ -52,7 +52,7 @@
     },
     "privacy": {
       "title": "Vos données restent sur votre appareil",
-      "body": "DevKit Toolbox est entièrement hors ligne. Aucune télémétrie, aucun envoi. Tout est traité localement et stocké uniquement dans votre navigateur."
+      "body": "QAKit Toolbox est entièrement hors ligne. Aucune télémétrie, aucun envoi. Tout est traité localement et stocké uniquement dans votre navigateur."
     },
     "ready": {
       "title": "Tout est prêt",

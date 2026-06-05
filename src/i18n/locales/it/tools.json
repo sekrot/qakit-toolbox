@@ -200,7 +200,7 @@
       },
       "selectHint": "Clicca una forma per selezionarla, poi trascina per spostarla. Usa Elimina per rimuoverla.",
       "emptyHint": "Clicca <strong>Cattura scheda</strong> per fare uno screenshot della scheda attiva e iniziare ad annotarla.",
-      "textPlaceholder": "Scrivi, Invio per confermare, Esc per annullare",
+      "textPlaceholder": "Scrivi, clic fuori per confermare, Esc per annullare",
       "colorAria": "Colore {{color}}",
       "strokeAria": "Spessore del tratto"
     }

@@ -200,7 +200,7 @@
       },
       "selectHint": "Cliquez sur une forme pour la sélectionner, puis faites glisser pour la déplacer. Utilisez Supprimer pour l'enlever.",
       "emptyHint": "Cliquez sur <strong>Capturer l'onglet</strong> pour prendre une capture de l'onglet actif et commencer à annoter.",
-      "textPlaceholder": "Tapez, Entrée pour confirmer, Échap pour annuler",
+      "textPlaceholder": "Tapez, cliquez à l’extérieur pour confirmer, Échap pour annuler",
       "colorAria": "Couleur {{color}}",
       "strokeAria": "Épaisseur du trait"
     }

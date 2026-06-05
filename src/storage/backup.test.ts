@@ -30,7 +30,7 @@ afterEach(() => {
 
 describe('validatePayload', () => {
   it('accepts well-formed payload', () => {
-    expect(validatePayload({ app: 'DevKit Toolbox', version: 1, data: {} })).toBe(true);
+    expect(validatePayload({ app: 'QAKit Toolbox', version: 1, data: {} })).toBe(true);
   });
   it('rejects wrong app', () => {
     expect(validatePayload({ app: 'Other', version: 1, data: {} })).toBe(false);
@@ -47,7 +47,7 @@ describe('exportAll', () => {
     fakeStore['devkit-settings'] = '{"theme":"dark"}';
     fakeStore['clipboard.history'] = [{ id: '1', text: 'x', pinned: false, ts: 0 }];
     const payload = await exportAll();
-    expect(payload.app).toBe('DevKit Toolbox');
+    expect(payload.app).toBe('QAKit Toolbox');
     expect(payload.data['devkit-settings']).toBeDefined();
     expect(payload.data['clipboard.history']).toBeDefined();
   });
@@ -62,7 +62,7 @@ describe('importPayload', () => {
   });
   it('imports known keys, ignores unknown', async () => {
     const file = {
-      app: 'DevKit Toolbox',
+      app: 'QAKit Toolbox',
       version: 1,
       data: {
         'devkit-settings': '{"theme":"light"}',
@@ -77,7 +77,7 @@ describe('importPayload', () => {
   });
   it('reports empty file', async () => {
     const result = await importPayload(
-      JSON.stringify({ app: 'DevKit Toolbox', version: 1, data: { foo: 'bar' } }),
+      JSON.stringify({ app: 'QAKit Toolbox', version: 1, data: { foo: 'bar' } }),
     );
     expect(result.ok).toBe(false);
   });

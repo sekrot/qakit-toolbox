@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Render DevKit Toolbox icons at 16/32/48/128 px.
+"""Render QAKit Toolbox icons at 16/32/48/128 px.
 
-Renders at 1024 px and downsamples with LANCZOS so the small sizes stay crisp.
-Source design lives in public/icons/source.svg — keep this script in sync.
+The mark is a rounded-square badge in an indigo gradient with a white
+magnifying-glass outline. Inside the lens sits a green check-mark —
+visual shorthand for "QA: inspected & passed". Renders at 1024 px and
+downsamples with LANCZOS so the small sizes stay crisp.
 """
 from pathlib import Path
 from PIL import Image, ImageDraw
 
-BLUE_TOP = (59, 130, 246, 255)      # #3B82F6
-BLUE_BOT = (29, 78, 216, 255)       # #1D4ED8
+# Indigo gradient — distinct from the sea of blue/teal dev-tool icons.
+INDIGO_TOP = (79, 70, 229, 255)     # #4F46E5
+INDIGO_BOT = (55, 48, 163, 255)     # #3730A3
 WHITE = (255, 255, 255, 255)
-YELLOW = (251, 191, 36, 255)
-DARK = (29, 78, 216, 255)
+GREEN = (16, 185, 129, 255)         # #10B981 — "pass" semantic
+TRANSPARENT = (0, 0, 0, 0)
 
 CANVAS = 1024
 
@@ -36,57 +39,77 @@ def rounded_mask(size, radius):
     return mask
 
 
-def draw_d(canvas, draw):
-    # "D" glyph centred-ish: x in [28..106]px @128 → [224..848] @1024
+def draw_magnifier(overlay, draw):
+    """White magnifying-glass with a filled lens and a diagonal handle."""
     s = CANVAS / 128
-    left = int(38 * s)
-    top = int(28 * s)
-    right = int(106 * s)
-    bottom = int(100 * s)
-    thickness = int(16 * s)
+    # Lens bounding box (slight upper-left bias so the handle fits)
+    left = int(22 * s)
+    top = int(18 * s)
+    right = int(86 * s)
+    bottom = int(82 * s)
+    ring_thickness = int(11 * s)
 
-    # Outer D: vertical stroke + right semicircle
-    # Use a path traced via polygon arcs approximation — easier: draw filled outer,
-    # then cut inner.
-    draw.pieslice(
-        (right - (bottom - top), top, right, bottom),
-        start=-90, end=90, fill=WHITE,
+    # White ring: outer disc minus inner disc.
+    draw.ellipse((left, top, right, bottom), fill=WHITE)
+    inner = (
+        left + ring_thickness,
+        top + ring_thickness,
+        right - ring_thickness,
+        bottom - ring_thickness,
     )
-    draw.rectangle((left, top, right - (bottom - top) // 2, bottom), fill=WHITE)
+    # Inner disc — also white, so the lens has a clean opaque background
+    # for the check-mark to sit on.
+    draw.ellipse(inner, fill=WHITE)
 
-    # Inner hole
-    in_left = left + thickness
-    in_top = top + thickness
-    in_right = right - thickness
-    in_bottom = bottom - thickness
-    draw.pieslice(
-        (in_right - (in_bottom - in_top), in_top, in_right, in_bottom),
-        start=-90, end=90, fill=(0, 0, 0, 0),
+    # Handle: a thick white bar from the lens edge out to the bottom-right.
+    cx, cy = (left + right) // 2, (top + bottom) // 2
+    r_outer = (right - left) // 2
+    # Start the handle a bit inside the ring so it visually attaches.
+    import math
+    angle = math.radians(45)
+    handle_start = (
+        int(cx + math.cos(angle) * (r_outer - ring_thickness * 0.2)),
+        int(cy + math.sin(angle) * (r_outer - ring_thickness * 0.2)),
     )
-    draw.rectangle(
-        (in_left, in_top, in_right - (in_bottom - in_top) // 2, in_bottom),
-        fill=(0, 0, 0, 0),
+    handle_end = (int(108 * s), int(108 * s))
+    draw.line([handle_start, handle_end], fill=WHITE, width=int(16 * s))
+    # Rounded cap on the handle tip
+    cap_r = int(8 * s)
+    draw.ellipse(
+        (handle_end[0] - cap_r, handle_end[1] - cap_r,
+         handle_end[0] + cap_r, handle_end[1] + cap_r),
+        fill=WHITE,
     )
 
 
-def draw_accent(canvas, draw):
+def draw_checkmark(overlay, draw):
+    """Green check-mark centred inside the lens."""
     s = CANVAS / 128
-    cx, cy, r = int(100 * s), int(100 * s), int(14 * s)
-    draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=YELLOW)
-    # Tiny notch suggesting a wrench head
-    nw, nh = int(7 * s), int(4 * s)
-    draw.rectangle((cx - nw, cy - nh, cx + nw, cy + nh), fill=DARK)
+    cx, cy = int(54 * s), int(50 * s)
+    stroke = int(9 * s)
+    # Two segments: short down-stroke then long up-stroke.
+    short_start = (cx - int(16 * s), cy + int(2 * s))
+    elbow = (cx - int(4 * s), cy + int(14 * s))
+    long_end = (cx + int(20 * s), cy - int(14 * s))
+    draw.line([short_start, elbow], fill=GREEN, width=stroke)
+    draw.line([elbow, long_end], fill=GREEN, width=stroke)
+    # Round each end so corners don't look chipped at small sizes.
+    cap_r = stroke // 2
+    for pt in (short_start, elbow, long_end):
+        draw.ellipse(
+            (pt[0] - cap_r, pt[1] - cap_r, pt[0] + cap_r, pt[1] + cap_r),
+            fill=GREEN,
+        )
 
 
 def render_large():
-    bg = gradient_bg(CANVAS, BLUE_TOP, BLUE_BOT)
+    bg = gradient_bg(CANVAS, INDIGO_TOP, INDIGO_BOT)
     mask = rounded_mask(CANVAS, int(28 * CANVAS / 128))
     bg.putalpha(mask)
-    # Now draw on a transparent overlay and composite, so we can cut holes.
-    overlay = Image.new("RGBA", (CANVAS, CANVAS), (0, 0, 0, 0))
+    overlay = Image.new("RGBA", (CANVAS, CANVAS), TRANSPARENT)
     draw = ImageDraw.Draw(overlay)
-    draw_d(overlay, draw)
-    draw_accent(overlay, draw)
+    draw_magnifier(overlay, draw)
+    draw_checkmark(overlay, draw)
     return Image.alpha_composite(bg, overlay)
 
 

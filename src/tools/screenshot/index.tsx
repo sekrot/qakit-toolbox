@@ -58,11 +58,20 @@ const TOOLS: { value: Tool; icon: typeof Square }[] = [
 ];
 
 interface TextDraft {
+  /** Top-left in canvas coordinates (used for the final TextShape). */
   x: number;
   y: number;
+  /** Top-left in wrapper (screen) coordinates for positioning the <textarea>. */
   screenX: number;
   screenY: number;
+  /** Screen-space size of the floating editor; mirrors textarea resize. */
+  screenW: number;
+  screenH: number;
 }
+
+/** Default editor box for a fresh text draft (screen px). */
+const DEFAULT_TEXT_W = 220;
+const DEFAULT_TEXT_H = 80;
 
 interface DragState {
   shapeId: string;
@@ -92,7 +101,7 @@ export default function ScreenshotTool() {
   const [copied, setCopied] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const textInputRef = useRef<HTMLInputElement>(null);
+  const textInputRef = useRef<HTMLTextAreaElement>(null);
 
   const fontSize = Math.max(16, strokeWidth * 8);
 
@@ -193,6 +202,8 @@ export default function ScreenshotTool() {
         y,
         screenX: rect.left - wrap.left + (x / canvas.width) * rect.width,
         screenY: rect.top - wrap.top + (y / canvas.height) * rect.height,
+        screenW: DEFAULT_TEXT_W,
+        screenH: DEFAULT_TEXT_H,
       });
       return;
     }
@@ -274,7 +285,7 @@ export default function ScreenshotTool() {
   };
 
   const download = () => {
-    if (canvasRef.current) downloadPng(canvasRef.current, `devkit-${Date.now()}.png`);
+    if (canvasRef.current) downloadPng(canvasRef.current, `qakit-${Date.now()}.png`);
   };
 
   const copy = async () => {
@@ -312,8 +323,15 @@ export default function ScreenshotTool() {
 
   const commitText = () => {
     if (!textDraft) return;
-    const value = textValue.trim();
+    // Don't trim — multi-line text may legitimately end with newline. Drop only
+    // wholly-empty drafts.
+    const value = textValue.replace(/\s+$/u, '');
     if (value) {
+      // Convert screen-space editor width → canvas px so wrapping matches
+      // what the user saw while typing.
+      const canvas = canvasRef.current;
+      const scale = canvas ? canvas.width / canvas.getBoundingClientRect().width : 1;
+      const canvasWidth = textDraft.screenW * scale;
       setShapes((prev) => [
         ...prev,
         {
@@ -325,6 +343,7 @@ export default function ScreenshotTool() {
           y: textDraft.y,
           text: value,
           fontSize,
+          width: canvasWidth,
         },
       ]);
     }
@@ -337,13 +356,23 @@ export default function ScreenshotTool() {
     setTextValue('');
   };
 
-  const onTextKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      commitText();
-    } else if (e.key === 'Escape') {
+  const onTextKeyDown = (e: ReactKeyboardEvent<HTMLTextAreaElement>) => {
+    // Enter inserts a newline (default <textarea> behaviour) — commit happens
+    // on blur (click outside). Esc cancels the whole draft.
+    if (e.key === 'Escape') {
       e.preventDefault();
       cancelText();
+    }
+  };
+
+  /** Capture the textarea's current rendered size so it persists across re-renders. */
+  const onTextResizeSync = () => {
+    const el = textInputRef.current;
+    if (!el || !textDraft) return;
+    const w = el.offsetWidth;
+    const h = el.offsetHeight;
+    if (w !== textDraft.screenW || h !== textDraft.screenH) {
+      setTextDraft({ ...textDraft, screenW: w, screenH: h });
     }
   };
 
@@ -494,21 +523,24 @@ export default function ScreenshotTool() {
               className={cn('max-w-full', cursorClass)}
             />
             {textDraft && (
-              <input
+              <textarea
                 ref={textInputRef}
-                type="text"
                 value={textValue}
                 onChange={(e) => setTextValue(e.target.value)}
                 onKeyDown={onTextKeyDown}
+                onBlur={commitText}
+                onMouseUp={onTextResizeSync}
                 placeholder={ui('textPlaceholder')}
-                className="absolute rounded-sm border border-primary bg-background/95 px-1 outline-none"
+                className="absolute resize overflow-hidden rounded-sm border border-primary bg-background/95 px-1 py-0.5 outline-none"
                 style={{
                   left: textDraft.screenX,
                   top: textDraft.screenY,
+                  width: textDraft.screenW,
+                  height: textDraft.screenH,
                   color,
                   fontSize: `${fontSize * (canvasRef.current ? canvasRef.current.getBoundingClientRect().width / canvasRef.current.width : 1)}px`,
-                  fontWeight: 700,
-                  minWidth: 100,
+                  lineHeight: 1.25,
+                  fontWeight: 400,
                 }}
               />
             )}

@@ -14,7 +14,7 @@ export default defineManifest({
     128: 'icons/icon-128.png',
   },
   action: {
-    default_title: 'DevKit Toolbox',
+    default_title: 'QAKit Toolbox',
     default_icon: {
       16: 'icons/icon-16.png',
       32: 'icons/icon-32.png',
@@ -42,25 +42,15 @@ export default defineManifest({
   // taken from the side panel. <all_urls> here is read-only and only used
   // by captureVisibleTab; we never inject scripts or fetch page contents.
   host_permissions: ['<all_urls>'],
-  // Default keyboard shortcuts. Chrome lets the user remap these via
-  // chrome://extensions/shortcuts (up to four are user-rebindable per
-  // extension). The `open-toolbox` slot mirrors clicking the action icon.
+  // Default keyboard shortcut to open the side panel. Remappable in
+  // chrome://extensions/shortcuts. Per-tool shortcuts were removed: Chrome's
+  // sidePanel.open() requires a user gesture that's consumed by the first
+  // `await` inside a chrome.commands.onCommand listener, which means
+  // open-then-navigate flows are unreliable in practice.
   commands: {
     'open-toolbox': {
       suggested_key: { default: 'Alt+Shift+D', mac: 'Alt+Shift+D' },
-      description: 'Open DevKit Toolbox side panel',
-    },
-    'open-json': {
-      suggested_key: { default: 'Alt+Shift+J', mac: 'Alt+Shift+J' },
-      description: 'Open JSON Formatter',
-    },
-    'open-regex': {
-      suggested_key: { default: 'Alt+Shift+R', mac: 'Alt+Shift+R' },
-      description: 'Open Regex Tester',
-    },
-    'open-screenshot': {
-      suggested_key: { default: 'Alt+Shift+S', mac: 'Alt+Shift+S' },
-      description: 'Open Screenshot tool',
+      description: 'Open QAKit Toolbox side panel',
     },
   },
   minimum_chrome_version: '114',

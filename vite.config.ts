@@ -3,8 +3,12 @@ import react from '@vitejs/plugin-react';
 import { crx } from '@crxjs/vite-plugin';
 import path from 'node:path';
 import manifest from './src/manifest.config';
+import pkg from './package.json';
 
 export default defineConfig({
+  define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
+  },
   plugins: [react(), crx({ manifest })],
   resolve: {
     alias: {
