@@ -13,17 +13,21 @@ screenshots and more — bundled into one extension and running entirely on your
 
 ---
 
-## Featured demo
+## See it in action
 
-The JSON formatter is the most-used utility in the toolbox. Paste, format,
-query with JSONPath, copy — all without leaving the side panel.
+[![Regex Tester](docs/media/screenshots/01-regex.png)](docs/media/screenshots/01-regex.png)
 
-![JSON formatter demo](docs/media/json-demo.svg)
+<p align="center">
+  <a href="docs/media/screenshots/02-jwt.png"><img src="docs/media/screenshots/02-jwt.png" width="46%" alt="JWT Decoder" /></a>
+  <a href="docs/media/screenshots/03-home.png"><img src="docs/media/screenshots/03-home.png" width="46%" alt="Home — 11 tools by category" /></a>
+</p>
+<p align="center">
+  <a href="docs/media/screenshots/04-screenshot.png"><img src="docs/media/screenshots/04-screenshot.png" width="46%" alt="Screenshot with annotations" /></a>
+  <a href="docs/media/screenshots/05-json.png"><img src="docs/media/screenshots/05-json.png" width="46%" alt="JSON Formatter with JSONPath autocomplete" /></a>
+</p>
 
-> The clip above is an animated SVG; static-image viewers will see the
-> final formatted state. Per-tool GIF clips will land in `docs/media/` —
-> see [the recording guide](docs/media/RECORDING.md) if you want to
-> contribute.
+> Live landing page with the same gallery:
+> **<https://sekrot.github.io/qakit-toolbox/>**
 
 ## Features
 
