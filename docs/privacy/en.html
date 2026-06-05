@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Privacy Policy — QAKit Toolbox</title>
+    <meta
+      name="description"
+      content="QAKit Toolbox privacy policy. Everything runs locally. No data collection, no telemetry, no servers."
+    />
+    <link rel="icon" type="image/png" href="../assets/icon-128.png" />
+    <link rel="stylesheet" href="../assets/style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="hero">
+        <img src="../assets/icon-128.png" alt="QAKit Toolbox icon" />
+        <div>
+          <h1>Privacy Policy</h1>
+          <p class="tagline">QAKit Toolbox — last updated 2026-06-05</p>
+        </div>
+      </header>
+
+      <nav class="lang-switch">
+        <a href="en.html" class="active">English</a>
+        <a href="ru.html">Русский</a>
+        <a href="../">← Home</a>
+      </nav>
+
+      <p>
+        QAKit Toolbox is a Chrome extension that bundles offline developer and QA utilities (JSON,
+        JWT, regex, hashes, timestamps, UUIDs, base64/URL, text diff, clipboard history, color
+        picker, screenshot annotator).
+      </p>
+
+      <div class="callout">
+        <strong>TL;DR.</strong> We do not collect, transmit, or sell any personal data. Ever.
+        Everything QAKit Toolbox does happens locally on your device. No data is sent to our servers
+        — we do not even operate any servers.
+      </div>
+
+      <h2>What data we handle</h2>
+      <p>
+        The extension only reads and writes data <strong>on your own device</strong> via
+        <code>chrome.storage.local</code>, which is sandboxed to this extension.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Purpose</th>
+            <th>Stays on</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Your settings (theme, language, onboarding flag)</td>
+            <td>Preserve UI preferences</td>
+            <td>Your device</td>
+          </tr>
+          <tr>
+            <td>Clipboard history you save in the side panel</td>
+            <td>The "Clipboard history" tool</td>
+            <td>Your device</td>
+          </tr>
+          <tr>
+            <td>Color picker history</td>
+            <td>The "Color picker" tool</td>
+            <td>Your device</td>
+          </tr>
+          <tr>
+            <td>Locally generated install id and session counter</td>
+            <td>Internal local usage stats only</td>
+            <td>Your device</td>
+          </tr>
+          <tr>
+            <td>Page screenshots you capture in the Screenshot tool</td>
+            <td>Annotation and download</td>
+            <td>Your device</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>We do <strong>not</strong>:</p>
+      <ul>
+        <li>Send any data to remote servers.</li>
+        <li>Use analytics, advertising, or fingerprinting libraries.</li>
+        <li>Track your browsing history, tabs, or page contents.</li>
+        <li>
+          Read content from web pages (unless you actively press "Capture tab" in the Screenshot
+          tool, which uses Chrome's <code>captureVisibleTab</code> API to take one PNG of the
+          currently visible tab on your request).
+        </li>
+        <li>Share data with third parties — there are no third parties involved.</li>
+      </ul>
+
+      <h2>Permissions we request and why</h2>
+      <ul>
+        <li><code>storage</code> — to save your settings and tool history locally.</li>
+        <li><code>sidePanel</code> — to render the extension UI in Chrome's side panel.</li>
+        <li>
+          <code>activeTab</code> + <code>&lt;all_urls&gt;</code> (host permission) — only used by
+          <code>chrome.tabs.captureVisibleTab</code> in the Screenshot tool when you press "Capture
+          tab". No scripts are injected into pages, no page contents are read or transmitted.
+        </li>
+        <li>
+          <code>scripting</code> — reserved for future on-page tools; currently unused at runtime.
+        </li>
+        <li>
+          <code>clipboardRead</code> / <code>clipboardWrite</code> — to read your clipboard when you
+          press "Save clipboard" inside the side panel, and to copy results from tools (JSON,
+          hashes, UUIDs, etc.) back to your clipboard.
+        </li>
+      </ul>
+
+      <h2>Exporting and deleting your data</h2>
+      <ul>
+        <li>
+          <strong>Export</strong> — <em>Settings → Data → Export settings</em> downloads a JSON file
+          containing everything we store locally.
+        </li>
+        <li>
+          <strong>Delete</strong> — <em>Settings → Data → Clear all history</em> removes clipboard
+          and color picker history. Uninstalling the extension removes everything Chrome keeps for
+          the extension, including local storage.
+        </li>
+      </ul>
+
+      <h2>Children</h2>
+      <p>
+        QAKit Toolbox is a developer tool not directed at children under 13. We do not knowingly
+        collect data from anyone, including children.
+      </p>
+
+      <h2>Changes to this policy</h2>
+      <p>
+        If this policy ever changes, the new version will be published at the same URL with an
+        updated "Last updated" date. Material changes will be announced in the release notes on the
+        Chrome Web Store listing.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions or concerns:<br />
+        <strong>Sergey Krotov</strong> —
+        <a href="mailto:siargey.krotov@gmail.com">siargey.krotov@gmail.com</a>
+      </p>
+
+      <footer>
+        <span>© 2026 Sergey Krotov</span>
+        <span><a href="https://github.com/sekrot/qakit-toolbox">GitHub</a></span>
+      </footer>
+    </main>
+  </body>
+</html>

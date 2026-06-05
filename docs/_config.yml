@@ -1,0 +1,7 @@
+# GitHub Pages configuration.
+#
+# We serve plain static HTML from /docs (no Jekyll templating), but Pages still
+# runs Jekyll by default and would otherwise strip files starting with `_`.
+# Disabling the default theme keeps our hand-written CSS untouched.
+theme: null
+plugins: []
