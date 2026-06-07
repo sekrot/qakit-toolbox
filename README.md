@@ -9,6 +9,24 @@ screenshots and more — bundled into one extension and running entirely on your
 
 <em>Offline by design · no telemetry · no uploads</em>
 
+<p>
+  <a href="https://chromewebstore.google.com/detail/dnpeamdlnodnnmmhpbmeepajpcjjicen">
+    <img alt="Chrome Web Store" src="https://img.shields.io/chrome-web-store/v/dnpeamdlnodnnmmhpbmeepajpcjjicen?label=Chrome%20Web%20Store&color=4f46e5" />
+  </a>
+  <a href="https://chromewebstore.google.com/detail/dnpeamdlnodnnmmhpbmeepajpcjjicen">
+    <img alt="Users" src="https://img.shields.io/chrome-web-store/users/dnpeamdlnodnnmmhpbmeepajpcjjicen?color=4f46e5" />
+  </a>
+  <a href="https://chromewebstore.google.com/detail/dnpeamdlnodnnmmhpbmeepajpcjjicen">
+    <img alt="Rating" src="https://img.shields.io/chrome-web-store/rating/dnpeamdlnodnnmmhpbmeepajpcjjicen?color=4f46e5" />
+  </a>
+</p>
+
+<p>
+  <a href="https://chromewebstore.google.com/detail/dnpeamdlnodnnmmhpbmeepajpcjjicen">
+    <strong>→ Install from Chrome Web Store</strong>
+  </a>
+</p>
+
 </div>
 
 ---
