@@ -122,7 +122,7 @@ collects telemetry, never uploads files. Settings and history live in
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `storage`                          | Persist your theme, language and tool history locally                                                             |
 | `sidePanel`                        | Render the toolbox in Chrome's side panel                                                                         |
-| `activeTab` + `scripting`          | Take screenshots and capture clipboard data when you trigger them                                                 |
+| `activeTab`                        | Capture the currently visible tab when you trigger the Screenshot tool                                            |
 | `clipboardRead` / `clipboardWrite` | Clipboard history and one-click "Copy" buttons                                                                    |
 | `<all_urls>` host access           | Required by `chrome.tabs.captureVisibleTab` for the Screenshot tool. Only used to capture; no page reads/injects. |
 

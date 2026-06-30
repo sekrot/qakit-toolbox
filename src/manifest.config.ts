@@ -27,14 +27,7 @@ export default defineManifest({
     service_worker: 'src/background/index.ts',
     type: 'module',
   },
-  permissions: [
-    'storage',
-    'sidePanel',
-    'activeTab',
-    'scripting',
-    'clipboardRead',
-    'clipboardWrite',
-  ],
+  permissions: ['storage', 'sidePanel', 'activeTab', 'clipboardRead', 'clipboardWrite'],
   // Required by chrome.tabs.captureVisibleTab() in the Screenshot tool.
   // `activeTab` alone is not enough: it grants permission only at the moment
   // the user clicks the extension's action, and only for the tab that was

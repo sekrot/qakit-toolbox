@@ -44,8 +44,6 @@ We do **not**:
   `chrome.tabs.captureVisibleTab` in the Screenshot tool when you press
   "Capture tab". No scripts are injected into pages, no page contents are
   read or transmitted.
-- **`scripting`** — reserved for future on-page tools; currently unused at
-  runtime.
 - **`clipboardRead`** / **`clipboardWrite`** — to read your clipboard when
   you press "Save clipboard" inside the side panel, and to copy results
   from tools (JSON, hashes, UUIDs, etc.) back to your clipboard.
