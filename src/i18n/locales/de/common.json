@@ -58,5 +58,12 @@
       "title": "Alles bereit",
       "body": "Theme und Sprache können Sie jederzeit in den Einstellungen anpassen. Viel Spaß und frohes Debuggen."
     }
+  },
+  "ratingPrompt": {
+    "title": "Gefällt dir QAKit Toolbox?",
+    "body": "Wenn dir die Erweiterung täglich Tab-Wechsel erspart, hilft eine kurze Bewertung anderen QA-Engineers und Entwicklern, sie zu finden.",
+    "rate": "Im Chrome Web Store bewerten",
+    "later": "Später erinnern",
+    "dismissTitle": "Nicht mehr anzeigen"
   }
 }

@@ -2,6 +2,12 @@ import { getValue, setValue } from './storage';
 
 const INSTALL_KEY = 'devkit-install';
 const USAGE_KEY = 'devkit-usage';
+const RATING_KEY = 'devkit-rating-prompt';
+
+export const RATING_MIN_DAYS = 7;
+export const RATING_MIN_USES = 10;
+export const RATING_SNOOZE_DAYS = 14;
+const DAY_MS = 24 * 60 * 60 * 1000;
 
 export interface InstallMeta {
   installId: string;
@@ -67,6 +73,41 @@ export function topTools(stats: UsageStats, limit = 4): { id: string; count: num
     .slice(0, limit);
 }
 
+export type RatingPromptStatus = 'pending' | 'rated' | 'dismissed';
+
+export interface RatingPromptState {
+  status: RatingPromptStatus;
+  snoozedUntil?: number;
+}
+
+const EMPTY_RATING: RatingPromptState = { status: 'pending' };
+
+export async function getRatingPrompt(): Promise<RatingPromptState> {
+  return getValue<RatingPromptState>(RATING_KEY, EMPTY_RATING);
+}
+
+export async function setRatingPrompt(next: RatingPromptState): Promise<void> {
+  await setValue(RATING_KEY, next);
+}
+
+export function totalUsage(stats: UsageStats): number {
+  return Object.values(stats.tools).reduce((sum, n) => sum + n, 0);
+}
+
+export function shouldShowRatingPrompt(args: {
+  installedAt: number;
+  usageTotal: number;
+  rating: RatingPromptState;
+  now: number;
+}): boolean {
+  const { installedAt, usageTotal, rating, now } = args;
+  if (rating.status !== 'pending') return false;
+  if (rating.snoozedUntil && rating.snoozedUntil > now) return false;
+  if (now - installedAt < RATING_MIN_DAYS * DAY_MS) return false;
+  if (usageTotal < RATING_MIN_USES) return false;
+  return true;
+}
+
 export function recentTools(stats: UsageStats, limit = 4): { id: string; ts: number }[] {
   return Object.entries(stats.lastUsed)
     .map(([id, ts]) => ({ id, ts }))
@@ -81,4 +122,4 @@ function makeId(): string {
   return Math.random().toString(36).slice(2);
 }
 
-export const TELEMETRY_KEYS = [INSTALL_KEY, USAGE_KEY] as const;
+export const TELEMETRY_KEYS = [INSTALL_KEY, USAGE_KEY, RATING_KEY] as const;

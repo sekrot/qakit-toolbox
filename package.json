@@ -1,7 +1,7 @@
 {
   "name": "qakit-toolbox",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "QAKit Toolbox — Chrome extension with utilities for QA engineers and developers",
   "scripts": {
@@ -15,7 +15,7 @@
     "i18n:check": "node scripts/check-i18n.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "zip": "mkdir -p dist-zip && cd dist && zip -r ../dist-zip/qakit-toolbox.zip .",
+    "zip": "mkdir -p dist-zip && cd dist && zip -r ../dist-zip/qakit-toolbox.zip . -x '*.map'",
     "prepare": "husky"
   },
   "dependencies": {

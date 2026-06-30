@@ -18,7 +18,12 @@
       "loadSampleTitle": "Beispiel laden",
       "placeholderInput": "{\"hello\": \"world\"} — oder .json hierher ziehen",
       "placeholderPath": "$.store.book[*].price",
-      "errorLineCol": "(Zeile {{line}}, Spalte {{col}})"
+      "errorLineCol": "(Zeile {{line}}, Spalte {{col}})",
+      "view": {
+        "tree": "Baum",
+        "raw": "Text"
+      },
+      "resizeTitle": "Ziehen, um die Eingabe zu skalieren"
     }
   },
   "jwt": {
@@ -96,15 +101,30 @@
       "cheatsheet": "Spickzettel",
       "copyAllMatches": "Alle Treffer {{copy}}",
       "flags": {
-        "g": { "name": "global", "description": "Alle Treffer finden" },
+        "g": {
+          "name": "global",
+          "description": "Alle Treffer finden"
+        },
         "i": {
           "name": "Groß-/Kleinschreibung ignorieren",
           "description": "Unabhängig von Groß-/Kleinschreibung"
         },
-        "m": { "name": "mehrzeilig", "description": "^ und $ passen zeilenweise" },
-        "s": { "name": "dotall", "description": ". passt auch auf Zeilenumbrüche" },
-        "u": { "name": "Unicode", "description": "Unicode-Modus" },
-        "y": { "name": "sticky", "description": "Suche ab lastIndex" }
+        "m": {
+          "name": "mehrzeilig",
+          "description": "^ und $ passen zeilenweise"
+        },
+        "s": {
+          "name": "dotall",
+          "description": ". passt auch auf Zeilenumbrüche"
+        },
+        "u": {
+          "name": "Unicode",
+          "description": "Unicode-Modus"
+        },
+        "y": {
+          "name": "sticky",
+          "description": "Suche ab lastIndex"
+        }
       },
       "cheatsheetMeanings": [
         "Beliebiges Zeichen (außer Zeilenumbruch)",

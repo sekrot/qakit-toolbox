@@ -58,5 +58,12 @@
       "title": "Todo listo",
       "body": "Puedes cambiar el tema y el idioma cuando quieras en Ajustes. ¡Feliz depuración!"
     }
+  },
+  "ratingPrompt": {
+    "title": "¿Te gusta QAKit Toolbox?",
+    "body": "Si te ahorra cambios de pestaña a diario, una valoración rápida ayuda a otros QA y desarrolladores a encontrarla.",
+    "rate": "Valorar en Chrome Web Store",
+    "later": "Recordármelo más tarde",
+    "dismissTitle": "No mostrar de nuevo"
   }
 }

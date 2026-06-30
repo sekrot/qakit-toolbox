@@ -4,7 +4,13 @@ import { Trash2 } from 'lucide-react';
 import { Textarea } from '@/components/ui/Textarea';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/cn';
-import { computeLineDiff, type DiffOptions } from './logic';
+import {
+  computeInlineDiff,
+  computeLineDiff,
+  type DiffOptions,
+  type DiffLine,
+  type InlineSegment,
+} from './logic';
 
 const LEFT_SAMPLE = `function greet(name) {
   console.log("Hello, " + name);
@@ -26,6 +32,9 @@ export default function DiffTool() {
   const [opts, setOpts] = useState<DiffOptions>({ ignoreWhitespace: false, ignoreCase: false });
 
   const diff = useMemo(() => computeLineDiff(left, right, opts), [left, right, opts]);
+  // Inline (word-level) highlight is computed once per remove/add pair and
+  // reused by both split and unified views.
+  const pairs = useMemo(() => pairLines(diff.lines, opts), [diff.lines, opts]);
 
   return (
     <div className="flex h-full flex-col gap-3">
@@ -98,7 +107,7 @@ export default function DiffTool() {
       </div>
 
       <div className="flex-1 overflow-auto rounded-md border border-border bg-muted font-mono text-xs">
-        {view === 'split' ? <SplitView lines={diff.lines} /> : <UnifiedView lines={diff.lines} />}
+        {view === 'split' ? <SplitView pairs={pairs} /> : <UnifiedView pairs={pairs} />}
       </div>
     </div>
   );
@@ -134,35 +143,20 @@ const KIND_MARK: Record<string, string> = {
   context: 'text-muted-foreground',
 };
 
-function UnifiedView({ lines }: { lines: ReturnType<typeof computeLineDiff>['lines'] }) {
-  return (
-    <table className="w-full border-collapse">
-      <tbody>
-        {lines.map((line, i) => (
-          <tr key={i} className={KIND_BG[line.kind]}>
-            <td className="select-none px-2 text-right align-top text-muted-foreground/60">
-              {line.oldNum ?? ''}
-            </td>
-            <td className="select-none px-2 text-right align-top text-muted-foreground/60">
-              {line.newNum ?? ''}
-            </td>
-            <td className={cn('select-none px-1 align-top', KIND_MARK[line.kind])}>
-              {line.kind === 'add' ? '+' : line.kind === 'remove' ? '−' : ' '}
-            </td>
-            <td className="whitespace-pre-wrap break-all px-2 py-0.5 align-top">
-              {line.text || ' '}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+// Darker shade on top of the row tint draws the eye to the actual changed words.
+const INLINE_BG: Record<'remove' | 'add', string> = {
+  remove: 'bg-destructive/40',
+  add: 'bg-green-500/40',
+};
+
+interface Pair {
+  left?: DiffLine;
+  right?: DiffLine;
+  inline?: InlineSegment[];
 }
 
-function SplitView({ lines }: { lines: ReturnType<typeof computeLineDiff>['lines'] }) {
-  type Pair = { left?: (typeof lines)[number]; right?: (typeof lines)[number] };
+function pairLines(lines: DiffLine[], opts: DiffOptions): Pair[] {
   const pairs: Pair[] = [];
-
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
     if (l.kind === 'context') {
@@ -170,7 +164,7 @@ function SplitView({ lines }: { lines: ReturnType<typeof computeLineDiff>['lines
     } else if (l.kind === 'remove') {
       const next = lines[i + 1];
       if (next && next.kind === 'add') {
-        pairs.push({ left: l, right: next });
+        pairs.push({ left: l, right: next, inline: computeInlineDiff(l.text, next.text, opts) });
         i++;
       } else {
         pairs.push({ left: l });
@@ -179,7 +173,70 @@ function SplitView({ lines }: { lines: ReturnType<typeof computeLineDiff>['lines
       pairs.push({ right: l });
     }
   }
+  return pairs;
+}
 
+function InlineLine({ segments, side }: { segments: InlineSegment[]; side: 'remove' | 'add' }) {
+  const skip = side === 'remove' ? 'add' : 'remove';
+  return (
+    <>
+      {segments.map((s, i) => {
+        if (s.kind === skip) return null;
+        return (
+          <span key={i} className={s.kind === side ? INLINE_BG[side] : undefined}>
+            {s.text}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
+function UnifiedView({ pairs }: { pairs: Pair[] }) {
+  type Row = { line: DiffLine; inline?: InlineSegment[]; side?: 'remove' | 'add' };
+  const rows: Row[] = [];
+  for (const p of pairs) {
+    if (p.left && p.right && p.inline) {
+      rows.push({ line: p.left, inline: p.inline, side: 'remove' });
+      rows.push({ line: p.right, inline: p.inline, side: 'add' });
+    } else if (p.left && p.right) {
+      rows.push({ line: p.left });
+    } else if (p.left) {
+      rows.push({ line: p.left });
+    } else if (p.right) {
+      rows.push({ line: p.right });
+    }
+  }
+
+  return (
+    <table className="w-full border-collapse">
+      <tbody>
+        {rows.map((r, i) => (
+          <tr key={i} className={KIND_BG[r.line.kind]}>
+            <td className="select-none px-2 text-right align-top text-muted-foreground/60">
+              {r.line.oldNum ?? ''}
+            </td>
+            <td className="select-none px-2 text-right align-top text-muted-foreground/60">
+              {r.line.newNum ?? ''}
+            </td>
+            <td className={cn('select-none px-1 align-top', KIND_MARK[r.line.kind])}>
+              {r.line.kind === 'add' ? '+' : r.line.kind === 'remove' ? '−' : ' '}
+            </td>
+            <td className="whitespace-pre-wrap break-all px-2 py-0.5 align-top">
+              {r.inline && r.side ? (
+                <InlineLine segments={r.inline} side={r.side} />
+              ) : (
+                r.line.text || ' '
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function SplitView({ pairs }: { pairs: Pair[] }) {
   return (
     <table className="w-full border-collapse">
       <tbody>
@@ -198,7 +255,11 @@ function SplitView({ lines }: { lines: ReturnType<typeof computeLineDiff>['lines
               )}
               style={{ width: '50%' }}
             >
-              {p.left?.text || ' '}
+              {p.inline && p.left?.kind === 'remove' ? (
+                <InlineLine segments={p.inline} side="remove" />
+              ) : (
+                p.left?.text || ' '
+              )}
             </td>
             <td
               className="select-none px-2 text-right text-muted-foreground/60"
@@ -213,7 +274,11 @@ function SplitView({ lines }: { lines: ReturnType<typeof computeLineDiff>['lines
               )}
               style={{ width: '50%' }}
             >
-              {p.right?.text || ' '}
+              {p.inline && p.right?.kind === 'add' ? (
+                <InlineLine segments={p.inline} side="add" />
+              ) : (
+                p.right?.text || ' '
+              )}
             </td>
           </tr>
         ))}

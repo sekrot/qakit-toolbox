@@ -18,7 +18,12 @@
       "loadSampleTitle": "Charger l'exemple",
       "placeholderInput": "{\"hello\": \"world\"} — ou glissez un .json ici",
       "placeholderPath": "$.store.book[*].price",
-      "errorLineCol": "(ligne {{line}}, col. {{col}})"
+      "errorLineCol": "(ligne {{line}}, col. {{col}})",
+      "view": {
+        "tree": "Arbre",
+        "raw": "Texte"
+      },
+      "resizeTitle": "Glissez pour redimensionner l'entrée"
     }
   },
   "jwt": {
@@ -96,12 +101,30 @@
       "cheatsheet": "Aide-mémoire",
       "copyAllMatches": "{{copy}} toutes les correspondances",
       "flags": {
-        "g": { "name": "global", "description": "Trouver toutes les correspondances" },
-        "i": { "name": "insensible à la casse", "description": "Ignorer la casse" },
-        "m": { "name": "multiligne", "description": "^ et $ correspondent aux sauts de ligne" },
-        "s": { "name": "dotall", "description": ". correspond aux sauts de ligne" },
-        "u": { "name": "unicode", "description": "Mode Unicode" },
-        "y": { "name": "sticky", "description": "Recherche à partir de lastIndex" }
+        "g": {
+          "name": "global",
+          "description": "Trouver toutes les correspondances"
+        },
+        "i": {
+          "name": "insensible à la casse",
+          "description": "Ignorer la casse"
+        },
+        "m": {
+          "name": "multiligne",
+          "description": "^ et $ correspondent aux sauts de ligne"
+        },
+        "s": {
+          "name": "dotall",
+          "description": ". correspond aux sauts de ligne"
+        },
+        "u": {
+          "name": "unicode",
+          "description": "Mode Unicode"
+        },
+        "y": {
+          "name": "sticky",
+          "description": "Recherche à partir de lastIndex"
+        }
       },
       "cheatsheetMeanings": [
         "Tout caractère (sauf saut de ligne)",

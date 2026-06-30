@@ -58,5 +58,12 @@
       "title": "You're all set",
       "body": "Tweak theme and language anytime in Settings. Have fun, and happy debugging."
     }
+  },
+  "ratingPrompt": {
+    "title": "Enjoying QAKit Toolbox?",
+    "body": "If it saves you tab-switches every day, a quick rating helps other QA engineers and developers find it.",
+    "rate": "Rate on Chrome Web Store",
+    "later": "Remind me later",
+    "dismissTitle": "Don't show again"
   }
 }

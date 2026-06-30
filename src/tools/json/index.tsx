@@ -1,11 +1,20 @@
-import { useMemo, useState, type DragEvent, type ReactNode } from 'react';
+import {
+  useMemo,
+  useRef,
+  useState,
+  type DragEvent,
+  type MouseEvent as ReactMouseEvent,
+  type ReactNode,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, FileJson, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Textarea } from '@/components/ui/Textarea';
+import { cn } from '@/lib/cn';
 import { formatJson, minifyJson, validateJson, type JsonResult } from './logic';
 import { runJsonPath, type JsonPathResult } from './jsonpath';
 import { JsonPathInput } from './JsonPathInput';
+import { JsonTree } from './JsonTree';
 
 const SAMPLE = `{
   "store": {
@@ -17,6 +26,11 @@ const SAMPLE = `{
 }`;
 
 type Mode = 'format' | 'minify' | 'jsonpath';
+type View = 'tree' | 'raw';
+
+const INPUT_MIN = 80;
+const INPUT_MAX = 600;
+const INPUT_DEFAULT = 180;
 
 export default function JsonTool() {
   const { t } = useTranslation(['common', 'tools']);
@@ -26,7 +40,10 @@ export default function JsonTool() {
   // the field, but leave the actual key segment empty for them to type.
   const [path, setPath] = useState('$.');
   const [mode, setMode] = useState<Mode>('format');
+  const [view, setView] = useState<View>('tree');
+  const [inputHeight, setInputHeight] = useState(INPUT_DEFAULT);
   const [copied, setCopied] = useState(false);
+  const dragStartRef = useRef<{ y: number; h: number } | null>(null);
 
   const formatResult: JsonResult = useMemo(() => {
     if (!input.trim()) return { ok: true, output: '' };
@@ -53,6 +70,17 @@ export default function JsonTool() {
       : formatResult.error?.message;
   const errorLocation = mode !== 'jsonpath' ? formatResult.error : undefined;
 
+  // Value rendered by JsonTree. Different per mode: parsed input for format /
+  // minify, JSONPath matches array for jsonpath. Undefined → tree shows nothing.
+  const treeValue: unknown =
+    mode === 'jsonpath'
+      ? pathResult?.ok
+        ? pathResult.matches
+        : undefined
+      : validation?.ok
+        ? validation.value
+        : undefined;
+
   const onDrop = async (e: DragEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
@@ -64,6 +92,24 @@ export default function JsonTool() {
     await navigator.clipboard.writeText(displayOutput);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1500);
+  };
+
+  const startResize = (e: ReactMouseEvent) => {
+    e.preventDefault();
+    dragStartRef.current = { y: e.clientY, h: inputHeight };
+    const onMove = (ev: MouseEvent) => {
+      const start = dragStartRef.current;
+      if (!start) return;
+      const next = Math.max(INPUT_MIN, Math.min(INPUT_MAX, start.h + (ev.clientY - start.y)));
+      setInputHeight(next);
+    };
+    const onUp = () => {
+      dragStartRef.current = null;
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    };
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
   };
 
   return (
@@ -99,8 +145,19 @@ export default function JsonTool() {
         onDrop={onDrop}
         onDragOver={(e) => e.preventDefault()}
         placeholder={ui('placeholderInput')}
-        className="min-h-[140px]"
+        style={{ height: inputHeight }}
+        className="!resize-none"
       />
+
+      <button
+        type="button"
+        aria-label={String(ui('resizeTitle'))}
+        title={String(ui('resizeTitle'))}
+        onMouseDown={startResize}
+        className="group flex h-2 w-full cursor-row-resize items-center justify-center rounded"
+      >
+        <span className="h-1 w-12 rounded-full bg-border transition-colors group-hover:bg-primary/60" />
+      </button>
 
       {mode === 'jsonpath' && (
         <JsonPathInput
@@ -122,18 +179,37 @@ export default function JsonTool() {
         </div>
       )}
 
-      <div className="relative flex-1">
-        <Textarea
-          value={displayOutput}
-          readOnly
-          placeholder={t('common:placeholders.outputArea')}
-          className="h-full min-h-[160px]"
-        />
-        {displayOutput && (
-          <Button variant="secondary" size="sm" onClick={copy} className="absolute right-2 top-2">
-            <Copy className="h-3 w-3" />
-            {copied ? t('common:copied') : t('common:copy')}
-          </Button>
+      <div className="relative flex min-h-0 flex-1 flex-col">
+        <div className="absolute right-2 top-2 z-10 flex items-center gap-1">
+          {treeValue !== undefined && !displayError && (
+            <div className="flex overflow-hidden rounded-md border border-border bg-background text-xs">
+              <ViewButton current={view} value="tree" onClick={setView}>
+                {ui('view.tree')}
+              </ViewButton>
+              <ViewButton current={view} value="raw" onClick={setView}>
+                {ui('view.raw')}
+              </ViewButton>
+            </div>
+          )}
+          {displayOutput && (
+            <Button variant="secondary" size="sm" onClick={copy}>
+              <Copy className="h-3 w-3" />
+              {copied ? t('common:copied') : t('common:copy')}
+            </Button>
+          )}
+        </div>
+
+        {view === 'tree' && treeValue !== undefined && !displayError ? (
+          <div className="h-full min-h-[160px] overflow-auto rounded-md border border-border bg-background p-2">
+            <JsonTree value={treeValue} />
+          </div>
+        ) : (
+          <Textarea
+            value={displayOutput}
+            readOnly
+            placeholder={t('common:placeholders.outputArea')}
+            className="h-full min-h-[160px]"
+          />
         )}
       </div>
     </div>
@@ -156,5 +232,29 @@ function ModeButton({ current, value, onClick, children }: ModeButtonProps) {
     >
       {children}
     </Button>
+  );
+}
+
+interface ViewButtonProps {
+  current: View;
+  value: View;
+  onClick: (value: View) => void;
+  children: ReactNode;
+}
+
+function ViewButton({ current, value, onClick, children }: ViewButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={() => onClick(value)}
+      className={cn(
+        'px-2 py-1 transition-colors',
+        current === value
+          ? 'bg-primary text-primary-foreground'
+          : 'text-muted-foreground hover:bg-accent',
+      )}
+    >
+      {children}
+    </button>
   );
 }

@@ -5,13 +5,26 @@ import { Clock, Search } from 'lucide-react';
 import { TOOLS, CATEGORY_ORDER, type ToolDefinition } from '@/tools/registry';
 import { Input } from '@/components/ui/Input';
 import { Card } from '@/components/ui/Card';
-import { getUsage, recentTools, type UsageStats } from '@/storage/telemetry';
+import {
+  ensureInstallMeta,
+  getRatingPrompt,
+  getUsage,
+  recentTools,
+  setRatingPrompt,
+  shouldShowRatingPrompt,
+  totalUsage,
+  RATING_SNOOZE_DAYS,
+  type UsageStats,
+} from '@/storage/telemetry';
 import { subscribe } from '@/storage/storage';
+import { CWS_REVIEW_URL } from '@/lib/cws';
+import { RatingPrompt } from './RatingPrompt';
 
 export function HomeScreen() {
   const { t } = useTranslation(['common', 'tools']);
   const [query, setQuery] = useState('');
   const [usage, setUsage] = useState<UsageStats | null>(null);
+  const [showRating, setShowRating] = useState(false);
 
   useEffect(() => {
     void getUsage().then(setUsage);
@@ -20,6 +33,47 @@ export function HomeScreen() {
     });
     return unsub;
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      const manifestVersion = chrome.runtime?.getManifest?.().version ?? '0.0.0';
+      const [meta, rating, stats] = await Promise.all([
+        ensureInstallMeta(manifestVersion),
+        getRatingPrompt(),
+        getUsage(),
+      ]);
+      if (cancelled) return;
+      setShowRating(
+        shouldShowRatingPrompt({
+          installedAt: meta.installedAt,
+          usageTotal: totalUsage(stats),
+          rating,
+          now: Date.now(),
+        }),
+      );
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleRate = () => {
+    void chrome.tabs.create({ url: CWS_REVIEW_URL });
+    void setRatingPrompt({ status: 'rated' });
+    setShowRating(false);
+  };
+
+  const handleSnooze = () => {
+    const snoozedUntil = Date.now() + RATING_SNOOZE_DAYS * 24 * 60 * 60 * 1000;
+    void setRatingPrompt({ status: 'pending', snoozedUntil });
+    setShowRating(false);
+  };
+
+  const handleDismiss = () => {
+    void setRatingPrompt({ status: 'dismissed' });
+    setShowRating(false);
+  };
 
   const grouped = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -53,6 +107,10 @@ export function HomeScreen() {
           className="pl-8"
         />
       </div>
+
+      {showRating && !query && (
+        <RatingPrompt onRate={handleRate} onSnooze={handleSnooze} onDismiss={handleDismiss} />
+      )}
 
       {recent.length > 0 && (
         <section className="flex flex-col gap-2">

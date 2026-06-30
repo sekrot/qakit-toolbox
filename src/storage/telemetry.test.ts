@@ -6,6 +6,9 @@ import {
   ensureInstallMeta,
   bumpSession,
   getUsage,
+  shouldShowRatingPrompt,
+  totalUsage,
+  RATING_MIN_DAYS,
 } from './telemetry';
 
 const fakeStore: Record<string, unknown> = {};
@@ -89,5 +92,91 @@ describe('topTools / recentTools', () => {
       { id: 'jwt', ts: 500 },
       { id: 'json', ts: 200 },
     ]);
+  });
+  it('totalUsage sums per-tool counters', () => {
+    expect(totalUsage(stats)).toBe(5 + 3 + 8 + 1);
+  });
+});
+
+describe('shouldShowRatingPrompt', () => {
+  const DAY = 24 * 60 * 60 * 1000;
+  const NOW = 1_700_000_000_000;
+  const longAgo = NOW - (RATING_MIN_DAYS + 1) * DAY;
+
+  it('hides on fresh install (less than min days)', () => {
+    expect(
+      shouldShowRatingPrompt({
+        installedAt: NOW - 1 * DAY,
+        usageTotal: 50,
+        rating: { status: 'pending' },
+        now: NOW,
+      }),
+    ).toBe(false);
+  });
+
+  it('hides when usage below threshold', () => {
+    expect(
+      shouldShowRatingPrompt({
+        installedAt: longAgo,
+        usageTotal: 3,
+        rating: { status: 'pending' },
+        now: NOW,
+      }),
+    ).toBe(false);
+  });
+
+  it('shows when both thresholds met and pending', () => {
+    expect(
+      shouldShowRatingPrompt({
+        installedAt: longAgo,
+        usageTotal: 10,
+        rating: { status: 'pending' },
+        now: NOW,
+      }),
+    ).toBe(true);
+  });
+
+  it('hides when already rated', () => {
+    expect(
+      shouldShowRatingPrompt({
+        installedAt: longAgo,
+        usageTotal: 50,
+        rating: { status: 'rated' },
+        now: NOW,
+      }),
+    ).toBe(false);
+  });
+
+  it('hides when dismissed', () => {
+    expect(
+      shouldShowRatingPrompt({
+        installedAt: longAgo,
+        usageTotal: 50,
+        rating: { status: 'dismissed' },
+        now: NOW,
+      }),
+    ).toBe(false);
+  });
+
+  it('hides while snoozedUntil is in the future', () => {
+    expect(
+      shouldShowRatingPrompt({
+        installedAt: longAgo,
+        usageTotal: 50,
+        rating: { status: 'pending', snoozedUntil: NOW + 1 * DAY },
+        now: NOW,
+      }),
+    ).toBe(false);
+  });
+
+  it('shows again once snooze expired', () => {
+    expect(
+      shouldShowRatingPrompt({
+        installedAt: longAgo,
+        usageTotal: 50,
+        rating: { status: 'pending', snoozedUntil: NOW - 1 * DAY },
+        now: NOW,
+      }),
+    ).toBe(true);
   });
 });

@@ -18,7 +18,12 @@
       "loadSampleTitle": "Cargar ejemplo",
       "placeholderInput": "{\"hello\": \"world\"} — o arrastra un .json aquí",
       "placeholderPath": "$.store.book[*].price",
-      "errorLineCol": "(línea {{line}}, col. {{col}})"
+      "errorLineCol": "(línea {{line}}, col. {{col}})",
+      "view": {
+        "tree": "Árbol",
+        "raw": "Texto"
+      },
+      "resizeTitle": "Arrastre para cambiar el tamaño de la entrada"
     }
   },
   "jwt": {
@@ -96,15 +101,30 @@
       "cheatsheet": "Chuleta",
       "copyAllMatches": "{{copy}} todas las coincidencias",
       "flags": {
-        "g": { "name": "global", "description": "Buscar todas las coincidencias" },
+        "g": {
+          "name": "global",
+          "description": "Buscar todas las coincidencias"
+        },
         "i": {
           "name": "ignorar mayúsculas",
           "description": "Sin distinguir mayúsculas y minúsculas"
         },
-        "m": { "name": "multilínea", "description": "^ y $ coinciden por línea" },
-        "s": { "name": "dotall", "description": ". coincide con saltos de línea" },
-        "u": { "name": "unicode", "description": "Modo Unicode" },
-        "y": { "name": "sticky", "description": "Buscar desde lastIndex" }
+        "m": {
+          "name": "multilínea",
+          "description": "^ y $ coinciden por línea"
+        },
+        "s": {
+          "name": "dotall",
+          "description": ". coincide con saltos de línea"
+        },
+        "u": {
+          "name": "unicode",
+          "description": "Modo Unicode"
+        },
+        "y": {
+          "name": "sticky",
+          "description": "Buscar desde lastIndex"
+        }
       },
       "cheatsheetMeanings": [
         "Cualquier carácter (excepto salto de línea)",

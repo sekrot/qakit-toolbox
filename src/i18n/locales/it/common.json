@@ -58,5 +58,12 @@
       "title": "Tutto pronto",
       "body": "Puoi cambiare tema e lingua in qualsiasi momento dalle Impostazioni. Buon debug!"
     }
+  },
+  "ratingPrompt": {
+    "title": "Ti piace QAKit Toolbox?",
+    "body": "Se ti fa risparmiare cambi di scheda ogni giorno, una breve valutazione aiuta altri QA e sviluppatori a scoprirla.",
+    "rate": "Valuta sul Chrome Web Store",
+    "later": "Ricordamelo più tardi",
+    "dismissTitle": "Non mostrare più"
   }
 }

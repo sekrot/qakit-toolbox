@@ -58,5 +58,12 @@
       "title": "Tout est prêt",
       "body": "Vous pouvez modifier le thème et la langue à tout moment dans les Paramètres. Bon débogage."
     }
+  },
+  "ratingPrompt": {
+    "title": "QAKit Toolbox vous plaît ?",
+    "body": "Si elle vous évite des changements d’onglet au quotidien, une courte évaluation aide d’autres QA et développeurs à la découvrir.",
+    "rate": "Évaluer sur le Chrome Web Store",
+    "later": "Me le rappeler plus tard",
+    "dismissTitle": "Ne plus afficher"
   }
 }

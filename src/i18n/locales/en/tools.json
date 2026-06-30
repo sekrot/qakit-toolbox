@@ -18,7 +18,12 @@
       "loadSampleTitle": "Load sample",
       "placeholderInput": "{\"hello\": \"world\"} — or drag a .json file here",
       "placeholderPath": "$.store.book[*].price",
-      "errorLineCol": "(line {{line}}, col {{col}})"
+      "errorLineCol": "(line {{line}}, col {{col}})",
+      "view": {
+        "tree": "Tree",
+        "raw": "Raw"
+      },
+      "resizeTitle": "Drag to resize input"
     }
   },
   "jwt": {
@@ -96,12 +101,30 @@
       "cheatsheet": "Cheatsheet",
       "copyAllMatches": "{{copy}} all matches",
       "flags": {
-        "g": { "name": "global", "description": "Find all matches" },
-        "i": { "name": "ignore case", "description": "Case-insensitive" },
-        "m": { "name": "multiline", "description": "^ and $ match line breaks" },
-        "s": { "name": "dotall", "description": ". matches newlines" },
-        "u": { "name": "unicode", "description": "Unicode mode" },
-        "y": { "name": "sticky", "description": "Match from lastIndex" }
+        "g": {
+          "name": "global",
+          "description": "Find all matches"
+        },
+        "i": {
+          "name": "ignore case",
+          "description": "Case-insensitive"
+        },
+        "m": {
+          "name": "multiline",
+          "description": "^ and $ match line breaks"
+        },
+        "s": {
+          "name": "dotall",
+          "description": ". matches newlines"
+        },
+        "u": {
+          "name": "unicode",
+          "description": "Unicode mode"
+        },
+        "y": {
+          "name": "sticky",
+          "description": "Match from lastIndex"
+        }
       },
       "cheatsheetMeanings": [
         "Any character (except newline)",

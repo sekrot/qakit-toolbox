@@ -18,7 +18,12 @@
       "loadSampleTitle": "Загрузить пример",
       "placeholderInput": "{\"hello\": \"world\"} — или перетащите .json сюда",
       "placeholderPath": "$.store.book[*].price",
-      "errorLineCol": "(строка {{line}}, кол. {{col}})"
+      "errorLineCol": "(строка {{line}}, кол. {{col}})",
+      "view": {
+        "tree": "Дерево",
+        "raw": "Текст"
+      },
+      "resizeTitle": "Потяните, чтобы изменить размер ввода"
     }
   },
   "jwt": {
@@ -96,12 +101,30 @@
       "cheatsheet": "Шпаргалка",
       "copyAllMatches": "{{copy}} все совпадения",
       "flags": {
-        "g": { "name": "глобальный", "description": "Искать все совпадения" },
-        "i": { "name": "без учёта регистра", "description": "Игнорировать регистр" },
-        "m": { "name": "многострочный", "description": "^ и $ работают по строкам" },
-        "s": { "name": "dotall", "description": ". совпадает с переносом строки" },
-        "u": { "name": "юникод", "description": "Режим Unicode" },
-        "y": { "name": "липкий", "description": "Поиск от lastIndex" }
+        "g": {
+          "name": "глобальный",
+          "description": "Искать все совпадения"
+        },
+        "i": {
+          "name": "без учёта регистра",
+          "description": "Игнорировать регистр"
+        },
+        "m": {
+          "name": "многострочный",
+          "description": "^ и $ работают по строкам"
+        },
+        "s": {
+          "name": "dotall",
+          "description": ". совпадает с переносом строки"
+        },
+        "u": {
+          "name": "юникод",
+          "description": "Режим Unicode"
+        },
+        "y": {
+          "name": "липкий",
+          "description": "Поиск от lastIndex"
+        }
       },
       "cheatsheetMeanings": [
         "Любой символ (кроме переноса строки)",

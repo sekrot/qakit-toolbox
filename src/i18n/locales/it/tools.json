@@ -18,7 +18,12 @@
       "loadSampleTitle": "Carica esempio",
       "placeholderInput": "{\"hello\": \"world\"} — o trascina qui un .json",
       "placeholderPath": "$.store.book[*].price",
-      "errorLineCol": "(riga {{line}}, col. {{col}})"
+      "errorLineCol": "(riga {{line}}, col. {{col}})",
+      "view": {
+        "tree": "Albero",
+        "raw": "Testo"
+      },
+      "resizeTitle": "Trascina per ridimensionare l'input"
     }
   },
   "jwt": {
@@ -96,12 +101,30 @@
       "cheatsheet": "Cheatsheet",
       "copyAllMatches": "{{copy}} tutte le corrispondenze",
       "flags": {
-        "g": { "name": "globale", "description": "Trova tutte le corrispondenze" },
-        "i": { "name": "ignora maiuscole", "description": "Non distingue maiuscole/minuscole" },
-        "m": { "name": "multiriga", "description": "^ e $ funzionano per riga" },
-        "s": { "name": "dotall", "description": ". corrisponde anche ai ritorni a capo" },
-        "u": { "name": "unicode", "description": "Modalità Unicode" },
-        "y": { "name": "sticky", "description": "Cerca da lastIndex" }
+        "g": {
+          "name": "globale",
+          "description": "Trova tutte le corrispondenze"
+        },
+        "i": {
+          "name": "ignora maiuscole",
+          "description": "Non distingue maiuscole/minuscole"
+        },
+        "m": {
+          "name": "multiriga",
+          "description": "^ e $ funzionano per riga"
+        },
+        "s": {
+          "name": "dotall",
+          "description": ". corrisponde anche ai ritorni a capo"
+        },
+        "u": {
+          "name": "unicode",
+          "description": "Modalità Unicode"
+        },
+        "y": {
+          "name": "sticky",
+          "description": "Cerca da lastIndex"
+        }
       },
       "cheatsheetMeanings": [
         "Qualsiasi carattere (eccetto ritorno a capo)",
