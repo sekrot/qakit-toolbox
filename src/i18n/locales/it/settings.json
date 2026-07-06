@@ -16,6 +16,8 @@
     "ru": "Русский",
     "it": "Italiano"
   },
+  "tools": "Strumenti visibili",
+  "toolsHint": "Gli strumenti deselezionati vengono nascosti dalla schermata iniziale. Per impostazione predefinita sono tutti visibili.",
   "shortcuts": "Scorciatoie da tastiera",
   "shortcutsHint": "Apri la pagina delle scorciatoie di Chrome per modificarle.",
   "shortcutsCustomise": "Personalizza in Chrome",

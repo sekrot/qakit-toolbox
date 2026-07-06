@@ -88,6 +88,30 @@
       "copyAll": "Copia tutto"
     }
   },
+  "password": {
+    "name": "Generatore di password",
+    "description": "Genera password casuali robuste con regole flessibili",
+    "ui": {
+      "result": "Password generata",
+      "length": "Lunghezza",
+      "characters": "Caratteri",
+      "options": "Opzioni",
+      "uppercase": "Maiuscole",
+      "lowercase": "Minuscole",
+      "digits": "Cifre",
+      "symbols": "Simboli",
+      "excludeAmbiguous": "Escludi caratteri ambigui",
+      "excludeAmbiguousHint": "Salta i caratteri simili come O/0 e l/1/I",
+      "requireEachSet": "Includi almeno un carattere da ogni insieme",
+      "bits": "Entropia di {{bits}} bit",
+      "strength": {
+        "weak": "Debole",
+        "fair": "Discreta",
+        "good": "Buona",
+        "strong": "Forte"
+      }
+    }
+  },
   "regex": {
     "name": "Tester regex",
     "description": "Prova le espressioni regolari con evidenziazione in tempo reale",

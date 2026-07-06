@@ -4,7 +4,7 @@
 # QAKit Toolbox
 
 **A Chrome side-panel companion for developers and QA engineers.**
-Eleven utilities you reach for every day — JSON, JWT, regex, hashes, color picker,
+Twelve utilities you reach for every day — JSON, JWT, regex, hashes, passwords, color picker,
 screenshots and more — bundled into one extension and running entirely on your device.
 
 <em>Offline by design · no telemetry · no uploads</em>
@@ -37,7 +37,7 @@ screenshots and more — bundled into one extension and running entirely on your
 
 <p align="center">
   <a href="docs/media/screenshots/02-jwt.png"><img src="docs/media/screenshots/02-jwt.png" width="46%" alt="JWT Decoder" /></a>
-  <a href="docs/media/screenshots/03-home.png"><img src="docs/media/screenshots/03-home.png" width="46%" alt="Home — 11 tools by category" /></a>
+  <a href="docs/media/screenshots/03-home.png"><img src="docs/media/screenshots/03-home.png" width="46%" alt="Home — tools by category" /></a>
 </p>
 <p align="center">
   <a href="docs/media/screenshots/04-screenshot.png"><img src="docs/media/screenshots/04-screenshot.png" width="46%" alt="Screenshot with annotations" /></a>
@@ -67,6 +67,7 @@ screenshots and more — bundled into one extension and running entirely on your
 ### 🛠️ Builders & testers
 
 - **UUID Generator** — v4, v7 (sortable), NIL, bulk output
+- **Password Generator** — cryptographically secure, flexible character sets, live strength meter
 - **Regex Tester** — live highlighting, capture groups, cheatsheet
 - **Text Diff** — side-by-side / unified, ignore whitespace or case
 
@@ -93,6 +94,7 @@ screenshots and more — bundled into one extension and running entirely on your
 
 **Languages:** English · Deutsch · Français · Español · Русский · Italiano
 &nbsp;&nbsp;**Themes:** light · dark · system
+&nbsp;&nbsp;**Customisable:** hide the tools you don't use from the Home screen (Settings → Visible tools)
 
 ## Quick start
 
@@ -173,7 +175,7 @@ Adding a new tool? See the recipe in [CLAUDE.md](./CLAUDE.md).
 ## Roadmap
 
 - ✅ Phases 0–1: bootstrap, app shell, i18n, theming
-- ✅ Phase 2: 11 MVP utilities, 129 unit tests
+- ✅ Phase 2: 12 utilities, 185 unit tests
 - 🛠️ Phase 3 (current): icons, onboarding, settings export, telemetry, translations, landing
 - 🔮 Phase 4: Pro features (header overrides, mock API, team templates) once monetisation lands
 

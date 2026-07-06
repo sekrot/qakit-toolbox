@@ -16,6 +16,8 @@
     "ru": "Русский",
     "it": "Italiano"
   },
+  "tools": "Sichtbare Tools",
+  "toolsHint": "Abgewählte Tools werden auf dem Startbildschirm ausgeblendet. Standardmäßig sind alle sichtbar.",
   "shortcuts": "Tastenkürzel",
   "shortcutsHint": "Öffnen Sie die Chrome-Tastenkürzel-Seite, um sie neu zu belegen.",
   "shortcutsCustomise": "In Chrome anpassen",

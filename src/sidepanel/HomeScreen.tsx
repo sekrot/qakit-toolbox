@@ -17,6 +17,7 @@ import {
   type UsageStats,
 } from '@/storage/telemetry';
 import { subscribe } from '@/storage/storage';
+import { useSettings } from '@/storage/store';
 import { CWS_REVIEW_URL } from '@/lib/cws';
 import { RatingPrompt } from './RatingPrompt';
 
@@ -25,6 +26,7 @@ export function HomeScreen() {
   const [query, setQuery] = useState('');
   const [usage, setUsage] = useState<UsageStats | null>(null);
   const [showRating, setShowRating] = useState(false);
+  const hiddenTools = useSettings((s) => s.hiddenTools);
 
   useEffect(() => {
     void getUsage().then(setUsage);
@@ -78,6 +80,7 @@ export function HomeScreen() {
   const grouped = useMemo(() => {
     const q = query.trim().toLowerCase();
     const filtered = TOOLS.filter((tool) => {
+      if (hiddenTools.includes(tool.id)) return false;
       if (!q) return true;
       const name = t(tool.nameKey).toLowerCase();
       const description = t(tool.descriptionKey).toLowerCase();
@@ -87,14 +90,16 @@ export function HomeScreen() {
       category,
       tools: filtered.filter((tool) => tool.category === category),
     })).filter((group) => group.tools.length > 0);
-  }, [query, t]);
+  }, [query, t, hiddenTools]);
 
   const recent = useMemo(() => {
     if (!usage || query) return [];
     return recentTools(usage, 4)
       .map(({ id }) => TOOLS.find((tool) => tool.id === id))
-      .filter((tool): tool is ToolDefinition => Boolean(tool));
-  }, [usage, query]);
+      .filter(
+        (tool): tool is ToolDefinition => tool !== undefined && !hiddenTools.includes(tool.id),
+      );
+  }, [usage, query, hiddenTools]);
 
   return (
     <div className="flex flex-col gap-4 p-3">

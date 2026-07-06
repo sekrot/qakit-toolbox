@@ -88,6 +88,30 @@
       "copyAll": "Copiar todo"
     }
   },
+  "password": {
+    "name": "Generador de contraseñas",
+    "description": "Genera contraseñas aleatorias fuertes con reglas flexibles",
+    "ui": {
+      "result": "Contraseña generada",
+      "length": "Longitud",
+      "characters": "Caracteres",
+      "options": "Opciones",
+      "uppercase": "Mayúsculas",
+      "lowercase": "Minúsculas",
+      "digits": "Dígitos",
+      "symbols": "Símbolos",
+      "excludeAmbiguous": "Excluir caracteres ambiguos",
+      "excludeAmbiguousHint": "Omite caracteres parecidos como O/0 y l/1/I",
+      "requireEachSet": "Incluir al menos un carácter de cada conjunto",
+      "bits": "Entropía de {{bits}} bits",
+      "strength": {
+        "weak": "Débil",
+        "fair": "Regular",
+        "good": "Buena",
+        "strong": "Fuerte"
+      }
+    }
+  },
   "regex": {
     "name": "Tester de regex",
     "description": "Probar expresiones regulares con resaltado en vivo",

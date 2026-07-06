@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Copy, Pipette, Pin, PinOff, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -80,6 +80,17 @@ export default function ColorPickerTool() {
       pushHistory(picked.toLowerCase());
     }
   };
+
+  const autoStarted = useRef(false);
+  // Clicking the tool card on Home is a user gesture, and its transient
+  // activation is usually still valid at mount — so the eyedropper opens
+  // right away. If activation already expired, open() rejects silently.
+  useEffect(() => {
+    if (autoStarted.current || !isEyeDropperSupported()) return;
+    autoStarted.current = true;
+    void onPick();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const togglePin = (target: string) => {
     persist(history.map((i) => (i.hex === target ? { ...i, pinned: !i.pinned } : i)));

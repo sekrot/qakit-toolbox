@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## Project
 
-**QAKit Toolbox** — Chrome extension (Manifest V3) с набором офлайн-утилит для разработчиков и QA. Side panel UI, 11 утилит в MVP, без сетевых запросов, всё хранение — `chrome.storage.local`.
+**QAKit Toolbox** — Chrome extension (Manifest V3) с набором офлайн-утилит для разработчиков и QA. Side panel UI, 12 утилит, без сетевых запросов, всё хранение — `chrome.storage.local`.
 
 Полный план задач: [TASKS.md](./TASKS.md). Фазы 0 и 1 завершены; текущая работа — Фаза 2 (реализация утилит).
 
@@ -94,6 +94,8 @@ npm run build
 ```
 
 Для HMR во время разработки UI без extension API: `npm run dev` (откроется на http://localhost:5173, но `chrome.*` API будут недоступны).
+
+**ВАЖНО:** `npm run dev` (crxjs) перезаписывает `dist/` dev-сборкой, которая грузит код с localhost:5173 — unpacked-расширение ломается, как только dev-сервер остановлен. После любого `npm run dev` обязательно `npm run build` + Reload расширения. В dev-режиме `storage.ts` и `store.ts` используют localStorage-fallback, поэтому UI (включая главный экран) работает на localhost; entry — `/src/sidepanel/index.html#/`.
 
 ## Memory
 

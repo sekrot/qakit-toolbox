@@ -88,6 +88,30 @@
       "copyAll": "Tout copier"
     }
   },
+  "password": {
+    "name": "Générateur de mots de passe",
+    "description": "Générez des mots de passe aléatoires robustes avec des règles flexibles",
+    "ui": {
+      "result": "Mot de passe généré",
+      "length": "Longueur",
+      "characters": "Caractères",
+      "options": "Options",
+      "uppercase": "Majuscules",
+      "lowercase": "Minuscules",
+      "digits": "Chiffres",
+      "symbols": "Symboles",
+      "excludeAmbiguous": "Exclure les caractères ambigus",
+      "excludeAmbiguousHint": "Ignore les caractères ressemblants comme O/0 et l/1/I",
+      "requireEachSet": "Inclure au moins un caractère de chaque jeu",
+      "bits": "Entropie de {{bits}} bits",
+      "strength": {
+        "weak": "Faible",
+        "fair": "Moyen",
+        "good": "Bon",
+        "strong": "Fort"
+      }
+    }
+  },
   "regex": {
     "name": "Testeur de regex",
     "description": "Tester les expressions régulières avec surlignage en direct",

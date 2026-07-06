@@ -16,6 +16,8 @@
     "ru": "Русский",
     "it": "Italiano"
   },
+  "tools": "Visible tools",
+  "toolsHint": "Unchecked tools are hidden from the Home screen. All tools are visible by default.",
   "shortcuts": "Keyboard shortcuts",
   "shortcutsHint": "Open the Chrome shortcuts page to remap these.",
   "shortcutsCustomise": "Customise in Chrome",

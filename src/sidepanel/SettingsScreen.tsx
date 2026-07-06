@@ -1,10 +1,21 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Download, ExternalLink, Info, Keyboard, Mail, Trash2, Upload } from 'lucide-react';
+import {
+  ChevronDown,
+  Download,
+  ExternalLink,
+  Eye,
+  Info,
+  Keyboard,
+  Mail,
+  Trash2,
+  Upload,
+} from 'lucide-react';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/Button';
 import { useSettings } from '@/storage/store';
+import { TOOLS, CATEGORY_ORDER } from '@/tools/registry';
 import { clearHistory, downloadExport, importPayload } from '@/storage/backup';
 
 interface CommandBinding {
@@ -76,6 +87,8 @@ export function SettingsScreen() {
         <span className="text-sm">{t('language')}</span>
         <LanguageSelector />
       </section>
+
+      <ToolVisibilitySection />
 
       <section className="flex flex-col gap-2">
         <h2 className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -161,6 +174,69 @@ export function SettingsScreen() {
 
       <AboutSection />
     </div>
+  );
+}
+
+function ToolVisibilitySection() {
+  const { t } = useTranslation(['settings', 'tools']);
+  const hiddenTools = useSettings((s) => s.hiddenTools);
+  const toggleToolHidden = useSettings((s) => s.toggleToolHidden);
+  const [expanded, setExpanded] = useState(false);
+  const visibleCount = TOOLS.length - hiddenTools.length;
+
+  return (
+    <section className="flex flex-col gap-2">
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+        className="flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground hover:text-foreground"
+      >
+        <Eye className="h-3 w-3" />
+        {t('settings:tools')}
+        <span className="ml-auto flex items-center gap-1 font-normal normal-case">
+          {visibleCount}/{TOOLS.length}
+          <ChevronDown
+            className={`h-3.5 w-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`}
+          />
+        </span>
+      </button>
+      {expanded && (
+        <>
+          <div className="flex flex-col gap-3 rounded-md border border-border bg-muted p-2">
+            {CATEGORY_ORDER.map((category) => {
+              const tools = TOOLS.filter((tool) => tool.category === category);
+              if (tools.length === 0) return null;
+              return (
+                <div key={category} className="flex flex-col gap-0.5">
+                  <h3 className="px-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    {t(`tools:categories.${category}`)}
+                  </h3>
+                  {tools.map((tool) => {
+                    const Icon = tool.icon;
+                    return (
+                      <label
+                        key={tool.id}
+                        className="flex cursor-pointer items-center gap-2 rounded px-1 py-1 text-xs hover:bg-accent"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={!hiddenTools.includes(tool.id)}
+                          onChange={() => toggleToolHidden(tool.id)}
+                        />
+                        <Icon className="h-3.5 w-3.5 text-primary" />
+                        {t(tool.nameKey)}
+                      </label>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+          <p className="text-[10px] text-muted-foreground">{t('settings:toolsHint')}</p>
+        </>
+      )}
+    </section>
   );
 }
 

@@ -88,6 +88,30 @@
       "copyAll": "Copy all"
     }
   },
+  "password": {
+    "name": "Password Generator",
+    "description": "Generate strong random passwords with flexible rules",
+    "ui": {
+      "result": "Generated password",
+      "length": "Length",
+      "characters": "Characters",
+      "options": "Options",
+      "uppercase": "Uppercase letters",
+      "lowercase": "Lowercase letters",
+      "digits": "Digits",
+      "symbols": "Symbols",
+      "excludeAmbiguous": "Exclude ambiguous characters",
+      "excludeAmbiguousHint": "Skips look-alikes such as O/0 and l/1/I",
+      "requireEachSet": "Include at least one character from each set",
+      "bits": "{{bits}}-bit entropy",
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong"
+      }
+    }
+  },
   "regex": {
     "name": "Regex Tester",
     "description": "Test regular expressions with live highlighting",

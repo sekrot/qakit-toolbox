@@ -88,6 +88,30 @@
       "copyAll": "Alle kopieren"
     }
   },
+  "password": {
+    "name": "Passwort-Generator",
+    "description": "Starke Zufallspasswörter mit flexiblen Regeln erzeugen",
+    "ui": {
+      "result": "Erzeugtes Passwort",
+      "length": "Länge",
+      "characters": "Zeichen",
+      "options": "Optionen",
+      "uppercase": "Großbuchstaben",
+      "lowercase": "Kleinbuchstaben",
+      "digits": "Ziffern",
+      "symbols": "Sonderzeichen",
+      "excludeAmbiguous": "Mehrdeutige Zeichen ausschließen",
+      "excludeAmbiguousHint": "Überspringt verwechselbare Zeichen wie O/0 und l/1/I",
+      "requireEachSet": "Mindestens ein Zeichen aus jedem Satz aufnehmen",
+      "bits": "{{bits}} Bit Entropie",
+      "strength": {
+        "weak": "Schwach",
+        "fair": "Mäßig",
+        "good": "Gut",
+        "strong": "Stark"
+      }
+    }
+  },
   "regex": {
     "name": "Regex-Tester",
     "description": "Reguläre Ausdrücke mit Live-Hervorhebung testen",

@@ -11,6 +11,7 @@ import {
   Clipboard,
   Pipette,
   Camera,
+  Lock,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -38,6 +39,7 @@ const DiffTool = lazy(() => import('./diff'));
 const ColorPickerTool = lazy(() => import('./colorpicker'));
 const ClipboardTool = lazy(() => import('./clipboard'));
 const ScreenshotTool = lazy(() => import('./screenshot'));
+const PasswordTool = lazy(() => import('./password'));
 
 export const TOOLS: ToolDefinition[] = [
   {
@@ -89,6 +91,16 @@ export const TOOLS: ToolDefinition[] = [
     category: 'generators',
     isPro: false,
     component: UuidTool,
+  },
+  {
+    id: 'password',
+    nameKey: 'tools:password.name',
+    descriptionKey: 'tools:password.description',
+    route: '/tools/password',
+    icon: Lock,
+    category: 'generators',
+    isPro: false,
+    component: PasswordTool,
   },
   {
     id: 'regex',

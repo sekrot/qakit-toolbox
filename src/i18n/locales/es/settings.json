@@ -16,6 +16,8 @@
     "ru": "Русский",
     "it": "Italiano"
   },
+  "tools": "Herramientas visibles",
+  "toolsHint": "Las herramientas desmarcadas se ocultan de la pantalla de inicio. Todas son visibles por defecto.",
   "shortcuts": "Atajos de teclado",
   "shortcutsHint": "Abre la página de atajos de Chrome para reasignarlos.",
   "shortcutsCustomise": "Personalizar en Chrome",

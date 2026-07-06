@@ -16,6 +16,8 @@
     "ru": "Русский",
     "it": "Italiano"
   },
+  "tools": "Outils visibles",
+  "toolsHint": "Les outils décochés sont masqués sur l'écran d'accueil. Tous sont visibles par défaut.",
   "shortcuts": "Raccourcis clavier",
   "shortcutsHint": "Ouvrez la page des raccourcis de Chrome pour les remapper.",
   "shortcutsCustomise": "Personnaliser dans Chrome",
