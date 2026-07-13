@@ -4,7 +4,7 @@
     "description": "Extension name shown in Chrome Web Store and browser UI"
   },
   "extDescription": {
-    "message": "A toolbox of offline utilities for developers and QA engineers: JSON, JWT, regex, hashes, passwords, YAML, color picker, screenshots and more.",
+    "message": "Offline toolbox for developers & QA: JSON, YAML, JWT, regex, hashes, passwords, color picker, screenshots and more.",
     "description": "Short description for Chrome Web Store"
   }
 }

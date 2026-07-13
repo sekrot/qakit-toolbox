@@ -4,7 +4,7 @@
     "description": "Extension name shown in Chrome Web Store and browser UI"
   },
   "extDescription": {
-    "message": "Boîte à outils hors ligne pour développeurs et QA : JSON, JWT, regex, hachages, mots de passe, YAML, pipette à couleur, captures d'écran et plus.",
+    "message": "Boîte à outils hors ligne pour développeurs et QA : JSON, YAML, JWT, regex, mots de passe, pipette, captures d'écran.",
     "description": "Short description for Chrome Web Store"
   }
 }
