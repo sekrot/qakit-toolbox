@@ -49,7 +49,7 @@ src/
   lib/               # утилиты: cn() для className, license.ts для isPro()
   styles/globals.css # Tailwind + CSS-переменные тем
 public/
-  _locales/<lang>/messages.json  # name/description для Chrome Web Store
+  _locales/<lang>/messages.json  # name/description для Chrome Web Store (extDescription ≤ 132 симв., см. Соглашения)
   icons/             # 16/32/48/128 (placeholder — заменить в Фазе 3)
 ```
 
@@ -74,6 +74,11 @@ public/
 - **i18n**: никаких хардкод-строк в UI. Всегда `useTranslation(<ns>)` + `t('key')`. Источник истины — `en/`. При добавлении ключа — обновить все 6 локалей (для не-en можно временно скопировать английский).
 - **Storage**: писать через `useSettings` (Zustand) или `storage.ts` (низкоуровнево). Не дёргать `chrome.storage` напрямую из компонентов.
 - **MV3 ограничения**: side panel — не popup, у него свой жизненный цикл. Background — это service worker, может быть остановлен в любой момент, нельзя хранить state в модульных переменных.
+- **CWS short description ≤ 132 символа**: `public/_locales/<lang>/messages.json` → `extDescription.message` — жёсткий лимит Chrome Web Store, при превышении Google отклоняет загрузку артефакта с ошибкой про длину перевода. При любом изменении этого поля (во всех 6 локалях) проверять длину, например:
+  ```bash
+  python3 -c "import json; print(len(json.load(open('public/_locales/en/messages.json'))['extDescription']['message']))"
+  ```
+  Актуальные тексты и их длина также задокументированы в `docs/cws/descriptions.md` (short description там ограничена тем же лимитом — держать оба места в синхроне).
 
 ## Permissions в manifest
 
