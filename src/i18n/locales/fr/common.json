@@ -26,7 +26,9 @@
     "download": "Télécharger",
     "swap": "Échanger",
     "save": "Enregistrer",
-    "regenerate": "Régénérer"
+    "regenerate": "Régénérer",
+    "redo": "Rétablir",
+    "reset": "Réinitialiser"
   },
   "labels": {
     "input": "Entrée",
@@ -44,7 +46,7 @@
   "onboarding": {
     "welcome": {
       "title": "Bienvenue dans QAKit Toolbox",
-      "body": "11 utilitaires hors ligne pour les développeurs et la QA : JSON, JWT, hachages, regex, pipette de couleur, captures d'écran et plus encore. Tout dans le panneau latéral, à un clic."
+      "body": "13 utilitaires hors ligne pour les développeurs et la QA : JSON, YAML, JWT, hachages, regex, mots de passe, pipette de couleur, captures d'écran et plus encore. Tout dans le panneau latéral, à un clic."
     },
     "tools": {
       "title": "Choisissez un outil et lancez-vous",

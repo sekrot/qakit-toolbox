@@ -26,6 +26,16 @@
       "resizeTitle": "Drag to resize input"
     }
   },
+  "yaml": {
+    "name": "JSON to YAML",
+    "description": "Convert JSON to YAML — copy or download the result",
+    "ui": {
+      "inputLabel": "JSON input",
+      "loadSampleTitle": "Load sample",
+      "placeholderInput": "{\"hello\": \"world\"} — or drag a .json file here",
+      "resizeTitle": "Drag to resize input"
+    }
+  },
   "jwt": {
     "name": "JWT Decoder",
     "description": "Decode and inspect JSON Web Tokens",
@@ -240,16 +250,45 @@
         "rect": "Rectangle",
         "highlight": "Highlight",
         "arrow": "Arrow",
-        "line": "Straight line",
-        "pen": "Freehand pen",
+        "pen": "Pencil",
         "text": "Text",
-        "crop": "Crop"
+        "crop": "Crop",
+        "marker": "Marker",
+        "eraser": "Eraser",
+        "blur": "Blur",
+        "stepNumber": "Step number",
+        "emoji": "Emoji"
       },
       "selectHint": "Click a shape to select it, then drag to move. Use Delete to remove.",
       "emptyHint": "Click <strong>Capture tab</strong> to take a screenshot of the active tab and start annotating.",
       "textPlaceholder": "Type, click outside to confirm, Esc to cancel",
       "colorAria": "Color {{color}}",
-      "strokeAria": "Stroke width"
+      "strokeAria": "Stroke width",
+      "arrowVariants": {
+        "single": "Arrow",
+        "double": "Double-headed arrow",
+        "line": "Straight line",
+        "curve": "Curved line"
+      },
+      "rectVariants": {
+        "rect": "Rectangle",
+        "ellipse": "Circle / Ellipse",
+        "freeform": "Freeform shape"
+      },
+      "settings": {
+        "fontFamily": "Font",
+        "fontFamilySans": "Sans-serif",
+        "fontFamilySerif": "Serif",
+        "fontFamilyMono": "Monospace",
+        "bold": "Bold",
+        "italic": "Italic",
+        "underline": "Underline",
+        "blurStrength": "Blur strength",
+        "customColor": "Custom color",
+        "hexLabel": "Hex"
+      },
+      "eraserHint": "Click a shape to erase it",
+      "emojiPickerAria": "Choose an emoji"
     }
   }
 }

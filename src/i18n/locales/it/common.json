@@ -26,7 +26,9 @@
     "download": "Scarica",
     "swap": "Scambia",
     "save": "Salva",
-    "regenerate": "Rigenera"
+    "regenerate": "Rigenera",
+    "redo": "Ripeti",
+    "reset": "Reimposta"
   },
   "labels": {
     "input": "Input",
@@ -44,7 +46,7 @@
   "onboarding": {
     "welcome": {
       "title": "Benvenuto in QAKit Toolbox",
-      "body": "11 utility offline per sviluppatori e QA: JSON, JWT, hash, regex, contagocce colore, screenshot e altro. Tutto nel pannello laterale, a un clic di distanza."
+      "body": "13 utility offline per sviluppatori e QA: JSON, YAML, JWT, hash, regex, password, contagocce colore, screenshot e altro. Tutto nel pannello laterale, a un clic di distanza."
     },
     "tools": {
       "title": "Scegli uno strumento e parti",

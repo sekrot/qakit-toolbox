@@ -111,14 +111,14 @@ def draw_text_block(draw):
     draw.text((x, 130), "QAKit Toolbox", font=title_font, fill=WHITE)
     draw.text(
         (x, 270),
-        "11 offline tools for QA & developers",
+        "13 offline tools for QA & developers",
         font=tagline_font,
         fill=WHITE,
     )
 
     bullets = [
-        "JSON  ·  JWT  ·  Regex  ·  Hashes",
-        "Screenshot  ·  Diff  ·  Clipboard",
+        "JSON  ·  YAML  ·  JWT  ·  Regex",
+        "Passwords  ·  Screenshot  ·  Diff",
         "Zero network  ·  6 languages  ·  Free",
     ]
     for i, line in enumerate(bullets):

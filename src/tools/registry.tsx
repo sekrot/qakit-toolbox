@@ -12,6 +12,7 @@ import {
   Pipette,
   Camera,
   Lock,
+  FileCode2,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -29,6 +30,7 @@ export interface ToolDefinition {
 }
 
 const JsonTool = lazy(() => import('./json'));
+const YamlTool = lazy(() => import('./yaml'));
 const JwtTool = lazy(() => import('./jwt'));
 const EncodersTool = lazy(() => import('./encoders'));
 const TimestampTool = lazy(() => import('./timestamp'));
@@ -51,6 +53,16 @@ export const TOOLS: ToolDefinition[] = [
     category: 'encoders',
     isPro: false,
     component: JsonTool,
+  },
+  {
+    id: 'yaml',
+    nameKey: 'tools:yaml.name',
+    descriptionKey: 'tools:yaml.description',
+    route: '/tools/yaml',
+    icon: FileCode2,
+    category: 'encoders',
+    isPro: false,
+    component: YamlTool,
   },
   {
     id: 'jwt',

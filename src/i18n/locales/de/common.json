@@ -26,7 +26,9 @@
     "download": "Herunterladen",
     "swap": "Tauschen",
     "save": "Speichern",
-    "regenerate": "Neu generieren"
+    "regenerate": "Neu generieren",
+    "redo": "Wiederholen",
+    "reset": "Zurücksetzen"
   },
   "labels": {
     "input": "Eingabe",
@@ -44,7 +46,7 @@
   "onboarding": {
     "welcome": {
       "title": "Willkommen bei QAKit Toolbox",
-      "body": "11 Offline-Werkzeuge für Entwickler und QA: JSON, JWT, Hashes, Regex, Farbpipette, Screenshots und mehr. Alles in der Seitenleiste, nur einen Klick entfernt."
+      "body": "13 Offline-Werkzeuge für Entwickler und QA: JSON, YAML, JWT, Hashes, Regex, Passwörter, Farbpipette, Screenshots und mehr. Alles in der Seitenleiste, nur einen Klick entfernt."
     },
     "tools": {
       "title": "Werkzeug wählen und loslegen",

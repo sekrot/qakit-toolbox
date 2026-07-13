@@ -4,7 +4,7 @@
     "description": "Extension name shown in Chrome Web Store and browser UI"
   },
   "extDescription": {
-    "message": "Офлайн-набор утилит для разработчиков и QA: JSON, JWT, регулярки, хэши, подбор цвета, скриншоты и не только.",
+    "message": "Офлайн-набор утилит для разработчиков и QA: JSON, JWT, регулярки, хэши, пароли, YAML, подбор цвета, скриншоты и не только.",
     "description": "Short description for Chrome Web Store"
   }
 }

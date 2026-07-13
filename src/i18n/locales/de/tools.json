@@ -26,6 +26,16 @@
       "resizeTitle": "Ziehen, um die Eingabe zu skalieren"
     }
   },
+  "yaml": {
+    "name": "JSON zu YAML",
+    "description": "JSON in YAML umwandeln — Ergebnis kopieren oder herunterladen",
+    "ui": {
+      "inputLabel": "JSON-Eingabe",
+      "loadSampleTitle": "Beispiel laden",
+      "placeholderInput": "{\"hello\": \"world\"} — oder .json-Datei hierher ziehen",
+      "resizeTitle": "Ziehen, um die Eingabe zu skalieren"
+    }
+  },
   "jwt": {
     "name": "JWT Decoder",
     "description": "JSON Web Tokens dekodieren und prüfen",
@@ -240,16 +250,45 @@
         "rect": "Rechteck",
         "highlight": "Markieren",
         "arrow": "Pfeil",
-        "line": "Gerade Linie",
-        "pen": "Freihand-Stift",
+        "pen": "Stift",
         "text": "Text",
-        "crop": "Zuschneiden"
+        "crop": "Zuschneiden",
+        "marker": "Marker",
+        "eraser": "Radierer",
+        "blur": "Weichzeichnen",
+        "stepNumber": "Schrittnummer",
+        "emoji": "Emoji"
       },
       "selectHint": "Form anklicken zum Auswählen, dann ziehen zum Verschieben. Mit Löschen entfernen.",
       "emptyHint": "<strong>Tab aufnehmen</strong> klicken, um einen Screenshot des aktiven Tabs zu machen und mit den Anmerkungen zu beginnen.",
       "textPlaceholder": "Text eingeben, klicken außerhalb bestätigt, Esc bricht ab",
       "colorAria": "Farbe {{color}}",
-      "strokeAria": "Strichstärke"
+      "strokeAria": "Strichstärke",
+      "arrowVariants": {
+        "single": "Pfeil",
+        "double": "Doppelpfeil",
+        "line": "Gerade Linie",
+        "curve": "Gebogene Linie"
+      },
+      "rectVariants": {
+        "rect": "Rechteck",
+        "ellipse": "Kreis / Ellipse",
+        "freeform": "Freihandform"
+      },
+      "settings": {
+        "fontFamily": "Schriftart",
+        "fontFamilySans": "Serifenlos",
+        "fontFamilySerif": "Serifenschrift",
+        "fontFamilyMono": "Monospace",
+        "bold": "Fett",
+        "italic": "Kursiv",
+        "underline": "Unterstrichen",
+        "blurStrength": "Weichzeichnungsstärke",
+        "customColor": "Eigene Farbe",
+        "hexLabel": "Hex"
+      },
+      "eraserHint": "Auf eine Form klicken, um sie zu löschen",
+      "emojiPickerAria": "Emoji auswählen"
     }
   }
 }

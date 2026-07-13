@@ -4,8 +4,12 @@
 # QAKit Toolbox
 
 **A Chrome side-panel companion for developers and QA engineers.**
-Twelve utilities you reach for every day — JSON, JWT, regex, hashes, passwords, color picker,
-screenshots and more — bundled into one extension and running entirely on your device.
+Thirteen utilities you reach for every day — JSON, YAML, JWT, regex, hashes, passwords,
+color picker, screenshots and more — bundled into one extension and running entirely on your
+device.
+
+<sub>🆕 <strong>v0.2.0:</strong> Password Generator, a JSON → YAML converter, and a rebuilt
+Screenshot editor (blur, step numbers, emoji stamps, curved arrows, full undo/redo).</sub>
 
 <em>Offline by design · no telemetry · no uploads</em>
 
@@ -175,7 +179,7 @@ Adding a new tool? See the recipe in [CLAUDE.md](./CLAUDE.md).
 ## Roadmap
 
 - ✅ Phases 0–1: bootstrap, app shell, i18n, theming
-- ✅ Phase 2: 12 utilities, 185 unit tests
+- ✅ Phase 2: 13 utilities, 249 unit tests
 - 🛠️ Phase 3 (current): icons, onboarding, settings export, telemetry, translations, landing
 - 🔮 Phase 4: Pro features (header overrides, mock API, team templates) once monetisation lands
 

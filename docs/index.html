@@ -6,7 +6,7 @@
     <title>QAKit Toolbox — offline dev & QA utilities for Chrome</title>
     <meta
       name="description"
-      content="Chrome extension with 11 offline utilities for QA engineers and developers — JSON, JWT, regex, hashes, base64, diff, clipboard, color picker, screenshots. Side panel, 6 languages, zero network."
+      content="Chrome extension with 13 offline utilities for QA engineers and developers — JSON, YAML, JWT, regex, hashes, base64, diff, clipboard, passwords, color picker, screenshots. Side panel, 6 languages, zero network."
     />
     <link rel="icon" type="image/png" href="assets/icon-128.png" />
     <link rel="stylesheet" href="assets/style.css" />
@@ -22,9 +22,14 @@
       </header>
 
       <p>
-        Eleven small utilities that every QA engineer and web developer reaches for ten times a day
-        — bundled in a single Chrome side panel. No accounts, no telemetry, no servers. Everything
-        runs locally.
+        Thirteen small utilities that every QA engineer and web developer reaches for ten times a
+        day — bundled in a single Chrome side panel. No accounts, no telemetry, no servers.
+        Everything runs locally.
+      </p>
+
+      <p class="tagline">
+        <strong>New in 0.2.0:</strong> Password Generator, a JSON → YAML converter, and a rebuilt
+        Screenshot editor with blur, step numbers, emoji stamps, curved arrows, and full undo/redo.
       </p>
 
       <a
@@ -67,13 +72,13 @@
           <a href="media/screenshots/03-home.png">
             <img
               src="media/screenshots/03-home.png"
-              alt="Home screen with 11 tools grouped by category and a Recent section"
+              alt="Home screen with tools grouped by category and a Recent section"
               loading="lazy"
               width="1280"
               height="800"
             />
           </a>
-          <figcaption><strong>Home</strong> 11 tools, grouped by category</figcaption>
+          <figcaption><strong>Home</strong> All tools, grouped by category</figcaption>
         </figure>
         <figure class="shot">
           <a href="media/screenshots/04-screenshot.png">
@@ -107,12 +112,16 @@
           <strong>JSON Formatter</strong
           ><span>Format, minify, validate, JSONPath with autocomplete.</span>
         </div>
+        <div><strong>JSON to YAML</strong><span>Convert JSON to YAML, copy or download.</span></div>
         <div><strong>JWT Decoder</strong><span>Decode and check expiry/not-before.</span></div>
         <div>
           <strong>Base64 / URL</strong><span>Encode &amp; decode with auto-direction.</span>
         </div>
         <div><strong>Unix Timestamp</strong><span>Epoch ↔ human-readable, any timezone.</span></div>
         <div><strong>UUID Generator</strong><span>v4, v7, NIL — batch generation.</span></div>
+        <div>
+          <strong>Password Generator</strong><span>Strong random passwords, flexible rules.</span>
+        </div>
         <div>
           <strong>Regex Tester</strong><span>Live highlighting, capture groups, cheatsheet.</span>
         </div>
@@ -128,7 +137,10 @@
         <div>
           <strong>Color Picker</strong><span>Pick any pixel on screen, HEX / RGB / HSL.</span>
         </div>
-        <div><strong>Screenshot</strong><span>Capture, annotate, crop the active tab.</span></div>
+        <div>
+          <strong>Screenshot</strong
+          ><span>Capture, annotate (blur, steps, emoji, arrows), crop.</span>
+        </div>
       </div>
 
       <h2>Why QAKit</h2>

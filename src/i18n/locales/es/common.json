@@ -26,7 +26,9 @@
     "download": "Descargar",
     "swap": "Intercambiar",
     "save": "Guardar",
-    "regenerate": "Regenerar"
+    "regenerate": "Regenerar",
+    "redo": "Rehacer",
+    "reset": "Restablecer"
   },
   "labels": {
     "input": "Entrada",
@@ -44,7 +46,7 @@
   "onboarding": {
     "welcome": {
       "title": "Bienvenido a QAKit Toolbox",
-      "body": "11 utilidades sin conexión para desarrolladores y QA: JSON, JWT, hashes, regex, cuentagotas de color, capturas de pantalla y más. Todo en el panel lateral, a un clic."
+      "body": "13 utilidades sin conexión para desarrolladores y QA: JSON, YAML, JWT, hashes, regex, contraseñas, cuentagotas de color, capturas de pantalla y más. Todo en el panel lateral, a un clic."
     },
     "tools": {
       "title": "Elige una herramienta y empieza",

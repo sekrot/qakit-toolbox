@@ -124,15 +124,15 @@ def draw_text_block(draw):
     # Tagline
     draw.text(
         (x, 118),
-        "11 offline tools for QA & devs.",
+        "13 offline tools for QA & devs.",
         font=sub_font,
         fill=WHITE,
     )
 
     # Value props — short and scannable at thumbnail size
     bullets = [
-        "JSON · JWT · regex · hashes",
-        "Screenshot · diff · clipboard",
+        "JSON · YAML · JWT · regex",
+        "Passwords · screenshot · diff",
         "Zero network · 6 languages",
     ]
     for i, line in enumerate(bullets):

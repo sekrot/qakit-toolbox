@@ -26,6 +26,16 @@
       "resizeTitle": "Потяните, чтобы изменить размер ввода"
     }
   },
+  "yaml": {
+    "name": "JSON в YAML",
+    "description": "Конвертация JSON в YAML — скопируйте или скачайте результат",
+    "ui": {
+      "inputLabel": "Ввод JSON",
+      "loadSampleTitle": "Загрузить пример",
+      "placeholderInput": "{\"hello\": \"world\"} — или перетащите .json файл сюда",
+      "resizeTitle": "Потяните, чтобы изменить размер ввода"
+    }
+  },
   "jwt": {
     "name": "JWT Decoder",
     "description": "Декодирование и проверка JSON Web Tokens",
@@ -240,16 +250,45 @@
         "rect": "Прямоугольник",
         "highlight": "Подсветить",
         "arrow": "Стрелка",
-        "line": "Прямая линия",
         "pen": "Карандаш",
         "text": "Текст",
-        "crop": "Обрезать"
+        "crop": "Обрезать",
+        "marker": "Маркер",
+        "eraser": "Ластик",
+        "blur": "Размыть",
+        "stepNumber": "Номер шага",
+        "emoji": "Эмодзи"
       },
       "selectHint": "Кликните по фигуре, чтобы выделить её, и потяните, чтобы переместить. Кнопка Удалить — удаляет.",
       "emptyHint": "Нажмите <strong>Сделать скриншот</strong>, чтобы сделать снимок активной вкладки и начать аннотировать.",
       "textPlaceholder": "Введите текст, клик вне — подтвердить, Esc — отмена",
       "colorAria": "Цвет {{color}}",
-      "strokeAria": "Толщина линии"
+      "strokeAria": "Толщина линии",
+      "arrowVariants": {
+        "single": "Стрелка",
+        "double": "Двойная стрелка",
+        "line": "Прямая линия",
+        "curve": "Изогнутая линия"
+      },
+      "rectVariants": {
+        "rect": "Прямоугольник",
+        "ellipse": "Круг / Эллипс",
+        "freeform": "Произвольная фигура"
+      },
+      "settings": {
+        "fontFamily": "Шрифт",
+        "fontFamilySans": "Без засечек",
+        "fontFamilySerif": "С засечками",
+        "fontFamilyMono": "Моноширинный",
+        "bold": "Жирный",
+        "italic": "Курсив",
+        "underline": "Подчёркнутый",
+        "blurStrength": "Сила размытия",
+        "customColor": "Свой цвет",
+        "hexLabel": "Hex"
+      },
+      "eraserHint": "Кликните по фигуре, чтобы стереть её",
+      "emojiPickerAria": "Выбрать эмодзи"
     }
   }
 }

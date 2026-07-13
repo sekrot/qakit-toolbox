@@ -4,7 +4,7 @@
     "description": "Extension name shown in Chrome Web Store and browser UI"
   },
   "extDescription": {
-    "message": "Cassetta degli attrezzi offline per sviluppatori e QA: JSON, JWT, regex, hash, contagocce colore, screenshot e altro.",
+    "message": "Cassetta degli attrezzi offline per sviluppatori e QA: JSON, JWT, regex, hash, password, YAML, contagocce colore, screenshot e altro.",
     "description": "Short description for Chrome Web Store"
   }
 }

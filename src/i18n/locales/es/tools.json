@@ -26,6 +26,16 @@
       "resizeTitle": "Arrastre para cambiar el tamaño de la entrada"
     }
   },
+  "yaml": {
+    "name": "JSON a YAML",
+    "description": "Convierte JSON a YAML — copia o descarga el resultado",
+    "ui": {
+      "inputLabel": "Entrada JSON",
+      "loadSampleTitle": "Cargar ejemplo",
+      "placeholderInput": "{\"hello\": \"world\"} — o arrastra un archivo .json aquí",
+      "resizeTitle": "Arrastre para cambiar el tamaño de la entrada"
+    }
+  },
   "jwt": {
     "name": "Decodificador JWT",
     "description": "Decodificar e inspeccionar JSON Web Tokens",
@@ -240,16 +250,45 @@
         "rect": "Rectángulo",
         "highlight": "Resaltar",
         "arrow": "Flecha",
-        "line": "Línea recta",
-        "pen": "Lápiz libre",
+        "pen": "Lápiz",
         "text": "Texto",
-        "crop": "Recortar"
+        "crop": "Recortar",
+        "marker": "Marcador",
+        "eraser": "Borrador",
+        "blur": "Desenfocar",
+        "stepNumber": "Número de paso",
+        "emoji": "Emoji"
       },
       "selectHint": "Haz clic en una figura para seleccionarla y arrastra para moverla. Usa Eliminar para quitarla.",
       "emptyHint": "Pulsa <strong>Capturar pestaña</strong> para hacer una captura de la pestaña activa y empezar a anotar.",
       "textPlaceholder": "Escribe, clic fuera para confirmar, Esc para cancelar",
       "colorAria": "Color {{color}}",
-      "strokeAria": "Grosor del trazo"
+      "strokeAria": "Grosor del trazo",
+      "arrowVariants": {
+        "single": "Flecha",
+        "double": "Flecha doble",
+        "line": "Línea recta",
+        "curve": "Línea curva"
+      },
+      "rectVariants": {
+        "rect": "Rectángulo",
+        "ellipse": "Círculo / Elipse",
+        "freeform": "Forma libre"
+      },
+      "settings": {
+        "fontFamily": "Fuente",
+        "fontFamilySans": "Sans-serif",
+        "fontFamilySerif": "Serif",
+        "fontFamilyMono": "Monoespaciada",
+        "bold": "Negrita",
+        "italic": "Cursiva",
+        "underline": "Subrayado",
+        "blurStrength": "Intensidad del desenfoque",
+        "customColor": "Color personalizado",
+        "hexLabel": "Hex"
+      },
+      "eraserHint": "Haz clic en una figura para borrarla",
+      "emojiPickerAria": "Elegir un emoji"
     }
   }
 }

@@ -26,7 +26,9 @@
     "download": "Download",
     "swap": "Swap",
     "save": "Save",
-    "regenerate": "Regenerate"
+    "regenerate": "Regenerate",
+    "redo": "Redo",
+    "reset": "Reset"
   },
   "labels": {
     "input": "Input",
@@ -44,7 +46,7 @@
   "onboarding": {
     "welcome": {
       "title": "Welcome to QAKit Toolbox",
-      "body": "11 offline utilities for developers and QA — JSON, JWT, hashes, regex, color picker, screenshots and more. All in the side panel, one click away."
+      "body": "13 offline utilities for developers and QA — JSON, YAML, JWT, hashes, regex, passwords, color picker, screenshots and more. All in the side panel, one click away."
     },
     "tools": {
       "title": "Pick a tool, get to work",
